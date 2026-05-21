@@ -1,0 +1,16 @@
+@for (section of data.sections; track section.header.label) {
+  <div class="attributes__section">
+    <ds-section-header
+      [data]="section.header"
+      (slotClicked)="onSectionSlotClicked(section.header.label, $event)"
+    />
+    <div class="attributes__rows">
+      @for (row of section.rows; track row.key) {
+        <ds-attribute-row
+          [data]="row"
+          (buttonClicked)="onRowButtonClicked(section.header.label, row.key)"
+        />
+      }
+    </div>
+  </div>
+}

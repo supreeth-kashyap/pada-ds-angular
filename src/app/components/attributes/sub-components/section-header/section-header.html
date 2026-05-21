@@ -1,0 +1,27 @@
+<div class="section-header__title">
+  <span class="section-header__label">{{ data.label }}</span>
+  @if (data.tooltip) {
+    <span class="section-header__tooltip-icon" [title]="data.tooltip" aria-hidden="true">
+      <svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="6" cy="6" r="5.5" stroke="currentColor"/>
+        <path d="M6 5.5V8.5" stroke="currentColor" stroke-linecap="round"/>
+        <circle cx="6" cy="3.75" r="0.5" fill="currentColor"/>
+      </svg>
+    </span>
+  }
+</div>
+
+@if (data.slot?.length) {
+  <div class="section-header__slot">
+    @for (item of data.slot; track $index) {
+      @if (item.type === 'button') {
+        <ds-button
+          [data]="{ label: item.label, disabled: item.disabled }"
+          (clicked)="slotClicked.emit(item)"
+        />
+      } @else if (item.type === 'badge') {
+        <ds-badge [data]="{ label: item.label, icon: item.icon }" />
+      }
+    }
+  </div>
+}

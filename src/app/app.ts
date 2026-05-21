@@ -1,11 +1,64 @@
-import { Component, signal } from '@angular/core';
+import { Component } from '@angular/core';
+import { BadgeComponent, BadgeData } from './components/badge/badge';
+import { AvatarComponent, AvatarData } from './components/avatar/avatar';
+import { ButtonComponent, ButtonData } from './components/button/button';
+import { AttributesComponent, AttributesData } from './components/attributes/attributes';
 
 @Component({
   selector: 'app-root',
-  imports: [],
+  imports: [BadgeComponent, AvatarComponent, ButtonComponent, AttributesComponent],
   templateUrl: './app.html',
-  styleUrl: './app.scss'
+  styleUrl: './app.scss',
 })
 export class App {
-  protected readonly title = signal('angular-design-system');
+  badges: BadgeData[] = [
+    { label: 'Badge label' },
+    { label: 'With icon', icon: 'columns-3-cog' },
+    { label: 'New' },
+    { label: 'In review', icon: 'columns-3-cog' },
+  ];
+
+  avatars: AvatarData[] = [
+    { alt: 'Unknown user' },
+    { initials: 'JD', alt: 'Jane Doe' },
+    { initials: 'SK', alt: 'Supreeth Kashyap' },
+    { src: 'https://i.pravatar.cc/28?img=3', alt: 'User photo' },
+  ];
+
+  buttons: ButtonData[] = [
+    { label: 'Button Label' },
+    { label: 'Save changes' },
+    { label: 'Disabled', disabled: true },
+  ];
+
+  attributesData: AttributesData = {
+    sections: [
+      {
+        header: { label: 'Section A', tooltip: 'Info about this section' },
+        rows: [
+          { key: 'Key label', value: [{ type: 'text', text: 'Sample text' }] },
+          { key: 'Status', tooltip: 'Current state', value: [{ type: 'badge', label: 'Active' }] },
+        ],
+      },
+      {
+        header: {
+          label: 'Section B',
+          slot: [{ type: 'button', label: 'Action' }],
+        },
+        rows: [
+          {
+            key: 'Owner',
+            value: [{ type: 'avatar', name: 'Anna Banks', initials: 'AB', subtitle: 'HR @company' }],
+          },
+          {
+            key: 'Edit',
+            value: [
+              { type: 'text', text: 'Last edited 2 days ago' },
+              { type: 'button', label: 'Edit record' },
+            ],
+          },
+        ],
+      },
+    ],
+  };
 }

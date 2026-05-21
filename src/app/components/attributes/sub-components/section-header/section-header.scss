@@ -1,0 +1,42 @@
+:host {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 4px 0;
+  width: 100%;
+}
+
+.section-header__title {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 4px;
+}
+
+.section-header__label {
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 20px;
+  color: #4d4d4d;
+}
+
+.section-header__tooltip-icon {
+  display: inline-flex;
+  align-items: center;
+  color: #4d4d4d;
+  cursor: default;
+
+  svg {
+    width: 12px;
+    height: 12px;
+  }
+}
+
+.section-header__slot {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+}

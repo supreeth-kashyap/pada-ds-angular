@@ -1,0 +1,37 @@
+<div class="attr-row__key">
+  <span class="attr-row__key-text">{{ data.key }}</span>
+  @if (data.tooltip) {
+    <span class="attr-row__tooltip-icon" [title]="data.tooltip" aria-hidden="true">
+      <svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="6" cy="6" r="5.5" stroke="currentColor"/>
+        <path d="M6 5.5V8.5" stroke="currentColor" stroke-linecap="round"/>
+        <circle cx="6" cy="3.75" r="0.5" fill="currentColor"/>
+      </svg>
+    </span>
+  }
+</div>
+
+<div class="attr-row__value">
+  @for (val of data.value; track $index) {
+    @if (val.type === 'text') {
+      <span class="attr-row__text">{{ val.text }}</span>
+    } @else if (val.type === 'avatar') {
+      <div class="attr-row__avatar-lockup">
+        <ds-avatar [data]="{ src: val.src, initials: val.initials, alt: val.name }" />
+        <div class="attr-row__avatar-info">
+          <span class="attr-row__avatar-name">{{ val.name }}</span>
+          @if (val.subtitle) {
+            <span class="attr-row__avatar-subtitle">{{ val.subtitle }}</span>
+          }
+        </div>
+      </div>
+    } @else if (val.type === 'badge') {
+      <ds-badge [data]="{ label: val.label, icon: val.icon }" />
+    } @else if (val.type === 'button') {
+      <ds-button
+        [data]="{ label: val.label, disabled: val.disabled }"
+        (clicked)="buttonClicked.emit()"
+      />
+    }
+  }
+</div>

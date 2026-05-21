@@ -1,0 +1,18 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 100%;
+}
+
+.attributes__section {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.attributes__rows {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
