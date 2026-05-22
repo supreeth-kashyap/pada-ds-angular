@@ -13,24 +13,12 @@
 
 <div class="attr-row__value">
   @for (val of data.value; track $index) {
-    @if (val.type === 'text') {
-      <span class="attr-row__text">{{ val.text }}</span>
-    } @else if (val.type === 'avatar') {
-      <div class="attr-row__avatar-lockup">
-        <ds-avatar [data]="{ src: val.src, initials: val.initials, alt: val.name }" />
-        <div class="attr-row__avatar-info">
-          <span class="attr-row__avatar-name">{{ val.name }}</span>
-          @if (val.subtitle) {
-            <span class="attr-row__avatar-subtitle">{{ val.subtitle }}</span>
-          }
-        </div>
-      </div>
-    } @else if (val.type === 'badge') {
-      <ds-badge [data]="{ label: val.label, icon: val.icon }" />
-    } @else if (val.type === 'button') {
-      <ds-button
-        [data]="{ label: val.label, disabled: val.disabled }"
-        (clicked)="buttonClicked.emit()"
+    @if (isTemplate(val)) {
+      <ng-container [ngTemplateOutlet]="val.template" [ngTemplateOutletContext]="val.context ?? null" />
+    } @else {
+      <ng-container
+        [ngComponentOutlet]="resolveComponent(val)"
+        [ngComponentOutletInputs]="resolveInputs(val)"
       />
     }
   }
