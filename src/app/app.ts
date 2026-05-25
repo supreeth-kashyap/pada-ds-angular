@@ -3,6 +3,7 @@ import { BadgeComponent, BadgeData } from './components/badge/badge';
 import { AvatarComponent, AvatarData } from './components/avatar/avatar';
 import { ButtonComponent, ButtonData } from './components/button/button';
 import { AttributesComponent, AttributesData } from './components/attributes/attributes';
+import { ThumbnailValueComponent, ThumbnailValueData } from './thumbnail-value';
 
 @Component({
   selector: 'app-root',
@@ -55,6 +56,22 @@ export class App {
             value: [
               { type: 'text', text: 'Last edited 2 days ago' },
               { type: 'button', label: 'Edit record' },
+            ],
+          },
+          {
+            key: 'Preview',
+            value: [
+              {
+                type: 'custom',
+                component: ThumbnailValueComponent,
+                inputs: {
+                  data: {
+                    text: 'Brand guidelines cover',
+                    imageUrl: 'https://picsum.photos/seed/ds/48/48',
+                    imageAlt: 'Brand guidelines thumbnail',
+                  } satisfies ThumbnailValueData,
+                },
+              },
             ],
           },
         ],
