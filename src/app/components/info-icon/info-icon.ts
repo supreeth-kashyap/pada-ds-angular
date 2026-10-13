@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
   selector: 'ds-info-icon',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
       <circle cx="6" cy="6" r="5.5" stroke="currentColor"/>

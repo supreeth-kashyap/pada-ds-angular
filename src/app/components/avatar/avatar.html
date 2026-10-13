@@ -1,11 +1,11 @@
-@if (data.src) {
-  <img class="avatar__image" [src]="data.src" [alt]="data.alt" />
-} @else if (data.initials) {
-  <span class="avatar__initials" [attr.aria-label]="data.alt">{{ data.initials }}</span>
+@if (data().src) {
+  <img class="avatar__image" [src]="data().src" [alt]="data().alt" />
+} @else if (data().initials) {
+  <span class="avatar__initials" [attr.aria-label]="data().alt">{{ data().initials }}</span>
 } @else {
   <svg
     class="avatar__icon"
-    [attr.aria-label]="data.alt"
+    [attr.aria-label]="data().alt"
     role="img"
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 16 16"

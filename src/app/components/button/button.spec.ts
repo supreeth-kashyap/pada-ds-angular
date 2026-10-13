@@ -4,7 +4,7 @@ import { ButtonComponent, ButtonData } from './button';
 
 function setup(data: ButtonData) {
   const fixture = TestBed.createComponent(ButtonComponent);
-  fixture.componentInstance.data = data;
+  fixture.componentRef.setInput('data', data);
   fixture.detectChanges();
   return fixture;
 }

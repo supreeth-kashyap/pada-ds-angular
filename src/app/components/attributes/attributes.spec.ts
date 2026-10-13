@@ -35,7 +35,7 @@ const MOCK_DATA: AttributesData = {
 
 function setup(data: AttributesData = MOCK_DATA) {
   const fixture = TestBed.createComponent(AttributesComponent);
-  fixture.componentInstance.data = data;
+  fixture.componentRef.setInput('data', data);
   fixture.detectChanges();
   return fixture;
 }
@@ -75,8 +75,40 @@ describe('AttributesComponent', () => {
     componentInstance.action.subscribe(spy);
     const rowButtons = nativeElement.querySelectorAll('ds-attribute-row ds-button button');
     rowButtons[rowButtons.length - 1].click();
-    expect(spy).toHaveBeenCalledWith(
-      expect.objectContaining({ type: 'row-button-click', sectionLabel: 'Section B', key: 'Edit' })
-    );
+    expect(spy).toHaveBeenCalledWith({
+      type: 'row-button-click',
+      sectionLabel: 'Section B',
+      key: 'Edit',
+      label: 'Edit record',
+      index: 1,
+    });
+  });
+
+  it('distinguishes two buttons in the same row', () => {
+    const { nativeElement, componentInstance } = setup({
+      sections: [
+        {
+          header: { label: 'Section C' },
+          rows: [
+            {
+              key: 'Actions',
+              value: [
+                { type: 'button', label: 'Approve' },
+                { type: 'button', label: 'Reject' },
+              ],
+            },
+          ],
+        },
+      ],
+    });
+    const spy = vi.fn();
+    componentInstance.action.subscribe(spy);
+    const rowButtons = nativeElement.querySelectorAll('ds-attribute-row ds-button button');
+    rowButtons[0].click();
+    rowButtons[1].click();
+    expect(spy.mock.calls).toEqual([
+      [{ type: 'row-button-click', sectionLabel: 'Section C', key: 'Actions', label: 'Approve', index: 0 }],
+      [{ type: 'row-button-click', sectionLabel: 'Section C', key: 'Actions', label: 'Reject', index: 1 }],
+    ]);
   });
 });

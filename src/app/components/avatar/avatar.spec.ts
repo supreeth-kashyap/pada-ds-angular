@@ -3,7 +3,7 @@ import { AvatarComponent, AvatarData } from './avatar';
 
 function setup(data: AvatarData) {
   const fixture = TestBed.createComponent(AvatarComponent);
-  fixture.componentInstance.data = data;
+  fixture.componentRef.setInput('data', data);
   fixture.detectChanges();
   return fixture.nativeElement as HTMLElement;
 }

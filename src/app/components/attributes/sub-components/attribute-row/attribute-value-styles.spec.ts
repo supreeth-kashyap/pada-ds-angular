@@ -9,7 +9,7 @@ describe('Attribute value component styles', () => {
 
   it('lays out the avatar lockup as a flex row', () => {
     const fixture = TestBed.createComponent(AttributeAvatarValueComponent);
-    fixture.componentInstance.data = { type: 'avatar', name: 'Anna Banks', initials: 'AB', subtitle: 'HR @company' };
+    fixture.componentRef.setInput('data',{ type: 'avatar', name: 'Anna Banks', initials: 'AB', subtitle: 'HR @company' });
     fixture.detectChanges();
     const el = fixture.nativeElement as HTMLElement;
 
@@ -22,7 +22,7 @@ describe('Attribute value component styles', () => {
 
   it('applies text value typography', () => {
     const fixture = TestBed.createComponent(AttributeTextValueComponent);
-    fixture.componentInstance.data = { type: 'text', text: 'Active' };
+    fixture.componentRef.setInput('data',{ type: 'text', text: 'Active' });
     fixture.detectChanges();
     const el = fixture.nativeElement as HTMLElement;
 

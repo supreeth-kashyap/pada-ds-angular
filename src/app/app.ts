@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { BadgeComponent, BadgeData } from './components/badge/badge';
 import { AvatarComponent, AvatarData } from './components/avatar/avatar';
 import { ButtonComponent, ButtonData } from './components/button/button';
@@ -10,6 +10,7 @@ import { ThumbnailValueComponent, ThumbnailValueData } from './demo/thumbnail-va
   imports: [BadgeComponent, AvatarComponent, ButtonComponent, AttributesComponent],
   templateUrl: './app.html',
   styleUrl: './app.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class App {
   badges: BadgeData[] = [

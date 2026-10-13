@@ -1,4 +1,4 @@
-@for (section of data.sections; track section.header.label) {
+@for (section of data().sections; track section.header.label) {
   <div class="attributes__section">
     <ds-section-header
       [data]="section.header"
@@ -8,7 +8,7 @@
       @for (row of section.rows; track row.key) {
         <ds-attribute-row
           [data]="row"
-          (buttonClicked)="onRowButtonClicked(section.header.label, row.key)"
+          (buttonClicked)="onRowButtonClicked(section.header.label, row.key, $event)"
         />
       }
     </div>

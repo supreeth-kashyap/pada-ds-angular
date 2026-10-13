@@ -4,7 +4,7 @@ import { SectionHeaderComponent, SectionHeaderData } from './section-header';
 
 function setup(data: SectionHeaderData) {
   const fixture = TestBed.createComponent(SectionHeaderComponent);
-  fixture.componentInstance.data = data;
+  fixture.componentRef.setInput('data', data);
   fixture.detectChanges();
   return fixture;
 }

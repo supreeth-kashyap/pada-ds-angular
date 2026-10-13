@@ -3,7 +3,7 @@ import { BadgeComponent, BadgeData } from './badge';
 
 function setup(data: BadgeData) {
   const fixture = TestBed.createComponent(BadgeComponent);
-  fixture.componentInstance.data = data;
+  fixture.componentRef.setInput('data', data);
   fixture.detectChanges();
   return fixture.nativeElement as HTMLElement;
 }

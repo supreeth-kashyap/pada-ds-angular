@@ -1,18 +1,19 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { ButtonComponent } from '../../../button/button';
 
 @Component({
   selector: 'ds-attribute-button-value',
   standalone: true,
   imports: [ButtonComponent],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <ds-button
-      [data]="{ label: data.label, disabled: data.disabled }"
-      (clicked)="onClicked?.()"
+      [data]="{ label: data().label, disabled: data().disabled }"
+      (clicked)="onClicked()?.()"
     />
   `,
 })
 export class AttributeButtonValueComponent {
-  @Input({ required: true }) data!: { type: 'button'; label: string; disabled?: boolean };
-  @Input() onClicked?: () => void;
+  readonly data = input.required<{ type: 'button'; label: string; disabled?: boolean }>();
+  readonly onClicked = input<() => void>();
 }

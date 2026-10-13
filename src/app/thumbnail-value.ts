@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 
 export interface ThumbnailValueData {
   text: string;
@@ -9,14 +9,15 @@ export interface ThumbnailValueData {
 @Component({
   selector: 'app-thumbnail-value',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="thumbnail-value">
       <img
         class="thumbnail-value__img"
-        [src]="data.imageUrl"
-        [alt]="data.imageAlt ?? data.text"
+        [src]="data().imageUrl"
+        [alt]="data().imageAlt ?? data().text"
       />
-      <span class="thumbnail-value__text">{{ data.text }}</span>
+      <span class="thumbnail-value__text">{{ data().text }}</span>
     </div>
   `,
   styles: [`
@@ -43,5 +44,5 @@ export interface ThumbnailValueData {
   `],
 })
 export class ThumbnailValueComponent {
-  @Input({ required: true }) data!: ThumbnailValueData;
+  readonly data = input.required<ThumbnailValueData>();
 }

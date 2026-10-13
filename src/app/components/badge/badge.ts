@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 
 export interface BadgeData {
   label: string;
@@ -10,7 +10,8 @@ export interface BadgeData {
   standalone: true,
   templateUrl: './badge.html',
   styleUrl: './badge.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BadgeComponent {
-  @Input({ required: true }) data!: BadgeData;
+  readonly data = input.required<BadgeData>();
 }
