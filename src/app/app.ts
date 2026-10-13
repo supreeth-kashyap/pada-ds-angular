@@ -3,7 +3,7 @@ import { BadgeComponent, BadgeData } from './components/badge/badge';
 import { AvatarComponent, AvatarData } from './components/avatar/avatar';
 import { ButtonComponent, ButtonData } from './components/button/button';
 import { AttributesComponent, AttributesData } from './components/attributes/attributes';
-import { ThumbnailValueComponent, ThumbnailValueData } from './thumbnail-value';
+import { ThumbnailValueComponent, ThumbnailValueData } from './demo/thumbnail-value';
 
 @Component({
   selector: 'app-root',

@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { BadgeComponent } from '../../../badge/badge';
 import { ButtonComponent } from '../../../button/button';
+import { InfoIconComponent } from '../../../info-icon/info-icon';
 
 export type SectionSlotItem =
   | { type: 'button'; label: string; disabled?: boolean }
@@ -15,7 +16,7 @@ export interface SectionHeaderData {
 @Component({
   selector: 'ds-section-header',
   standalone: true,
-  imports: [BadgeComponent, ButtonComponent],
+  imports: [BadgeComponent, ButtonComponent, InfoIconComponent],
   templateUrl: './section-header.html',
   styleUrl: './section-header.scss',
 })
