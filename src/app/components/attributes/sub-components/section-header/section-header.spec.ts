@@ -1,4 +1,5 @@
 import { TestBed } from '@angular/core/testing';
+import { vi } from 'vitest';
 import { SectionHeaderComponent, SectionHeaderData } from './section-header';
 
 function setup(data: SectionHeaderData) {
@@ -38,7 +39,7 @@ describe('SectionHeaderComponent', () => {
       label: 'Section A',
       slot: [{ type: 'button', label: 'Action' }],
     });
-    const spy = jasmine.createSpy();
+    const spy = vi.fn();
     componentInstance.slotClicked.subscribe(spy);
     nativeElement.querySelector('ds-button button').click();
     expect(spy).toHaveBeenCalledWith({ type: 'button', label: 'Action' });

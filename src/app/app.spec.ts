@@ -14,10 +14,22 @@ describe('App', () => {
     expect(app).toBeTruthy();
   });
 
-  it('should render title', async () => {
+  it('should render a heading for each showcased component', async () => {
     const fixture = TestBed.createComponent(App);
     await fixture.whenStable();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, angular-design-system');
+    const headings = Array.from(compiled.querySelectorAll('h1')).map((h) => h.textContent?.trim());
+    expect(headings).toEqual(['Badge', 'Avatar', 'Button', 'Attributes']);
+  });
+
+  it('should render the showcased components', async () => {
+    const fixture = TestBed.createComponent(App);
+    await fixture.whenStable();
+    const compiled = fixture.nativeElement as HTMLElement;
+    const app = fixture.componentInstance;
+    expect(compiled.querySelectorAll('.showcase > ds-badge').length).toBe(app.badges.length);
+    expect(compiled.querySelectorAll('.showcase > ds-avatar').length).toBe(app.avatars.length);
+    expect(compiled.querySelectorAll('.showcase > ds-button').length).toBe(app.buttons.length);
+    expect(compiled.querySelector('ds-attributes')).not.toBeNull();
   });
 });
