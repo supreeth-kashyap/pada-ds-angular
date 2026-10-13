@@ -1,4 +1,5 @@
 import { TestBed } from '@angular/core/testing';
+import { vi } from 'vitest';
 import { AttributeRowComponent, AttributeRowData } from './attribute-row';
 
 function setup(data: AttributeRowData) {
@@ -73,7 +74,7 @@ describe('AttributeRowComponent', () => {
       key: 'Action',
       value: [{ type: 'button', label: 'Edit' }],
     });
-    const spy = jasmine.createSpy();
+    const spy = vi.fn();
     componentInstance.buttonClicked.subscribe(spy);
     nativeElement.querySelector('ds-button button').click();
     expect(spy).toHaveBeenCalledTimes(1);
