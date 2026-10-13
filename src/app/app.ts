@@ -15,9 +15,9 @@ import { ThumbnailValueComponent, ThumbnailValueData } from './demo/thumbnail-va
 export class App {
   badges: BadgeData[] = [
     { label: 'Badge label' },
-    { label: 'With icon', icon: 'columns-3-cog' },
+    { label: 'Draft' },
     { label: 'New' },
-    { label: 'In review', icon: 'columns-3-cog' },
+    { label: 'In review' },
   ];
 
   avatars: AvatarData[] = [

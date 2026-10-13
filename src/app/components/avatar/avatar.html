@@ -1,7 +1,7 @@
 @if (data().src) {
   <img class="avatar__image" [src]="data().src" [alt]="data().alt" />
 } @else if (data().initials) {
-  <span class="avatar__initials" [attr.aria-label]="data().alt">{{ data().initials }}</span>
+  <span class="avatar__initials" role="img" [attr.aria-label]="data().alt">{{ data().initials }}</span>
 } @else {
   <svg
     class="avatar__icon"

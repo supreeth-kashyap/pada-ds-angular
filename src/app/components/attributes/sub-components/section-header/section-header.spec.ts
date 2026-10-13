@@ -17,16 +17,20 @@ describe('SectionHeaderComponent', () => {
     expect(nativeElement.querySelector('.section-header__label').textContent.trim()).toBe('Section A');
   });
 
-  it('hides tooltip icon when tooltip is absent', () => {
+  it('hides tooltip when tooltip is absent', () => {
     const { nativeElement } = setup({ label: 'Section A' });
-    expect(nativeElement.querySelector('.section-header__tooltip-icon')).toBeNull();
+    expect(nativeElement.querySelector('ds-info-tooltip')).toBeNull();
   });
 
-  it('shows tooltip icon when tooltip is provided', () => {
-    const { nativeElement } = setup({ label: 'Section A', tooltip: 'More info' });
-    const icon = nativeElement.querySelector('.section-header__tooltip-icon');
-    expect(icon).not.toBeNull();
-    expect(icon.getAttribute('title')).toBe('More info');
+  it('shows a focusable tooltip named after the label when provided', () => {
+    const fixture = setup({ label: 'Section A', tooltip: 'More info' });
+    const trigger = fixture.nativeElement.querySelector('ds-info-tooltip button') as HTMLButtonElement;
+    expect(trigger.getAttribute('aria-label')).toBe('More info about Section A');
+    trigger.focus();
+    fixture.detectChanges();
+    const popup = fixture.nativeElement.querySelector('ds-info-tooltip [role="tooltip"]') as HTMLElement;
+    expect(popup.hidden).toBe(false);
+    expect(popup.textContent?.trim()).toBe('More info');
   });
 
   it('hides slot when slot is empty', () => {

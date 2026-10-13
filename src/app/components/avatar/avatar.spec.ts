@@ -30,6 +30,13 @@ describe('AvatarComponent', () => {
     expect(el.querySelector('.avatar__initials')?.textContent?.trim()).toBe('JD');
   });
 
+  it('exposes initials as an image named by alt', () => {
+    const el = setup({ initials: 'JD', alt: 'Jane Doe' });
+    const initials = el.querySelector('.avatar__initials');
+    expect(initials?.getAttribute('role')).toBe('img');
+    expect(initials?.getAttribute('aria-label')).toBe('Jane Doe');
+  });
+
   it('renders user icon when neither src nor initials are provided', () => {
     const el = setup({ alt: 'Unknown user' });
     expect(el.querySelector('.avatar__icon')).not.toBeNull();
