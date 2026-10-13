@@ -16,13 +16,8 @@ describe('BadgeComponent', () => {
     expect(el.querySelector('.badge__label')?.textContent?.trim()).toBe('New');
   });
 
-  it('hides icon slot when icon is not provided', () => {
+  it('renders no empty icon slot', () => {
     const el = setup({ label: 'New' });
     expect(el.querySelector('.badge__icon')).toBeNull();
-  });
-
-  it('shows icon slot when icon is provided', () => {
-    const el = setup({ label: 'New', icon: 'columns-3-cog' });
-    expect(el.querySelector('.badge__icon')).not.toBeNull();
   });
 });

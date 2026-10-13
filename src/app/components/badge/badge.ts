@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 
 export interface BadgeData {
   label: string;
-  icon?: string; // icon name from ds-icon library; renders icon slot when provided
+  // no `icon` until the design system ships an icon set
 }
 
 @Component({

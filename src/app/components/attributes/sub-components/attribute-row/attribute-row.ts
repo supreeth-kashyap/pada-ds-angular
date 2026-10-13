@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, TemplateRef, Type, computed, input, output } from '@angular/core';
 import { NgComponentOutlet, NgTemplateOutlet } from '@angular/common';
 import { BadgeComponent } from '../../../badge/badge';
-import { InfoIconComponent } from '../../../info-icon/info-icon';
+import { InfoTooltipComponent } from '../../../info-tooltip/info-tooltip';
 import { AttributeTextValueComponent } from './attribute-text-value';
 import { AttributeAvatarValueComponent } from './attribute-avatar-value';
 import { AttributeButtonValueComponent } from './attribute-button-value';
@@ -9,7 +9,7 @@ import { AttributeButtonValueComponent } from './attribute-button-value';
 export type AttributeValue =
   | { type: 'text'; text: string }
   | { type: 'avatar'; name: string; initials?: string; src?: string; subtitle?: string }
-  | { type: 'badge'; label: string; icon?: string }
+  | { type: 'badge'; label: string }
   | { type: 'button'; label: string; disabled?: boolean }
   | { type: 'custom'; component: Type<unknown>; inputs?: Record<string, unknown> }
   | { type: 'template'; template: TemplateRef<unknown>; context?: unknown };
@@ -41,7 +41,7 @@ const ATTRIBUTE_VALUE_REGISTRY: Record<RegistryValue['type'], Type<unknown>> = {
 @Component({
   selector: 'ds-attribute-row',
   standalone: true,
-  imports: [NgComponentOutlet, NgTemplateOutlet, InfoIconComponent],
+  imports: [NgComponentOutlet, NgTemplateOutlet, InfoTooltipComponent],
   templateUrl: './attribute-row.html',
   styleUrl: './attribute-row.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -68,7 +68,7 @@ export class AttributeRowComponent {
         return {
           kind: 'component',
           component: ATTRIBUTE_VALUE_REGISTRY.badge,
-          inputs: { data: { label: val.label, icon: val.icon } },
+          inputs: { data: { label: val.label } },
         };
       case 'button':
         return {

@@ -20,16 +20,20 @@ describe('AttributeRowComponent', () => {
     expect(nativeElement.querySelector('.attr-row__key-text').textContent.trim()).toBe('Owner');
   });
 
-  it('hides tooltip icon when tooltip is absent', () => {
+  it('hides tooltip when tooltip is absent', () => {
     const { nativeElement } = setup({ key: 'Owner', value: [{ type: 'text', text: 'Alice' }] });
-    expect(nativeElement.querySelector('.attr-row__tooltip-icon')).toBeNull();
+    expect(nativeElement.querySelector('ds-info-tooltip')).toBeNull();
   });
 
-  it('shows tooltip icon with title when provided', () => {
-    const { nativeElement } = setup({ key: 'Owner', tooltip: 'Help text', value: [{ type: 'text', text: 'Alice' }] });
-    const icon = nativeElement.querySelector('.attr-row__tooltip-icon');
-    expect(icon).not.toBeNull();
-    expect(icon.getAttribute('title')).toBe('Help text');
+  it('shows a focusable tooltip named after the key when provided', () => {
+    const fixture = setup({ key: 'Owner', tooltip: 'Help text', value: [{ type: 'text', text: 'Alice' }] });
+    const trigger = fixture.nativeElement.querySelector('ds-info-tooltip button') as HTMLButtonElement;
+    expect(trigger.getAttribute('aria-label')).toBe('More info about Owner');
+    trigger.focus();
+    fixture.detectChanges();
+    const popup = fixture.nativeElement.querySelector('ds-info-tooltip [role="tooltip"]') as HTMLElement;
+    expect(popup.hidden).toBe(false);
+    expect(popup.textContent?.trim()).toBe('Help text');
   });
 
   it('renders a single text value', () => {

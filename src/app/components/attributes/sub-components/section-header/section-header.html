@@ -1,9 +1,7 @@
 <div class="section-header__title">
   <span class="section-header__label">{{ data().label }}</span>
-  @if (data().tooltip) {
-    <span class="section-header__tooltip-icon" [title]="data().tooltip" aria-hidden="true">
-      <ds-info-icon />
-    </span>
+  @if (data().tooltip; as tooltip) {
+    <ds-info-tooltip [data]="{ label: data().label, text: tooltip }" />
   }
 </div>
 
@@ -16,7 +14,7 @@
           (clicked)="slotClicked.emit(item)"
         />
       } @else if (item.type === 'badge') {
-        <ds-badge [data]="{ label: item.label, icon: item.icon }" />
+        <ds-badge [data]="{ label: item.label }" />
       }
     }
   </div>

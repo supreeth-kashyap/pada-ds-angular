@@ -1,9 +1,7 @@
 <div class="attr-row__key">
   <span class="attr-row__key-text">{{ data().key }}</span>
-  @if (data().tooltip) {
-    <span class="attr-row__tooltip-icon" [title]="data().tooltip" aria-hidden="true">
-      <ds-info-icon />
-    </span>
+  @if (data().tooltip; as tooltip) {
+    <ds-info-tooltip [data]="{ label: data().key, text: tooltip }" />
   }
 </div>
 
