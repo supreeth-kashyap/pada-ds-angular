@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 
 export interface AvatarData {
   alt: string;
@@ -12,7 +12,8 @@ export interface AvatarData {
   standalone: true,
   templateUrl: './avatar.html',
   styleUrl: './avatar.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AvatarComponent {
-  @Input({ required: true }) data!: AvatarData;
+  readonly data = input.required<AvatarData>();
 }

@@ -1,21 +1,18 @@
 <div class="attr-row__key">
-  <span class="attr-row__key-text">{{ data.key }}</span>
-  @if (data.tooltip) {
-    <span class="attr-row__tooltip-icon" [title]="data.tooltip" aria-hidden="true">
+  <span class="attr-row__key-text">{{ data().key }}</span>
+  @if (data().tooltip) {
+    <span class="attr-row__tooltip-icon" [title]="data().tooltip" aria-hidden="true">
       <ds-info-icon />
     </span>
   }
 </div>
 
 <div class="attr-row__value">
-  @for (val of data.value; track $index) {
-    @if (isTemplate(val)) {
+  @for (val of resolvedValues(); track $index) {
+    @if (val.kind === 'template') {
       <ng-container [ngTemplateOutlet]="val.template" [ngTemplateOutletContext]="val.context ?? null" />
     } @else {
-      <ng-container
-        [ngComponentOutlet]="resolveComponent(val)"
-        [ngComponentOutletInputs]="resolveInputs(val)"
-      />
+      <ng-container [ngComponentOutlet]="val.component" [ngComponentOutletInputs]="val.inputs" />
     }
   }
 </div>

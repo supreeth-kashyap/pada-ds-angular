@@ -1,8 +1,8 @@
 <button
   type="button"
   class="btn"
-  [disabled]="data.disabled ?? false"
+  [disabled]="data().disabled ?? false"
   (click)="handleClick()"
 >
-  {{ data.label }}
+  {{ data().label }}
 </button>

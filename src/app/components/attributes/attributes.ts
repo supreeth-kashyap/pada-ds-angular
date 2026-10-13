@@ -1,6 +1,10 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input, output } from '@angular/core';
 import { SectionHeaderComponent, SectionHeaderData, SectionSlotItem } from './sub-components/section-header/section-header';
-import { AttributeRowComponent, AttributeRowData } from './sub-components/attribute-row/attribute-row';
+import {
+  AttributeRowButtonClick,
+  AttributeRowComponent,
+  AttributeRowData,
+} from './sub-components/attribute-row/attribute-row';
 
 export interface AttributeSection {
   header: SectionHeaderData;
@@ -13,7 +17,7 @@ export interface AttributesData {
 
 export type AttributesEvent =
   | { type: 'section-slot-click'; sectionLabel: string; item: SectionSlotItem }
-  | { type: 'row-button-click'; sectionLabel: string; key: string };
+  | { type: 'row-button-click'; sectionLabel: string; key: string; label: string; index: number };
 
 @Component({
   selector: 'ds-attributes',
@@ -21,16 +25,17 @@ export type AttributesEvent =
   imports: [SectionHeaderComponent, AttributeRowComponent],
   templateUrl: './attributes.html',
   styleUrl: './attributes.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AttributesComponent {
-  @Input({ required: true }) data!: AttributesData;
-  @Output() action = new EventEmitter<AttributesEvent>();
+  readonly data = input.required<AttributesData>();
+  readonly action = output<AttributesEvent>();
 
   protected onSectionSlotClicked(sectionLabel: string, item: SectionSlotItem): void {
     this.action.emit({ type: 'section-slot-click', sectionLabel, item });
   }
 
-  protected onRowButtonClicked(sectionLabel: string, key: string): void {
-    this.action.emit({ type: 'row-button-click', sectionLabel, key });
+  protected onRowButtonClicked(sectionLabel: string, key: string, click: AttributeRowButtonClick): void {
+    this.action.emit({ type: 'row-button-click', sectionLabel, key, label: click.label, index: click.index });
   }
 }

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input, output } from '@angular/core';
 
 export interface ButtonData {
   label: string;
@@ -10,13 +10,14 @@ export interface ButtonData {
   standalone: true,
   templateUrl: './button.html',
   styleUrl: './button.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ButtonComponent {
-  @Input({ required: true }) data!: ButtonData;
-  @Output() clicked = new EventEmitter<void>();
+  readonly data = input.required<ButtonData>();
+  readonly clicked = output<void>();
 
   protected handleClick(): void {
-    if (!this.data.disabled) {
+    if (!this.data().disabled) {
       this.clicked.emit();
     }
   }

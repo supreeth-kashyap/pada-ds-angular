@@ -1,9 +1,10 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 
 @Component({
   selector: 'ds-attribute-text-value',
   standalone: true,
-  template: `<span class="attr-row__text">{{ data.text }}</span>`,
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: `<span class="attr-row__text">{{ data().text }}</span>`,
   styles: [`
     :host {
       display: inline-flex;
@@ -19,5 +20,5 @@ import { Component, Input } from '@angular/core';
   `],
 })
 export class AttributeTextValueComponent {
-  @Input({ required: true }) data!: { type: 'text'; text: string };
+  readonly data = input.required<{ type: 'text'; text: string }>();
 }

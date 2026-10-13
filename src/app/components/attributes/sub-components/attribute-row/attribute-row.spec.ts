@@ -1,10 +1,13 @@
+import { ChangeDetectorRef } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
 import { vi } from 'vitest';
 import { AttributeRowComponent, AttributeRowData } from './attribute-row';
+import { AttributeButtonValueComponent } from './attribute-button-value';
 
 function setup(data: AttributeRowData) {
   const fixture = TestBed.createComponent(AttributeRowComponent);
-  fixture.componentInstance.data = data;
+  fixture.componentRef.setInput('data', data);
   fixture.detectChanges();
   return fixture;
 }
@@ -78,5 +81,33 @@ describe('AttributeRowComponent', () => {
     componentInstance.buttonClicked.subscribe(spy);
     nativeElement.querySelector('ds-button button').click();
     expect(spy).toHaveBeenCalledTimes(1);
+    expect(spy).toHaveBeenCalledWith({ label: 'Edit', index: 0 });
+  });
+
+  it('tells two buttons in the same row apart by label and index', () => {
+    const { nativeElement, componentInstance } = setup({
+      key: 'Actions',
+      value: [
+        { type: 'button', label: 'Edit' },
+        { type: 'text', text: 'or' },
+        { type: 'button', label: 'Delete' },
+      ],
+    });
+    const spy = vi.fn();
+    componentInstance.buttonClicked.subscribe(spy);
+    const buttons = nativeElement.querySelectorAll('ds-button button');
+    buttons[1].click();
+    buttons[0].click();
+    expect(spy.mock.calls).toEqual([[{ label: 'Delete', index: 2 }], [{ label: 'Edit', index: 0 }]]);
+  });
+
+  it('keeps button value inputs stable across re-renders', () => {
+    const fixture = setup({ key: 'Action', value: [{ type: 'button', label: 'Edit' }] });
+    const button = fixture.debugElement.query(By.directive(AttributeButtonValueComponent))
+      .componentInstance as AttributeButtonValueComponent;
+    const firstHandler = button.onClicked();
+    fixture.debugElement.injector.get(ChangeDetectorRef).markForCheck();
+    fixture.detectChanges();
+    expect(button.onClicked()).toBe(firstHandler);
   });
 });

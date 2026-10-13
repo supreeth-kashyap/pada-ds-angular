@@ -4,7 +4,7 @@
 
 ### Core Principle
 
-Components are pure renderers. They own no data-fetching logic. All data originates from backend services, is transformed into a typed component interface, and passed in via `@Input()`. The component's only job is to render what it receives.
+Components are pure renderers. They own no data-fetching logic. All data originates from backend services, is transformed into a typed component interface, and passed in via a signal input (`input.required<T>()`). The component's only job is to render what it receives.
 
 ```
 Backend API (JSON)
@@ -13,7 +13,7 @@ Backend API (JSON)
   Adapter / Mapper          ← transforms raw API shape → component interface
       │
       ▼
-  Component @Input()        ← typed interface, not raw API types
+  Component input()         ← typed interface, not raw API types
       │
       ▼
   Template renders          ← no business logic, pure presentation
@@ -39,10 +39,12 @@ A TypeScript interface that defines exactly what the component needs to render.
 - Lives in the component's own file or a sibling `types.ts`
 
 #### 4. Component
-- Accepts one primary `@Input() data: ComponentNameData`
+- Accepts one primary `data = input.required<ComponentNameData>()`
+- Emits events via `output<T>()` — never `EventEmitter`
+- Uses `changeDetection: ChangeDetectionStrategy.OnPush`
 - No HTTP calls, no service injections for data
-- Uses Angular Signals internally if derived state is needed
-- Template is a pure function of `data`
+- Derived state is a `computed()` of `data()`, not a method called from the template
+- Template is a pure function of `data()`
 
 ---
 
@@ -87,9 +89,11 @@ export interface CardData {
   standalone: true,
   templateUrl: './card.html',
   styleUrl: './card.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CardComponent {
-  @Input({ required: true }) data!: CardData;
+  readonly data = input.required<CardData>();
+  readonly selected = output<void>();
 }
 ```
 
@@ -118,7 +122,7 @@ Because components receive plain data objects, tests require no HTTP mocking or 
 ```typescript
 it('renders title', async () => {
   const fixture = TestBed.createComponent(CardComponent);
-  fixture.componentInstance.data = { title: 'Hello', subtitle: '', imageUrl: '' };
+  fixture.componentRef.setInput('data', { title: 'Hello', subtitle: '', imageUrl: '' });
   fixture.detectChanges();
   expect(fixture.nativeElement.querySelector('h2').textContent).toBe('Hello');
 });
@@ -131,6 +135,7 @@ Adapter functions are tested as pure functions — input in, output out, no Angu
 ### Rules
 
 1. **No raw API types in component inputs.** Always adapt first.
-2. **No service injection in leaf components.** Data flows down via `@Input()`.
-3. **Adapters are pure functions.** No side effects, no injection.
-4. **Interfaces are the contract.** If the API changes, only the adapter changes — the component stays stable.
+2. **No service injection in leaf components.** Data flows down via `input.required<T>()`; events flow up via `output<T>()`. No `@Input`, `@Output` or `EventEmitter`.
+3. **Every component is OnPush.** Read inputs as signals (`data()`) in templates and `computed()`s.
+4. **Adapters are pure functions.** No side effects, no injection.
+5. **Interfaces are the contract.** If the API changes, only the adapter changes — the component stays stable.

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input, output } from '@angular/core';
 import { BadgeComponent } from '../../../badge/badge';
 import { ButtonComponent } from '../../../button/button';
 import { InfoIconComponent } from '../../../info-icon/info-icon';
@@ -19,8 +19,9 @@ export interface SectionHeaderData {
   imports: [BadgeComponent, ButtonComponent, InfoIconComponent],
   templateUrl: './section-header.html',
   styleUrl: './section-header.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SectionHeaderComponent {
-  @Input({ required: true }) data!: SectionHeaderData;
-  @Output() slotClicked = new EventEmitter<SectionSlotItem>();
+  readonly data = input.required<SectionHeaderData>();
+  readonly slotClicked = output<SectionSlotItem>();
 }

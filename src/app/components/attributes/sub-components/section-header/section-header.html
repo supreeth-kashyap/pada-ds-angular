@@ -1,15 +1,15 @@
 <div class="section-header__title">
-  <span class="section-header__label">{{ data.label }}</span>
-  @if (data.tooltip) {
-    <span class="section-header__tooltip-icon" [title]="data.tooltip" aria-hidden="true">
+  <span class="section-header__label">{{ data().label }}</span>
+  @if (data().tooltip) {
+    <span class="section-header__tooltip-icon" [title]="data().tooltip" aria-hidden="true">
       <ds-info-icon />
     </span>
   }
 </div>
 
-@if (data.slot?.length) {
+@if (data().slot?.length) {
   <div class="section-header__slot">
-    @for (item of data.slot; track $index) {
+    @for (item of data().slot; track $index) {
       @if (item.type === 'button') {
         <ds-button
           [data]="{ label: item.label, disabled: item.disabled }"
