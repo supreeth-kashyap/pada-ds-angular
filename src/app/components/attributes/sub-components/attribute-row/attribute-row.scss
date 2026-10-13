@@ -25,11 +25,6 @@
   align-items: center;
   color: #4d4d4d;
   cursor: default;
-
-  svg {
-    width: 12px;
-    height: 12px;
-  }
 }
 
 .attr-row__value {
@@ -40,40 +35,4 @@
   gap: 12px;
   padding: 8px 0;
   width: 100%;
-}
-
-.attr-row__text {
-  font-family: 'Antique Legacy', sans-serif;
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 20px;
-  color: #000000;
-}
-
-.attr-row__avatar-lockup {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 8px;
-}
-
-.attr-row__avatar-info {
-  display: flex;
-  flex-direction: column;
-}
-
-.attr-row__avatar-name {
-  font-family: 'Open Sans', sans-serif;
-  font-weight: 700;
-  font-size: 14px;
-  line-height: 20px;
-  color: #1a1a1a;
-}
-
-.attr-row__avatar-subtitle {
-  font-family: 'Open Sans', sans-serif;
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 20px;
-  color: #1a1a1a;
 }

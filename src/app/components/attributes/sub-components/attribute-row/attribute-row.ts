@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, Output, TemplateRef, Type } from '@angular/core';
 import { NgComponentOutlet, NgTemplateOutlet } from '@angular/common';
 import { BadgeComponent } from '../../../badge/badge';
+import { InfoIconComponent } from '../../../info-icon/info-icon';
 import { AttributeTextValueComponent } from './attribute-text-value';
 import { AttributeAvatarValueComponent } from './attribute-avatar-value';
 import { AttributeButtonValueComponent } from './attribute-button-value';
@@ -31,7 +32,7 @@ const ATTRIBUTE_VALUE_REGISTRY: Record<RegistryValue['type'], Type<unknown>> = {
 @Component({
   selector: 'ds-attribute-row',
   standalone: true,
-  imports: [NgComponentOutlet, NgTemplateOutlet],
+  imports: [NgComponentOutlet, NgTemplateOutlet, InfoIconComponent],
   templateUrl: './attribute-row.html',
   styleUrl: './attribute-row.scss',
 })

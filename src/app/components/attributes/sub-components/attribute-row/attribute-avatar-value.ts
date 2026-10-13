@@ -16,6 +16,39 @@ import { AvatarComponent } from '../../../avatar/avatar';
       </div>
     </div>
   `,
+  styles: [`
+    :host {
+      display: inline-flex;
+    }
+
+    .attr-row__avatar-lockup {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .attr-row__avatar-info {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .attr-row__avatar-name {
+      font-family: 'Open Sans', sans-serif;
+      font-weight: 700;
+      font-size: 14px;
+      line-height: 20px;
+      color: #1a1a1a;
+    }
+
+    .attr-row__avatar-subtitle {
+      font-family: 'Open Sans', sans-serif;
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 20px;
+      color: #1a1a1a;
+    }
+  `],
 })
 export class AttributeAvatarValueComponent {
   @Input({ required: true }) data!: { type: 'avatar'; name: string; initials?: string; src?: string; subtitle?: string };
