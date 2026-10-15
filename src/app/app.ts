@@ -1,8 +1,14 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { BadgeComponent, BadgeData } from './components/badge/badge';
-import { AvatarComponent, AvatarData } from './components/avatar/avatar';
-import { ButtonComponent, ButtonData } from './components/button/button';
-import { AttributesComponent, AttributesData } from './components/attributes/attributes';
+import {
+  AttributesComponent,
+  AttributesData,
+  AvatarComponent,
+  AvatarData,
+  BadgeComponent,
+  BadgeData,
+  ButtonComponent,
+  ButtonData,
+} from './components/public-api';
 import { ThumbnailValueComponent, ThumbnailValueData } from './demo/thumbnail-value';
 
 @Component({
