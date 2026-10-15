@@ -61,8 +61,10 @@ A TypeScript interface that defines exactly what the component needs to render.
 
 ### File Layout (per component)
 
+Components live in the `pada-ds` library and are exported from `projects/pada-ds/src/public-api.ts`; the showcase app in `src/` imports them from `'pada-ds'`.
+
 ```
-src/app/components/<name>/
+projects/pada-ds/src/lib/<name>/
 ├── <name>.ts           # Component + ComponentNameData interface
 ├── <name>.html         # Template
 ├── <name>.scss         # Scoped styles

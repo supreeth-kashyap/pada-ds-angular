@@ -36,6 +36,16 @@ ng build
 
 This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
 
+## Library
+
+The `ds-*` components live in the `pada-ds` library under `projects/pada-ds`, and everything consumers may import is listed in `projects/pada-ds/src/public-api.ts`. The showcase app in `src/` imports them from `'pada-ds'`, which `tsconfig.json` maps to the library sources.
+
+To package the library with ng-packagr into `dist/pada-ds`, run:
+
+```bash
+ng build pada-ds
+```
+
 ## Running unit tests
 
 To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
