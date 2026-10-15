@@ -74,6 +74,29 @@
           "builder": "@angular/build:unit-test"
         }
       }
+    },
+    "pada-ds": {
+      "projectType": "library",
+      "root": "projects/pada-ds",
+      "sourceRoot": "projects/pada-ds/src",
+      "prefix": "ds",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:ng-packagr",
+          "options": {
+            "project": "projects/pada-ds/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/pada-ds/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/pada-ds/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        }
+      }
     }
   }
 }

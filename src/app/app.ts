@@ -1,7 +1,12 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { BadgeComponent, BadgeData } from './components/badge/badge';
-import { AvatarComponent, AvatarData } from './components/avatar/avatar';
-import { ButtonComponent, ButtonData } from './components/button/button';
+import {
+  AvatarComponent,
+  AvatarData,
+  BadgeComponent,
+  BadgeData,
+  ButtonComponent,
+  ButtonData,
+} from 'pada-ds';
 import { AttributesComponent, AttributesData } from './components/attributes/attributes';
 import { ThumbnailValueComponent, ThumbnailValueData } from './demo/thumbnail-value';
 
