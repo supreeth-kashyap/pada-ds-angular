@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, input, output } from '@angular/core';
-import { BadgeComponent } from '../../../badge/badge';
-import { ButtonComponent } from '../../../button/button';
-import { InfoTooltipComponent } from '../../../info-tooltip/info-tooltip';
+import { BadgeComponent } from 'pada-ds-angular';
+import { ButtonComponent } from 'pada-ds-angular';
+import { InfoTooltipComponent } from 'pada-ds-angular';
 
 export type SectionSlotItem =
   | { type: 'button'; label: string; disabled?: boolean }

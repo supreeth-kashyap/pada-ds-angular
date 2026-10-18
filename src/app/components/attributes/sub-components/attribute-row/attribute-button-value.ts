@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
-import { ButtonComponent } from '../../../button/button';
+import { ButtonComponent } from 'pada-ds-angular';
 
 @Component({
   selector: 'ds-attribute-button-value',

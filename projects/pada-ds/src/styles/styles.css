@@ -1,0 +1,4 @@
+/* Pada for Angular: the tokens plus the few global rules the components rely on.
+   Component styles ship with each component, so this is all a consumer imports:
+     @import 'pada-ds-angular/styles.css';  (or add it to angular.json "styles") */
+@import './tokens.css';

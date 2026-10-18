@@ -6,7 +6,7 @@ import {
   BadgeData,
   ButtonComponent,
   ButtonData,
-} from 'pada-ds';
+} from 'pada-ds-angular';
 import { AttributesComponent, AttributesData } from './components/attributes/attributes';
 import { ThumbnailValueComponent, ThumbnailValueData } from './demo/thumbnail-value';
 

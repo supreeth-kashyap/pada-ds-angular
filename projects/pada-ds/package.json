@@ -1,12 +1,35 @@
 {
-  "name": "pada-ds",
+  "name": "pada-ds-angular",
   "version": "0.0.1",
+  "description": "Pada design system for Angular: headless directives and styled components",
   "peerDependencies": {
+    "@angular/cdk": "^21.2.0",
     "@angular/common": "^21.2.0",
-    "@angular/core": "^21.2.0"
+    "@angular/core": "^21.2.0",
+    "@angular/forms": "^21.2.0"
   },
   "dependencies": {
     "tslib": "^2.3.0"
   },
-  "sideEffects": false
+  "exports": {
+    "./tokens.css": {
+      "style": "./styles/tokens.css",
+      "default": "./styles/tokens.css"
+    },
+    "./styles.css": {
+      "style": "./styles/styles.css",
+      "default": "./styles/styles.css"
+    },
+    "./base.css": {
+      "style": "./styles/base.css",
+      "default": "./styles/base.css"
+    },
+    "./tokens.scss": {
+      "sass": "./styles/_tokens.scss",
+      "default": "./styles/_tokens.scss"
+    }
+  },
+  "sideEffects": [
+    "*.css"
+  ]
 }

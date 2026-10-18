@@ -15,8 +15,11 @@
     "target": "ES2022",
     "module": "preserve",
     "paths": {
-      "pada-ds": [
+      "pada-ds-angular": [
         "./projects/pada-ds/src/public-api.ts"
+      ],
+      "pada-ds-angular/headless": [
+        "./projects/pada-ds/headless/src/public-api.ts"
       ]
     }
   },

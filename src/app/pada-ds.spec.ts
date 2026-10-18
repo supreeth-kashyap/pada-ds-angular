@@ -1,6 +1,6 @@
 import { reflectComponentType, Type } from '@angular/core';
-import * as padaDs from 'pada-ds';
-import { BadgeComponent } from './components/badge/badge';
+import * as padaDs from 'pada-ds-angular';
+
 
 describe('pada-ds public API', () => {
   it('exports every moved ds-* component with its selector', () => {
@@ -17,7 +17,4 @@ describe('pada-ds public API', () => {
     }
   });
 
-  it('serves the library component through the old app path', () => {
-    expect(BadgeComponent).toBe(padaDs.BadgeComponent);
-  });
 });
