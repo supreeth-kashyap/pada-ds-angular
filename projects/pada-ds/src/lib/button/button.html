@@ -1,8 +1,12 @@
-<button
-  type="button"
-  class="btn"
-  [disabled]="data().disabled ?? false"
-  (click)="handleClick()"
->
-  {{ data().label }}
-</button>
+@if (leftIcon(); as icon) {
+  <ds-icon class="button-icon" data-position="start" [name]="icon" [size]="16" />
+}
+<span class="button-label"><ng-content /></span>
+@if (rightIcon(); as icon) {
+  @if (!leftIcon()) {
+    <ds-icon class="button-icon" data-position="end" [name]="icon" [size]="16" />
+  }
+}
+@if (loading()) {
+  <span class="button-spinner" aria-hidden="true"></span>
+}

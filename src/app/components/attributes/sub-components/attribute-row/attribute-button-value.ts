@@ -7,10 +7,9 @@ import { ButtonComponent } from 'pada-ds-angular';
   imports: [ButtonComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <ds-button
-      [data]="{ label: data().label, disabled: data().disabled }"
-      (clicked)="onClicked()?.()"
-    />
+    <button dsButton variant="secondary" size="sm" [disabled]="data().disabled ?? false" (click)="onClicked()?.()">
+      {{ data().label }}
+    </button>
   `,
 })
 export class AttributeButtonValueComponent {

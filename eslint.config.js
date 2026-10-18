@@ -6,15 +6,33 @@ const angular = require('angular-eslint');
 module.exports = tseslint.config(
   {
     files: ['**/*.ts'],
-    extends: [eslint.configs.recommended, ...tseslint.configs.recommended, ...angular.configs.tsRecommended],
+    extends: [
+      eslint.configs.recommended,
+      ...tseslint.configs.recommended,
+      ...angular.configs.tsRecommended,
+    ],
     processor: angular.processInlineTemplates,
     rules: {
-      '@angular-eslint/directive-selector': ['error', { type: 'attribute', prefix: ['ds', 'app'], style: 'camelCase' }],
-      '@angular-eslint/component-selector': ['error', { type: ['element', 'attribute'], prefix: ['ds', 'app'], style: 'kebab-case' }],
+      '@angular-eslint/directive-selector': [
+        'error',
+        { type: 'attribute', prefix: ['ds', 'app'], style: 'camelCase' },
+      ],
+      // Elements are kebab-case (ds-dialog); attribute components on native elements are
+      // camelCase like directives (button[dsButton]).
+      '@angular-eslint/component-selector': [
+        'error',
+        [
+          { type: 'element', prefix: ['ds', 'app'], style: 'kebab-case' },
+          { type: 'attribute', prefix: ['ds', 'app'], style: 'camelCase' },
+        ],
+      ],
       '@angular-eslint/prefer-on-push-component-change-detection': 'error',
       '@angular-eslint/prefer-signals': 'error',
       '@angular-eslint/no-output-native': 'error',
-      '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_', varsIgnorePattern: '^_' }],
+      '@typescript-eslint/no-unused-vars': [
+        'error',
+        { argsIgnorePattern: '^_', varsIgnorePattern: '^_' },
+      ],
     },
   },
   {

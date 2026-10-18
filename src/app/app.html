@@ -16,7 +16,9 @@
   <h1>Button</h1>
   <div class="showcase">
     @for (button of buttons; track button.label) {
-      <ds-button [data]="button" />
+      <button dsButton [variant]="button.variant" [disabled]="button.disabled ?? false">
+        {{ button.label }}
+      </button>
     }
   </div>
 

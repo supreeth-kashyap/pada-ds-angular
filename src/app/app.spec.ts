@@ -29,7 +29,7 @@ describe('App', () => {
     const app = fixture.componentInstance;
     expect(compiled.querySelectorAll('.showcase > ds-badge').length).toBe(app.badges.length);
     expect(compiled.querySelectorAll('.showcase > ds-avatar').length).toBe(app.avatars.length);
-    expect(compiled.querySelectorAll('.showcase > ds-button').length).toBe(app.buttons.length);
+    expect(compiled.querySelectorAll('.showcase > button[dsButton]').length).toBe(app.buttons.length);
     expect(compiled.querySelector('ds-attributes')).not.toBeNull();
   });
 

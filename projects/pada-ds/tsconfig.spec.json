@@ -5,10 +5,13 @@
   "compilerOptions": {
     "outDir": "../../out-tsc/spec",
     "types": [
-      "vitest/globals"
+      "vitest/globals",
+      "@testing-library/jest-dom"
     ]
   },
   "include": [
+    "test-setup.ts",
+    "testing/**/*.ts",
     "src/**/*.d.ts",
     "src/**/*.spec.ts",
     "headless/**/*.spec.ts"

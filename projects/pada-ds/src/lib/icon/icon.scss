@@ -1,0 +1,23 @@
+:host {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: var(--pada-icon-box);
+  height: var(--pada-icon-box);
+  color: inherit;
+}
+
+.icon-svg {
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
+
+/* Painting is set by the markup (fills and strokes become currentColor), so no fill/stroke here. */
+.icon-svg ::ng-deep svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}

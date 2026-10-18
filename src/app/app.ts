@@ -5,7 +5,7 @@ import {
   BadgeComponent,
   BadgeData,
   ButtonComponent,
-  ButtonData,
+  ButtonVariant,
 } from 'pada-ds-angular';
 import { AttributesComponent, AttributesData } from './components/attributes/attributes';
 import { ThumbnailValueComponent, ThumbnailValueData } from './demo/thumbnail-value';
@@ -32,10 +32,10 @@ export class App {
     { src: 'https://i.pravatar.cc/28?img=3', alt: 'User photo' },
   ];
 
-  buttons: ButtonData[] = [
-    { label: 'Button Label' },
-    { label: 'Save changes' },
-    { label: 'Disabled', disabled: true },
+  buttons: { label: string; variant: ButtonVariant; disabled?: boolean }[] = [
+    { label: 'Primary', variant: 'primary' },
+    { label: 'Secondary', variant: 'secondary' },
+    { label: 'Disabled', variant: 'secondary', disabled: true },
   ];
 
   attributesData: AttributesData = {
@@ -55,7 +55,9 @@ export class App {
         rows: [
           {
             key: 'Owner',
-            value: [{ type: 'avatar', name: 'Anna Banks', initials: 'AB', subtitle: 'HR @company' }],
+            value: [
+              { type: 'avatar', name: 'Anna Banks', initials: 'AB', subtitle: 'HR @company' },
+            ],
           },
           {
             key: 'Edit',

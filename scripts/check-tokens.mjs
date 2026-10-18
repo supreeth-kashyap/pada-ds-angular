@@ -43,14 +43,18 @@ export async function checkSyncedFiles() {
   for (const file of SYNCED) {
     const text = await readFile(path.join(stylesDir, file), 'utf8').catch(() => null);
     if (text === null) {
-      problems.push(`${file}: missing. Run \`npm run tokens:sync -- ../pada-ds-angular\` in pada-ds.`);
+      problems.push(
+        `${file}: missing. Run \`npm run tokens:sync -- ../pada-ds-angular\` in pada-ds.`,
+      );
       continue;
     }
     const match = text.match(HEADER);
     const body = match ? text.slice(match[0].length) : text;
     const hash = createHash('sha256').update(body).digest('hex');
-    if (!match) problems.push(`${file}: no pada-tokens header; the file must come from tokens:sync.`);
-    else if (match[1] !== hash) problems.push(`${file}: edited by hand (hash mismatch). Re-sync it from pada-ds.`);
+    if (!match)
+      problems.push(`${file}: no pada-tokens header; the file must come from tokens:sync.`);
+    else if (match[1] !== hash)
+      problems.push(`${file}: edited by hand (hash mismatch). Re-sync it from pada-ds.`);
   }
   return problems;
 }

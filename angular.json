@@ -87,7 +87,7 @@
     "pada-ds": {
       "projectType": "library",
       "root": "projects/pada-ds",
-      "sourceRoot": "projects/pada-ds/src",
+      "sourceRoot": "projects/pada-ds",
       "prefix": "ds",
       "architect": {
         "build": {
@@ -108,7 +108,14 @@
         "test": {
           "builder": "@angular/build:unit-test",
           "options": {
-            "tsConfig": "projects/pada-ds/tsconfig.spec.json"
+            "tsConfig": "projects/pada-ds/tsconfig.spec.json",
+            "setupFiles": [
+              "projects/pada-ds/test-setup.ts"
+            ],
+            "include": [
+              "src/**/*.spec.ts",
+              "headless/**/*.spec.ts"
+            ]
           }
         },
         "lint": {

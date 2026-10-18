@@ -73,7 +73,7 @@ describe('AttributesComponent', () => {
     const { nativeElement, componentInstance } = setup();
     const spy = vi.fn();
     componentInstance.action.subscribe(spy);
-    const rowButtons = nativeElement.querySelectorAll('ds-attribute-row ds-button button');
+    const rowButtons = nativeElement.querySelectorAll('ds-attribute-row button[dsButton]');
     rowButtons[rowButtons.length - 1].click();
     expect(spy).toHaveBeenCalledWith({
       type: 'row-button-click',
@@ -103,7 +103,7 @@ describe('AttributesComponent', () => {
     });
     const spy = vi.fn();
     componentInstance.action.subscribe(spy);
-    const rowButtons = nativeElement.querySelectorAll('ds-attribute-row ds-button button');
+    const rowButtons = nativeElement.querySelectorAll('ds-attribute-row button[dsButton]');
     rowButtons[0].click();
     rowButtons[1].click();
     expect(spy.mock.calls).toEqual([

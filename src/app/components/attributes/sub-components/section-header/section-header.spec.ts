@@ -45,7 +45,7 @@ describe('SectionHeaderComponent', () => {
     });
     const spy = vi.fn();
     componentInstance.slotClicked.subscribe(spy);
-    nativeElement.querySelector('ds-button button').click();
+    nativeElement.querySelector('button[dsButton]').click();
     expect(spy).toHaveBeenCalledWith({ type: 'button', label: 'Action' });
   });
 

@@ -3,4 +3,51 @@
  * Every directive exposes its state through data-* and aria-* attributes for you to style.
  * The styled components in `pada-ds-angular` are built on these directives.
  */
-export {};
+export * from './dialog/dialog.directive';
+export * from './popover/popover.directive';
+
+export * from './utils/presence';
+export * from './utils/floating.directive';
+export * from './utils/visually-hidden';
+export {
+  dataFlag,
+  openState,
+  checkedState,
+  getTabbable,
+  focusElement,
+  byDocumentOrder,
+  showInTopLayer,
+  hideFromTopLayer,
+  isBrowser,
+} from './utils/dom';
+export {
+  createDismissable,
+  isTopLayer,
+  type DismissEvent,
+  type DismissableOptions,
+} from './utils/dismissable';
+export {
+  createFocusScope,
+  createAutoFocusEvent,
+  type AutoFocusEvent,
+  type FocusScopeOptions,
+} from './utils/focus-scope';
+export { lockScroll, hideOthers } from './utils/modal';
+export {
+  createFloating,
+  type FloatingOptions,
+  type FloatingPlacement,
+  type FloatingAnchor,
+  type Side,
+  type Align,
+} from './utils/floating';
+export {
+  findNextIndex,
+  findTypeaheadIndex,
+  keyToNavigation,
+  type NavigableItem,
+  type NavigationKey,
+} from './utils/navigation';
+export { createTypeahead } from './utils/typeahead';
+export { uniqueId } from './utils/id';
+export { injectButtonType } from './utils/button';
