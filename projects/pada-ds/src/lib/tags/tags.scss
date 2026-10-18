@@ -1,0 +1,68 @@
+:host {
+  /* Component tokens. Variants only reassign these (hue-50 / hue-100 / hue-700). */
+  --pada-tags-bg: var(--pada-color-neutral-50);
+  --pada-tags-border: var(--pada-color-neutral-100);
+  --pada-tags-fg: var(--pada-color-neutral-700);
+
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  box-sizing: border-box;
+  /* Hug the content even inside a flex container that stretches its items. */
+  width: fit-content;
+  align-self: flex-start;
+  padding: 4px 8px;
+  border: var(--pada-border-width-thin) solid var(--pada-tags-border);
+  border-radius: var(--pada-radius-md);
+  background-color: var(--pada-tags-bg);
+  color: var(--pada-tags-fg);
+  font-family: inherit;
+  font-size: var(--pada-font-size-sm);
+  font-weight: var(--pada-font-weight-medium);
+  line-height: 16px;
+  white-space: nowrap;
+}
+
+:host([data-variant='primary']) {
+  --pada-tags-bg: var(--pada-color-accent-50);
+  --pada-tags-border: var(--pada-color-accent-100);
+  --pada-tags-fg: var(--pada-color-accent-700);
+}
+:host([data-variant='secondary']) {
+  --pada-tags-bg: var(--pada-color-amber-50);
+  --pada-tags-border: var(--pada-color-amber-100);
+  --pada-tags-fg: var(--pada-color-amber-700);
+}
+:host([data-variant='success']) {
+  --pada-tags-bg: var(--pada-color-lime-50);
+  --pada-tags-border: var(--pada-color-lime-100);
+  --pada-tags-fg: var(--pada-color-lime-700);
+}
+:host([data-variant='danger']) {
+  --pada-tags-bg: var(--pada-color-red-50);
+  --pada-tags-border: var(--pada-color-red-100);
+  --pada-tags-fg: var(--pada-color-red-700);
+}
+:host([data-variant='royal']) {
+  --pada-tags-bg: var(--pada-color-purple-50);
+  --pada-tags-border: var(--pada-color-purple-100);
+  --pada-tags-fg: var(--pada-color-purple-700);
+}
+
+.tags-content {
+  display: inline-flex;
+  align-items: center;
+}
+
+/* Icons take the variant's text colour. */
+.tags-icon {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  color: currentColor;
+}
+
+.tags-icon-slot:empty {
+  display: none;
+}

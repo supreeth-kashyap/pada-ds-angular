@@ -1,0 +1,105 @@
+:host {
+  margin: 0;
+  padding: 0;
+}
+
+/* Sizes */
+:host([data-size='xs']) {
+  font-size: var(--pada-font-size-xs);
+}
+:host([data-size='sm']) {
+  font-size: var(--pada-font-size-sm);
+}
+:host([data-size='base']) {
+  font-size: var(--pada-font-size-md);
+}
+:host([data-size='lg']) {
+  font-size: var(--pada-font-size-lg);
+}
+:host([data-size='xl']) {
+  font-size: var(--pada-font-size-xl);
+}
+:host([data-size='2xl']) {
+  font-size: var(--pada-font-size-2xl);
+}
+:host([data-size='3xl']) {
+  font-size: var(--pada-font-size-3xl);
+}
+:host([data-size='4xl']) {
+  font-size: var(--pada-font-size-4xl);
+}
+:host([data-size='5xl']) {
+  font-size: var(--pada-font-size-5xl);
+}
+:host([data-size='6xl']) {
+  font-size: var(--pada-font-size-6xl);
+}
+:host([data-size='7xl']) {
+  font-size: var(--pada-font-size-7xl);
+}
+:host([data-size='8xl']) {
+  font-size: var(--pada-font-size-8xl);
+}
+:host([data-size='9xl']) {
+  font-size: var(--pada-font-size-9xl);
+}
+
+/* Weights */
+:host([data-weight='100']) {
+  font-weight: 100;
+}
+:host([data-weight='200']) {
+  font-weight: 200;
+}
+:host([data-weight='300']) {
+  font-weight: 300;
+}
+:host([data-weight='400']) {
+  font-weight: var(--pada-font-weight-regular);
+}
+:host([data-weight='500']) {
+  font-weight: var(--pada-font-weight-medium);
+}
+:host([data-weight='600']) {
+  font-weight: var(--pada-font-weight-semibold);
+}
+:host([data-weight='700']) {
+  font-weight: var(--pada-font-weight-bold);
+}
+:host([data-weight='800']) {
+  font-weight: 800;
+}
+:host([data-weight='900']) {
+  font-weight: 900;
+}
+
+/* Families */
+:host([data-family='sans']) {
+  font-family: var(--pada-font-sans);
+}
+:host([data-family='serif']) {
+  font-family: var(--pada-font-serif);
+}
+:host([data-family='mono']) {
+  font-family: var(--pada-font-mono);
+}
+
+/* Line heights */
+:host([data-line-height='xs']) {
+  line-height: var(--pada-line-height-xs);
+}
+:host([data-line-height='sm']) {
+  line-height: var(--pada-line-height-sm);
+}
+:host([data-line-height='base']) {
+  line-height: var(--pada-line-height-md);
+}
+:host([data-line-height='lg']) {
+  line-height: var(--pada-line-height-lg);
+}
+:host([data-line-height='xl']) {
+  line-height: var(--pada-line-height-xl);
+}
+:host([data-line-height='2xl']) {
+  line-height: var(--pada-line-height-2xl);
+}

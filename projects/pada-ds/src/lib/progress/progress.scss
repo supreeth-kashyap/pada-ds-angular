@@ -1,0 +1,31 @@
+:host {
+  /* Component tokens */
+  --pada-progress-height: var(--pada-space-2);
+  --pada-progress-track: var(--pada-color-neutral-200);
+  --pada-progress-fill: var(--pada-color-accent-500);
+
+  display: flex;
+  flex-direction: column;
+  gap: var(--pada-space-1);
+  font-family: var(--pada-font-sans);
+}
+
+.progress-label {
+  color: var(--pada-color-fg);
+  font-size: var(--pada-font-size-md);
+  font-weight: var(--pada-font-weight-medium);
+}
+
+.progress-bar {
+  width: 100%;
+  height: var(--pada-progress-height);
+  overflow: hidden;
+  border-radius: var(--pada-radius-full);
+  background-color: var(--pada-progress-track);
+}
+
+.progress-indicator {
+  height: 100%;
+  background-color: var(--pada-progress-fill);
+  transition: width var(--pada-duration-slow) var(--pada-ease-standard);
+}
