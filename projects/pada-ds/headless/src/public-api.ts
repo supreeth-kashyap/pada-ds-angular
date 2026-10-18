@@ -54,3 +54,5 @@ export { uniqueId } from './utils/id';
 export { injectButtonType } from './utils/button';
 export { injectControlStatus, type ControlStatus } from './utils/forms';
 export * from './resizable/resizable.directive';
+export * from './theme/theme.service';
+export * from './theme/theme.directive';
