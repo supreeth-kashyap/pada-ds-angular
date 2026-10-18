@@ -50,7 +50,7 @@ describe('AttributeRowComponent', () => {
       ],
     });
     expect(nativeElement.querySelector('.attr-row__text').textContent.trim()).toBe('Some description');
-    expect(nativeElement.querySelector('ds-button')).not.toBeNull();
+    expect(nativeElement.querySelector('button[dsButton]')).not.toBeNull();
   });
 
   it('renders avatar lockup with name and subtitle', () => {
@@ -83,7 +83,7 @@ describe('AttributeRowComponent', () => {
     });
     const spy = vi.fn();
     componentInstance.buttonClicked.subscribe(spy);
-    nativeElement.querySelector('ds-button button').click();
+    nativeElement.querySelector('button[dsButton]').click();
     expect(spy).toHaveBeenCalledTimes(1);
     expect(spy).toHaveBeenCalledWith({ label: 'Edit', index: 0 });
   });
@@ -99,7 +99,7 @@ describe('AttributeRowComponent', () => {
     });
     const spy = vi.fn();
     componentInstance.buttonClicked.subscribe(spy);
-    const buttons = nativeElement.querySelectorAll('ds-button button');
+    const buttons = nativeElement.querySelectorAll('button[dsButton]');
     buttons[1].click();
     buttons[0].click();
     expect(spy.mock.calls).toEqual([[{ label: 'Delete', index: 2 }], [{ label: 'Edit', index: 0 }]]);

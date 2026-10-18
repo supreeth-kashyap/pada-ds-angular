@@ -1,0 +1,162 @@
+:host {
+  display: block;
+}
+
+.input-text {
+  /* Component tokens */
+  --pada-input-text-height: var(--pada-control-height-md);
+  --pada-input-text-bg: var(--pada-color-surface);
+  --pada-input-text-border: var(--pada-color-border-strong);
+  --pada-input-text-border-hover: var(--pada-color-neutral-500);
+  --pada-input-text-border-focus: var(--pada-color-accent-solid);
+  --pada-input-text-ring: var(--pada-color-accent-subtle);
+  --pada-input-text-radius: var(--pada-radius-lg);
+
+  display: flex;
+  flex-direction: column;
+  gap: var(--pada-space-1);
+  font-family: var(--pada-font-sans);
+}
+
+/* Variant variables */
+.input-text[data-invalid] {
+  --pada-input-text-border: var(--pada-color-danger-solid);
+  --pada-input-text-border-hover: var(--pada-color-danger-solid);
+  --pada-input-text-border-focus: var(--pada-color-danger-solid);
+  --pada-input-text-ring: var(--pada-color-danger-subtle);
+}
+
+/* Child elements */
+.input-text-label {
+  font-size: var(--pada-font-size-sm);
+  font-weight: var(--pada-font-weight-medium);
+  line-height: var(--pada-line-height-md);
+  color: var(--pada-color-fg);
+}
+
+.input-text-label[data-disabled] {
+  color: var(--pada-color-fg-disabled);
+}
+
+.input-text-required {
+  margin-inline-start: var(--pada-space-0-5);
+  color: var(--pada-color-danger-fg);
+}
+
+.input-text-optional {
+  margin-inline-start: var(--pada-space-1);
+  font-size: var(--pada-font-size-xs);
+  font-weight: var(--pada-font-weight-regular);
+  color: var(--pada-color-fg-subtle);
+}
+
+.input-text-box {
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  height: var(--pada-input-text-height);
+  border: var(--pada-border-width-thin) solid var(--pada-input-text-border);
+  border-radius: var(--pada-input-text-radius);
+  background-color: var(--pada-input-text-bg);
+  transition:
+    border-color var(--pada-duration-fast) var(--pada-ease-standard),
+    box-shadow var(--pada-duration-fast) var(--pada-ease-standard);
+}
+
+.input-text-box:hover:not(:has(:disabled)) {
+  border-color: var(--pada-input-text-border-hover);
+}
+
+/* The ring grows in on focus. */
+.input-text-box:has(:focus-visible) {
+  border-color: var(--pada-input-text-border-focus);
+  box-shadow: 0 0 0 3px var(--pada-input-text-ring);
+}
+
+.input-text-box:has(:disabled) {
+  background-color: var(--pada-color-surface-sunken);
+  border-color: var(--pada-color-border-subtle);
+  cursor: not-allowed;
+}
+
+.input-text-input {
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+  padding: 0 var(--pada-space-3);
+  border: none;
+  background: transparent;
+  color: var(--pada-color-fg);
+  font: inherit;
+  font-size: var(--pada-font-size-md);
+  outline: none;
+}
+
+.input-text-input::placeholder {
+  color: var(--pada-color-fg-subtle);
+}
+
+.input-text-input:disabled {
+  color: var(--pada-color-fg-disabled);
+  cursor: not-allowed;
+}
+
+.input-text-affix {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  color: var(--pada-color-fg-muted);
+  font-size: var(--pada-font-size-sm);
+}
+
+.input-text-affix:empty {
+  display: none;
+}
+
+.input-text-affix[data-position='start'] {
+  padding-inline-start: var(--pada-space-3);
+}
+
+.input-text-affix[data-position='end'] {
+  padding-inline-end: var(--pada-space-3);
+}
+
+.input-text-description,
+.input-text-error {
+  margin: 0;
+  font-size: var(--pada-font-size-sm);
+  line-height: var(--pada-line-height-md);
+}
+
+.input-text-description {
+  color: var(--pada-color-fg-muted);
+}
+
+.input-text-error {
+  color: var(--pada-color-danger-fg);
+  animation: input-text-error-in var(--pada-duration-normal) var(--pada-ease-enter);
+}
+
+/* The box shakes once when the error appears (not under reduced motion). */
+.input-text[data-invalid] .input-text-box {
+  animation: input-text-shake calc(320ms * var(--pada-motion-scale)) var(--pada-ease-standard);
+}
+
+@keyframes input-text-error-in {
+  from {
+    opacity: 0;
+    translate: 0 calc(-1 * var(--pada-motion-distance-sm));
+  }
+}
+
+@keyframes input-text-shake {
+  25% {
+    translate: -2px 0;
+  }
+  50% {
+    translate: 2px 0;
+  }
+  75% {
+    translate: -1px 0;
+  }
+}

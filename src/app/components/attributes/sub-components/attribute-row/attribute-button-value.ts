@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
-import { ButtonComponent } from '../../../button/button';
+import { ButtonComponent } from 'pada-ds-angular';
 
 @Component({
   selector: 'ds-attribute-button-value',
@@ -7,10 +7,9 @@ import { ButtonComponent } from '../../../button/button';
   imports: [ButtonComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <ds-button
-      [data]="{ label: data().label, disabled: data().disabled }"
-      (clicked)="onClicked()?.()"
-    />
+    <button dsButton variant="secondary" size="sm" [disabled]="data().disabled ?? false" (click)="onClicked()?.()">
+      {{ data().label }}
+    </button>
   `,
 })
 export class AttributeButtonValueComponent {

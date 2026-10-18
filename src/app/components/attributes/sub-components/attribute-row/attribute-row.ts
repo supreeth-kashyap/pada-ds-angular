@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, TemplateRef, Type, computed, input, output } from '@angular/core';
 import { NgComponentOutlet, NgTemplateOutlet } from '@angular/common';
-import { BadgeComponent } from '../../../badge/badge';
-import { InfoTooltipComponent } from '../../../info-tooltip/info-tooltip';
+import { BadgeComponent } from 'pada-ds-angular';
+import { InfoTooltipComponent } from 'pada-ds-angular';
 import { AttributeTextValueComponent } from './attribute-text-value';
 import { AttributeAvatarValueComponent } from './attribute-avatar-value';
 import { AttributeButtonValueComponent } from './attribute-button-value';

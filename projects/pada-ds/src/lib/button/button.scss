@@ -1,45 +1,176 @@
 :host {
-  display: inline-block;
-}
+  /* Component tokens. Variants and sizes only reassign these. */
+  --pada-button-bg: var(--pada-color-accent-solid);
+  --pada-button-bg-hover: var(--pada-color-accent-solid-hover);
+  --pada-button-bg-pressed: var(--pada-color-accent-solid-pressed);
+  --pada-button-fg: var(--pada-color-accent-on-solid);
+  --pada-button-fg-hover: var(--pada-button-fg);
+  --pada-button-border: transparent;
+  --pada-button-border-hover: var(--pada-button-border);
+  --pada-button-bg-disabled: var(--pada-color-accent-200);
+  --pada-button-fg-disabled: var(--pada-color-accent-400);
+  --pada-button-border-disabled: transparent;
+  --pada-button-icon-color: currentColor;
+  --pada-button-height: var(--pada-control-height-md);
+  --pada-button-pad-x: var(--pada-space-3);
+  --pada-button-gap: var(--pada-space-2);
+  --pada-button-radius: var(--pada-radius-lg);
+  --pada-button-font-size: var(--pada-font-size-md);
+  --pada-button-icon-size: var(--pada-icon-size-md);
 
-.btn {
+  position: relative;
   display: inline-flex;
-  flex-direction: row;
   align-items: center;
   justify-content: center;
-  gap: 8px;
-  padding: 6px 12px;
-  border-radius: 6px;
-  background-color: #ffffff;
-  border: 1px solid #ebebeb;
-
-  font-family: 'Antique Legacy', sans-serif;
-  font-weight: 450;
-  font-size: 12px;
-  line-height: 16px;
-  color: #000000;
-
-  cursor: pointer;
+  gap: var(--pada-button-gap);
+  box-sizing: border-box;
+  width: fit-content;
+  height: var(--pada-button-height);
+  margin: 0;
+  padding: 0 var(--pada-button-pad-x);
+  border-radius: var(--pada-button-radius);
+  border: var(--pada-border-width-thin) solid var(--pada-button-border);
+  background-color: var(--pada-button-bg);
+  color: var(--pada-button-fg);
+  font-family: inherit;
+  font-size: var(--pada-button-font-size);
+  font-weight: var(--pada-font-weight-semibold);
+  line-height: var(--pada-line-height-md);
+  text-decoration: none;
   white-space: nowrap;
-  user-select: none;
+  cursor: pointer;
+  transition:
+    background-color var(--pada-duration-normal) var(--pada-ease-standard),
+    border-color var(--pada-duration-normal) var(--pada-ease-standard),
+    color var(--pada-duration-normal) var(--pada-ease-standard),
+    scale var(--pada-duration-instant) var(--pada-ease-standard);
+}
 
-  &:hover:not(:disabled) {
-    background-color: #f7f7f7;
-    border-color: #d9d9d9;
+/* Variant variables */
+:host([data-variant='secondary']) {
+  --pada-button-bg: var(--pada-color-surface);
+  --pada-button-bg-hover: var(--pada-color-surface);
+  --pada-button-bg-pressed: var(--pada-color-neutral-subtle);
+  --pada-button-fg: var(--pada-color-fg);
+  --pada-button-fg-hover: var(--pada-color-accent-fg);
+  --pada-button-border: var(--pada-color-border);
+  --pada-button-border-hover: var(--pada-color-accent-solid);
+  --pada-button-bg-disabled: var(--pada-color-surface);
+  --pada-button-fg-disabled: var(--pada-color-fg-disabled);
+  --pada-button-border-disabled: var(--pada-color-border);
+  --pada-button-icon-color: var(--pada-color-fg-muted);
+}
+
+:host([data-variant='ghost']) {
+  --pada-button-bg: transparent;
+  --pada-button-bg-hover: var(--pada-color-neutral-subtle-hover);
+  --pada-button-bg-pressed: var(--pada-color-neutral-subtle-hover);
+  --pada-button-fg: var(--pada-color-fg);
+  --pada-button-fg-hover: var(--pada-color-accent-fg);
+  --pada-button-bg-disabled: transparent;
+  --pada-button-fg-disabled: var(--pada-color-fg-disabled);
+  --pada-button-icon-color: var(--pada-color-fg-muted);
+}
+
+:host([data-variant='destructive']) {
+  --pada-button-bg: var(--pada-color-danger-solid);
+  --pada-button-bg-hover: var(--pada-color-danger-solid-hover);
+  --pada-button-bg-pressed: var(--pada-color-danger-solid-pressed);
+  --pada-button-fg: var(--pada-color-danger-on-solid);
+  --pada-button-bg-disabled: var(--pada-color-red-200);
+  --pada-button-fg-disabled: var(--pada-color-red-400);
+}
+
+:host([data-size='sm']) {
+  --pada-button-height: var(--pada-control-height-sm);
+  --pada-button-pad-x: var(--pada-space-2);
+  --pada-button-gap: var(--pada-space-1-5);
+  --pada-button-font-size: var(--pada-font-size-sm);
+  --pada-button-radius: var(--pada-radius-md);
+  --pada-button-icon-size: var(--pada-icon-size-sm);
+}
+
+:host([data-size='lg']) {
+  --pada-button-height: var(--pada-control-height-lg);
+  --pada-button-pad-x: var(--pada-space-4);
+  --pada-button-icon-size: var(--pada-icon-size-lg);
+}
+
+/* States via attributes */
+:host(:hover:not(:disabled, [data-loading])) {
+  background-color: var(--pada-button-bg-hover);
+  border-color: var(--pada-button-border-hover);
+  color: var(--pada-button-fg-hover);
+}
+
+:host(:active:not(:disabled, [data-loading])) {
+  background-color: var(--pada-button-bg-pressed);
+  scale: var(--pada-motion-scale-press);
+}
+
+:host(:focus-visible) {
+  outline: none;
+  box-shadow: var(--pada-shadow-focus);
+}
+
+:host(:disabled) {
+  background-color: var(--pada-button-bg-disabled);
+  border-color: var(--pada-button-border-disabled);
+  color: var(--pada-button-fg-disabled);
+  cursor: not-allowed;
+}
+
+/* Loading: the label stays in place (keeping the width) but is hidden behind a spinner. */
+:host([data-loading]) {
+  cursor: progress;
+}
+
+:host([data-loading]) > :not(.button-spinner) {
+  opacity: 0;
+}
+
+/* Child elements */
+.button-icon {
+  width: var(--pada-button-icon-size);
+  height: var(--pada-button-icon-size);
+  color: var(--pada-button-icon-color);
+  transition: translate var(--pada-duration-fast) var(--pada-ease-standard);
+}
+
+/* A trailing icon (an arrow, usually) nudges forward on hover. */
+:host(:hover:not(:disabled)) > .button-icon[data-position='end'] {
+  translate: 2px 0;
+}
+
+.button-label {
+  transition: opacity var(--pada-duration-fast) var(--pada-ease-standard);
+}
+
+.button-label:empty {
+  display: none;
+}
+
+.button-spinner {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  box-sizing: border-box;
+  width: var(--pada-button-icon-size);
+  height: var(--pada-button-icon-size);
+  border: 2px solid currentColor;
+  border-right-color: transparent;
+  border-radius: var(--pada-radius-full);
+  animation: button-spin 0.7s linear infinite;
+}
+
+@keyframes button-spin {
+  to {
+    rotate: 1turn;
   }
+}
 
-  &:active:not(:disabled) {
-    background-color: #f0f0f0;
-    border-color: #c8c8c8;
-  }
-
-  &:focus-visible {
-    outline: 2px solid #0066cc;
-    outline-offset: 2px;
-  }
-
-  &:disabled {
-    opacity: 0.4;
-    cursor: not-allowed;
+@media (prefers-reduced-motion: reduce) {
+  .button-spinner {
+    animation-duration: 2.8s;
   }
 }

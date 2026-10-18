@@ -1,143 +1,91 @@
-# Angular Design System — Blueprint
+# Pada for Angular — Blueprint
 
-## Architecture: Data-Driven Components
+The library (`projects/pada-ds`, published as `pada-ds-angular`) is the Angular twin of the React
+`pada-ds`. Same components, parts, keyboard maps, tokens and motion; built the Angular way.
+How to build a component, step by step: [`docs/contributing.md`](docs/contributing.md).
 
-### Core Principle
+## Two layers
 
-Components are pure renderers. They own no data-fetching logic. All data originates from backend services, is transformed into a typed component interface, and passed in via a signal input (`input.required<T>()`). The component's only job is to render what it receives.
+1. **Headless directives** (`pada-ds-angular/headless`, in `projects/pada-ds/headless`):
+   behaviour, keyboard handling, focus, ARIA and state attributes. No styles, no templates
+   beyond what is structurally required.
+2. **Styled components** (`pada-ds-angular`, in `projects/pada-ds/src/lib`): the Pada look, built
+   only from tokens, composing the headless directives through `hostDirectives` or templates.
+
+Styled components come in two kinds:
+
+- **Data components** render records (DescriptionList, Table rows, Steps, Breadcrumbs from
+  data, Timeline, Tree, DataTable). They take one `data = input.required<XData>()` (or a small
+  set of typed record inputs), an adapter maps raw API shapes, and the template is a pure
+  function of the inputs.
+- **Composable components** have structure that changes per use (Dialog, Popover, Menu, Card,
+  Field, Tabs). They use content projection and parts (`ds-dialog-content`, `ds-dialog-title` …)
+  and take small, primitive signal inputs (`size`, `variant`, `disabled`).
+
+No component or directive, in either layer, fetches data or injects data services.
+
+## Data components: data flow
 
 ```
-Backend API (JSON)
-      │
-      ▼
-  Adapter / Mapper          ← transforms raw API shape → component interface
-      │
-      ▼
-  Component input()         ← typed interface, not raw API types
-      │
-      ▼
-  Template renders          ← no business logic, pure presentation
+Backend API (JSON) → Adapter (toXData) → component input → template renders
 ```
 
----
+- **Adapter** (`<name>.adapter.ts`, `toXData(api)`): a pure function; the only place that knows
+  the raw API shape. Handles nullability, defaults and shape normalisation.
+- **Interface** (`XData`): exactly what the component needs. No optional fields unless the
+  component handles absence.
 
-### Layer Responsibilities
+## Headless directives
 
-#### 1. Backend JSON
-Raw API response. Shape is owned by the backend and may change. Never use it directly in component templates.
+- Selector prefix `ds`, camelCase attribute: `[dsDialogTrigger]`, `[dsMenuItem]`. Class names
+  `Ds<Name>` (`DsDialogTrigger`).
+- Signal inputs (`input()`, `input.required()`); two-way state with `model()` (`[(open)]`,
+  `[(value)]`); events with `output()`.
+- State only through host attribute bindings: `data-state`, `data-disabled`, `data-side`,
+  `aria-*`, as the React parts expose them.
+- Parts coordinate through DI. **Children register with the root directive** (an ancestor in
+  the consumer's template), never with the content part, which a styled component may render
+  inside its own template where projected children cannot inject it.
+- May inject CDK services and other headless directives. May not inject data services.
 
-#### 2. Adapter (Mapper)
-A pure function or service that maps raw API JSON → component input interface.
-- Lives outside the component (e.g. `adapters/` or co-located in the feature)
-- Handles nullability, defaults, shape normalization
-- Is the only place that knows about the raw API shape
+## Styled components
 
-#### 3. Component Interface (`ComponentNameData`)
-A TypeScript interface that defines exactly what the component needs to render.
-- Named `<ComponentName>Data` (e.g. `ButtonData`, `CardData`, `TableData`)
-- No optional fields unless the component genuinely handles absence
-- Lives in the component's own file or a sibling `types.ts`
+- Standalone, `changeDetection: ChangeDetectionStrategy.OnPush`. Selector `ds-<name>` for
+  elements, `button[dsButton]`-style attribute selectors on native elements.
+- Compose headless directives with `hostDirectives`, forwarding the inputs and outputs
+  consumers need.
+- Styles read only `--pada-*` tokens (synced `tokens.css`) and component tokens
+  (`--pada-<component>-*`) they define. Variants set `data-*` attributes that reassign
+  component tokens. No raw colours, no `--pada-ref-*` / `--pada-palette-*`, no hard-coded
+  z-index or durations. `npm run tokens:check` enforces this.
+- Derived state is `computed()`, never a template method call.
+- Form controls implement `ControlValueAccessor` through `injectControlStatus(this)`.
+- Exit motion through `*dsPresence`; enter motion through `@starting-style`. Not
+  `@angular/animations`.
 
-#### 4. Component
-- Accepts one primary `data = input.required<ComponentNameData>()`
-- Emits events via `output<T>()` — never `EventEmitter`
-- Uses `changeDetection: ChangeDetectionStrategy.OnPush`
-- No HTTP calls, no service injections for data
-- Derived state is a `computed()` of `data()`, not a method called from the template
-- Template is a pure function of `data()`
-
----
-
-### Naming Conventions
+## Naming
 
 | Artifact | Convention | Example |
 |---|---|---|
-| Component input interface | `<Name>Data` | `CardData` |
-| Adapter function | `to<Name>Data` | `toCardData(api)` |
-| Component selector | `ds-<name>` | `ds-card` |
-| Component file | `<name>.ts` | `card.ts` |
+| Data interface | `<Name>Data` | `TimelineData` |
+| Adapter | `to<Name>Data` | `toTimelineData(api)` |
+| Element selector | `ds-<name>` | `ds-dialog-content` |
+| Native-element component | `el[ds<Name>]` | `button[dsButton]` |
+| Headless directive | `[ds<Name>]`, class `Ds<Name>` | `[dsPopoverTrigger]`, `DsPopoverTrigger` |
+| Styled component class | `<Name>Component` | `DialogContentComponent` |
+| Parts array | `<Name>Parts` / `Ds<Name>Parts` | `DialogParts` |
+| File | `<name>.ts`, `<name>.directive.ts` (headless) | `dialog.ts` |
 
----
+## Rules
 
-### File Layout (per component)
-
-Components live in the `pada-ds` library and are exported from `projects/pada-ds/src/public-api.ts`; the showcase app in `src/` imports them from `'pada-ds'`.
-
-```
-projects/pada-ds/src/lib/<name>/
-├── <name>.ts           # Component + ComponentNameData interface
-├── <name>.html         # Template
-├── <name>.scss         # Scoped styles
-├── <name>.spec.ts      # Unit tests (pass data directly, no mocks needed)
-└── <name>.adapter.ts   # toNameData() mapper (if non-trivial)
-```
-
----
-
-### Example Skeleton
-
-```typescript
-// card.ts
-
-export interface CardData {
-  title: string;
-  subtitle: string;
-  imageUrl: string;
-  badge?: string;
-}
-
-@Component({
-  selector: 'ds-card',
-  standalone: true,
-  templateUrl: './card.html',
-  styleUrl: './card.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-})
-export class CardComponent {
-  readonly data = input.required<CardData>();
-  readonly selected = output<void>();
-}
-```
-
-```typescript
-// card.adapter.ts
-
-import type { ApiCardResponse } from '../../types/api';
-import type { CardData } from './card';
-
-export function toCardData(api: ApiCardResponse): CardData {
-  return {
-    title: api.title ?? 'Untitled',
-    subtitle: api.description ?? '',
-    imageUrl: api.media?.url ?? '',
-    badge: api.tags?.[0] ?? undefined,
-  };
-}
-```
-
----
-
-### Testing Strategy
-
-Because components receive plain data objects, tests require no HTTP mocking or service setup:
-
-```typescript
-it('renders title', async () => {
-  const fixture = TestBed.createComponent(CardComponent);
-  fixture.componentRef.setInput('data', { title: 'Hello', subtitle: '', imageUrl: '' });
-  fixture.detectChanges();
-  expect(fixture.nativeElement.querySelector('h2').textContent).toBe('Hello');
-});
-```
-
-Adapter functions are tested as pure functions — input in, output out, no Angular TestBed needed.
-
----
-
-### Rules
-
-1. **No raw API types in component inputs.** Always adapt first.
-2. **No service injection in leaf components.** Data flows down via `input.required<T>()`; events flow up via `output<T>()`. No `@Input`, `@Output` or `EventEmitter`.
-3. **Every component is OnPush.** Read inputs as signals (`data()`) in templates and `computed()`s.
-4. **Adapters are pure functions.** No side effects, no injection.
-5. **Interfaces are the contract.** If the API changes, only the adapter changes — the component stays stable.
+1. **No raw API types in component inputs.** Data components adapt first.
+2. **No data-service injection anywhere.**
+3. **Signals everywhere.** `input()`, `model()`, `output()`, `computed()`. No `@Input`, `@Output`,
+   `EventEmitter`.
+4. **Every styled component is OnPush.**
+5. **State lives in attributes.** Never toggle state classes; bind `data-*` and `aria-*`.
+6. **Tokens only.** The synced `tokens.css` and `_tokens.scss` are never edited by hand.
+7. **Adapters are pure functions.**
+8. **Parity with React.** Parts, attributes, keyboard behaviour and tokens follow the React
+   component; differences are deliberate and documented in the component's doc comment.
+9. **Every component ships with tests**: behaviour, keyboard, ARIA and an axe check.

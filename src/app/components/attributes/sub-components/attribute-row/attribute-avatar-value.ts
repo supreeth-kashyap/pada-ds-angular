@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
-import { AvatarComponent } from '../../../avatar/avatar';
+import { AvatarComponent } from 'pada-ds-angular';
 
 @Component({
   selector: 'ds-attribute-avatar-value',

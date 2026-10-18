@@ -1,0 +1,40 @@
+<div
+  dsField
+  class="input-text"
+  [controlId]="inputId()"
+  [invalid]="invalid()"
+  [required]="isRequired()"
+  [disabled]="isDisabled()"
+>
+  @if (label(); as label) {
+    <label dsFieldLabel class="input-text-label">
+      {{ label }}
+      @if (isRequired()) {
+        <span class="input-text-required" aria-hidden="true">*</span>
+      }
+      @if (optional()) {
+        <span class="input-text-optional">(optional)</span>
+      }
+    </label>
+  }
+  <div class="input-text-box">
+    <span class="input-text-affix" data-position="start"><ng-content select="[dsPrefix]" /></span>
+    <input
+      dsFieldControl
+      class="input-text-input"
+      [type]="type()"
+      [value]="value()"
+      [attr.placeholder]="placeholder() ?? null"
+      [attr.autocomplete]="autocomplete() ?? null"
+      [readOnly]="readonly()"
+      (input)="handleInput($event)"
+      (blur)="handleBlur($event)"
+    />
+    <span class="input-text-affix" data-position="end"><ng-content select="[dsSuffix]" /></span>
+  </div>
+  @if (error() && invalid()) {
+    <p dsFieldError class="input-text-error">{{ error() }}</p>
+  } @else if (description(); as description) {
+    <p dsFieldDescription class="input-text-description">{{ description }}</p>
+  }
+</div>

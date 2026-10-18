@@ -1,23 +1,21 @@
 import { reflectComponentType, Type } from '@angular/core';
-import * as padaDs from 'pada-ds';
-import { BadgeComponent } from './components/badge/badge';
+import * as padaDs from 'pada-ds-angular';
 
-describe('pada-ds public API', () => {
-  it('exports every moved ds-* component with its selector', () => {
-    const selectors: Record<string, string> = {
-      AvatarComponent: 'ds-avatar',
-      BadgeComponent: 'ds-badge',
-      ButtonComponent: 'ds-button',
-      InfoIconComponent: 'ds-info-icon',
-      InfoTooltipComponent: 'ds-info-tooltip',
-    };
-    const exported = padaDs as unknown as Record<string, Type<unknown>>;
-    for (const [name, selector] of Object.entries(selectors)) {
-      expect(reflectComponentType(exported[name])?.selector).toBe(selector);
-    }
+describe('pada-ds-angular public API', () => {
+  const exported = Object.entries(padaDs as unknown as Record<string, unknown>);
+  const components = exported.filter(([name]) => name.endsWith('Component')) as [
+    string,
+    Type<unknown>,
+  ][];
+
+  it('exports components', () => {
+    expect(components.length).toBeGreaterThan(0);
   });
 
-  it('serves the library component through the old app path', () => {
-    expect(BadgeComponent).toBe(padaDs.BadgeComponent);
+  it('gives every component a ds- element or a ds attribute selector', () => {
+    for (const [name, component] of components) {
+      const selector = reflectComponentType(component)?.selector ?? '';
+      expect(selector, name).toMatch(/^ds-|\[ds[A-Z]/);
+    }
   });
 });

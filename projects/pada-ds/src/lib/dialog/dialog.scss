@@ -1,0 +1,91 @@
+.dialog {
+  /* Component tokens */
+  --pada-dialog-bg: var(--pada-color-surface-overlay);
+  --pada-dialog-fg: var(--pada-color-fg);
+  --pada-dialog-border: var(--pada-color-border-subtle);
+  --pada-dialog-radius: var(--pada-radius-2xl);
+  --pada-dialog-shadow: var(--pada-shadow-xl);
+  --pada-dialog-pad: var(--pada-space-6);
+  --pada-dialog-gap: var(--pada-space-4);
+  --pada-dialog-width: 32rem;
+  --pada-dialog-height: fit-content;
+  --pada-dialog-margin: var(--pada-space-4);
+
+  position: fixed;
+  inset: 0;
+  z-index: var(--pada-z-modal);
+  display: flex;
+  flex-direction: column;
+  gap: var(--pada-dialog-gap);
+  box-sizing: border-box;
+  width: var(--pada-dialog-width);
+  max-width: calc(100vw - 2 * var(--pada-dialog-margin));
+  height: var(--pada-dialog-height);
+  max-height: calc(100dvh - 2 * var(--pada-dialog-margin));
+  margin: auto;
+  padding: var(--pada-dialog-pad);
+  overflow: hidden;
+  background-color: var(--pada-dialog-bg);
+  color: var(--pada-dialog-fg);
+  border: var(--pada-border-width-thin) solid var(--pada-dialog-border);
+  border-radius: var(--pada-dialog-radius);
+  box-shadow: var(--pada-dialog-shadow);
+  font-family: var(--pada-font-sans);
+  font-size: var(--pada-font-size-md);
+  line-height: var(--pada-line-height-md);
+  outline: none;
+  transition:
+    opacity var(--pada-duration-slow) var(--pada-ease-emphasized),
+    scale var(--pada-duration-slow) var(--pada-ease-emphasized);
+}
+
+.dialog::backdrop {
+  background-color: var(--pada-color-backdrop);
+  transition: opacity var(--pada-duration-slow) var(--pada-ease-standard);
+}
+
+/* Variant variables */
+.dialog[data-size='auto'] {
+  --pada-dialog-width: fit-content;
+}
+
+.dialog[data-size='sm'] {
+  --pada-dialog-width: 24rem;
+}
+
+.dialog[data-size='lg'] {
+  --pada-dialog-width: 44rem;
+}
+
+.dialog[data-size='xl'] {
+  --pada-dialog-width: 56rem;
+}
+
+.dialog[data-size='full'] {
+  --pada-dialog-width: 100vw;
+  --pada-dialog-height: calc(100dvh - 2 * var(--pada-dialog-margin));
+}
+
+/* States via attributes */
+.dialog[data-state='closed'] {
+  opacity: 0;
+  scale: var(--pada-motion-scale-enter);
+  transition-duration: var(--pada-duration-normal);
+  transition-timing-function: var(--pada-ease-exit);
+}
+
+.dialog[data-state='closed']::backdrop {
+  opacity: 0;
+  transition-duration: var(--pada-duration-normal);
+}
+
+@starting-style {
+  .dialog[data-state='open'] {
+    opacity: 0;
+    scale: var(--pada-motion-scale-enter);
+  }
+
+  .dialog[data-state='open']::backdrop {
+    opacity: 0;
+  }
+}

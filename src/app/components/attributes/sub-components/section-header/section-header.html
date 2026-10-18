@@ -9,10 +9,9 @@
   <div class="section-header__slot">
     @for (item of data().slot; track $index) {
       @if (item.type === 'button') {
-        <ds-button
-          [data]="{ label: item.label, disabled: item.disabled }"
-          (clicked)="slotClicked.emit(item)"
-        />
+        <button dsButton variant="secondary" size="sm" [disabled]="item.disabled ?? false" (click)="slotClicked.emit(item)">
+          {{ item.label }}
+        </button>
       } @else if (item.type === 'badge') {
         <ds-badge [data]="{ label: item.label }" />
       }

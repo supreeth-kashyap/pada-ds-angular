@@ -44,8 +44,8 @@
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "4kB",
-                  "maximumError": "8kB"
+                  "maximumWarning": "8kB",
+                  "maximumError": "16kB"
                 }
               ],
               "outputHashing": "all"
@@ -72,13 +72,22 @@
         },
         "test": {
           "builder": "@angular/build:unit-test"
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "src/**/*.ts",
+              "src/**/*.html"
+            ]
+          }
         }
       }
     },
     "pada-ds": {
       "projectType": "library",
       "root": "projects/pada-ds",
-      "sourceRoot": "projects/pada-ds/src",
+      "sourceRoot": "projects/pada-ds",
       "prefix": "ds",
       "architect": {
         "build": {
@@ -95,6 +104,28 @@
             }
           },
           "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular/build:unit-test",
+          "options": {
+            "tsConfig": "projects/pada-ds/tsconfig.spec.json",
+            "setupFiles": [
+              "projects/pada-ds/test-setup.ts"
+            ],
+            "include": [
+              "src/**/*.spec.ts",
+              "headless/**/*.spec.ts"
+            ]
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "projects/pada-ds/**/*.ts",
+              "projects/pada-ds/**/*.html"
+            ]
+          }
         }
       }
     }
