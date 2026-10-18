@@ -1,0 +1,21 @@
+:host {
+  /* Component tokens. The handle reads them from here. */
+  --pada-resizable-direction: row;
+  --pada-resizable-hit-area: var(--pada-space-1);
+  --pada-resizable-line: var(--pada-color-border);
+  --pada-resizable-line-active: var(--pada-color-accent-solid);
+  --pada-resizable-line-thickness: 1px;
+  --pada-resizable-line-thickness-active: 3px;
+
+  display: flex;
+  flex-direction: var(--pada-resizable-direction);
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  min-height: 0;
+}
+
+/* Variant variables */
+:host([data-orientation='vertical']) {
+  --pada-resizable-direction: column;
+}

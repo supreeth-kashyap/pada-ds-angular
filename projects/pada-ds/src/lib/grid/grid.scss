@@ -1,0 +1,37 @@
+:host {
+  /* Component tokens (set from inputs). */
+  --pada-grid-columns: 1;
+  --pada-grid-gap: var(--pada-space-4);
+  --pada-grid-row-gap: var(--pada-grid-gap);
+  --pada-grid-min-item-width: 240px;
+  --pada-grid-template: repeat(var(--pada-grid-columns), minmax(0, 1fr));
+
+  display: grid;
+  grid-template-columns: var(--pada-grid-template);
+  column-gap: var(--pada-grid-gap);
+  row-gap: var(--pada-grid-row-gap);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Variant variables */
+:host([data-fit]) {
+  --pada-grid-template: repeat(auto-fit, minmax(min(var(--pada-grid-min-item-width), 100%), 1fr));
+}
+
+:host([data-align='start']) {
+  align-items: start;
+}
+
+:host([data-align='center']) {
+  align-items: center;
+}
+
+:host([data-align='end']) {
+  align-items: end;
+}
+
+:host([data-align='stretch']) {
+  align-items: stretch;
+}

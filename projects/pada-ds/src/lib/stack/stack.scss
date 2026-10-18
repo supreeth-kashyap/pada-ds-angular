@@ -1,0 +1,57 @@
+:host {
+  /* Component tokens. Attributes only reassign these. */
+  --pada-stack-direction: column;
+  --pada-stack-align: stretch;
+  --pada-stack-justify: flex-start;
+  --pada-stack-wrap: nowrap;
+
+  display: flex;
+  flex-direction: var(--pada-stack-direction);
+  align-items: var(--pada-stack-align);
+  justify-content: var(--pada-stack-justify);
+  flex-wrap: var(--pada-stack-wrap);
+  gap: var(--pada-stack-gap);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+:host([data-direction='row']) {
+  --pada-stack-direction: row;
+}
+
+:host([data-wrap]) {
+  --pada-stack-wrap: wrap;
+}
+
+:host([data-align='start']) {
+  --pada-stack-align: flex-start;
+}
+
+:host([data-align='center']) {
+  --pada-stack-align: center;
+}
+
+:host([data-align='end']) {
+  --pada-stack-align: flex-end;
+}
+
+:host([data-align='baseline']) {
+  --pada-stack-align: baseline;
+}
+
+:host([data-justify='center']) {
+  --pada-stack-justify: center;
+}
+
+:host([data-justify='end']) {
+  --pada-stack-justify: flex-end;
+}
+
+:host([data-justify='between']) {
+  --pada-stack-justify: space-between;
+}
+
+:host([data-justify='around']) {
+  --pada-stack-justify: space-around;
+}
