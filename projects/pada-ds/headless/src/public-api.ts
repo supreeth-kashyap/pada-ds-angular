@@ -4,6 +4,7 @@
  * The styled components in `pada-ds-angular` are built on these directives.
  */
 export * from './dialog/dialog.directive';
+export * from './field/field.directive';
 export * from './popover/popover.directive';
 
 export * from './utils/presence';
@@ -51,3 +52,4 @@ export {
 export { createTypeahead } from './utils/typeahead';
 export { uniqueId } from './utils/id';
 export { injectButtonType } from './utils/button';
+export { injectControlStatus, type ControlStatus } from './utils/forms';

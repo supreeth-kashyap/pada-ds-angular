@@ -1,0 +1,74 @@
+:host(ds-field) {
+  /* Component tokens, read by the control (input[dsInput]) through inheritance */
+  --pada-field-gap: var(--pada-space-1);
+  --pada-field-input-height: var(--pada-control-height-md);
+  --pada-field-input-bg: var(--pada-color-surface);
+  --pada-field-input-border: var(--pada-color-border-strong);
+  --pada-field-input-border-hover: var(--pada-color-neutral-500);
+  --pada-field-input-border-focus: var(--pada-color-accent-solid);
+  --pada-field-input-ring: var(--pada-color-accent-subtle);
+  --pada-field-input-radius: var(--pada-radius-lg);
+
+  display: flex;
+  flex-direction: column;
+  gap: var(--pada-field-gap);
+  font-family: var(--pada-font-sans);
+}
+
+/* Variant variables */
+:host(ds-field[data-invalid]) {
+  --pada-field-input-border: var(--pada-color-danger-solid);
+  --pada-field-input-border-hover: var(--pada-color-danger-solid);
+  --pada-field-input-border-focus: var(--pada-color-danger-solid);
+  --pada-field-input-ring: var(--pada-color-danger-subtle);
+}
+
+/* Child elements */
+.field-label {
+  font-size: var(--pada-font-size-sm);
+  font-weight: var(--pada-font-weight-medium);
+  line-height: var(--pada-line-height-md);
+  color: var(--pada-color-fg);
+}
+
+.field-label[data-disabled] {
+  color: var(--pada-color-fg-disabled);
+}
+
+.field-required {
+  margin-inline-start: var(--pada-space-0-5);
+  color: var(--pada-color-danger-fg);
+}
+
+.field-optional {
+  margin-inline-start: var(--pada-space-1);
+  font-size: var(--pada-font-size-xs);
+  font-weight: var(--pada-font-weight-regular);
+  color: var(--pada-color-fg-subtle);
+}
+
+:host(.field-description) {
+  display: block;
+  margin: 0;
+  font-size: var(--pada-font-size-sm);
+  color: var(--pada-color-fg-muted);
+}
+
+:host(.field-error) {
+  display: block;
+  margin: 0;
+  font-size: var(--pada-font-size-sm);
+  color: var(--pada-color-danger-fg);
+  animation: field-error-in var(--pada-duration-normal) var(--pada-ease-enter);
+}
+
+:host(.field-error[hidden]) {
+  display: none;
+}
+
+@keyframes field-error-in {
+  from {
+    opacity: 0;
+    translate: 0 calc(-1 * var(--pada-motion-distance-sm));
+  }
+}

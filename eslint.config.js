@@ -46,4 +46,10 @@ module.exports = tseslint.config(
     extends: [...angular.configs.templateRecommended, ...angular.configs.templateAccessibility],
     rules: {},
   },
+  {
+    // Labels in the library get their `for` from dsFieldLabel's host binding, which the rule
+    // cannot see. The Field tests check the association instead.
+    files: ['projects/pada-ds/**/*.html', 'projects/pada-ds/**/*.ts'],
+    rules: { '@angular-eslint/template/label-has-associated-control': 'off' },
+  },
 );

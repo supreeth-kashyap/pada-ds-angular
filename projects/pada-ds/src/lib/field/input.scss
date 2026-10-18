@@ -1,0 +1,62 @@
+:host {
+  box-sizing: border-box;
+  width: 100%;
+  height: var(--pada-field-input-height, var(--pada-control-height-md));
+  margin: 0;
+  padding: 0 var(--pada-space-3);
+  border: var(--pada-border-width-thin) solid
+    var(--pada-field-input-border, var(--pada-color-border-strong));
+  border-radius: var(--pada-field-input-radius, var(--pada-radius-lg));
+  background-color: var(--pada-field-input-bg, var(--pada-color-surface));
+  color: var(--pada-color-fg);
+  font: inherit;
+  font-size: var(--pada-font-size-md);
+  outline: none;
+  transition:
+    border-color var(--pada-duration-fast) var(--pada-ease-standard),
+    box-shadow var(--pada-duration-fast) var(--pada-ease-standard);
+}
+
+:host(textarea) {
+  height: auto;
+  min-height: calc(var(--pada-control-height-md) * 2.5);
+  padding: var(--pada-space-2) var(--pada-space-3);
+  resize: vertical;
+}
+
+:host::placeholder {
+  color: var(--pada-color-fg-subtle);
+}
+
+:host(:hover:not(:disabled)) {
+  border-color: var(--pada-field-input-border-hover, var(--pada-color-neutral-500));
+}
+
+/* The ring grows in on focus. */
+:host(:focus-visible) {
+  border-color: var(--pada-field-input-border-focus, var(--pada-color-accent-solid));
+  box-shadow: 0 0 0 3px var(--pada-field-input-ring, var(--pada-color-accent-subtle));
+}
+
+:host(:disabled) {
+  background-color: var(--pada-color-surface-sunken);
+  color: var(--pada-color-fg-disabled);
+  cursor: not-allowed;
+}
+
+/* An invalid control shakes once when its error appears (not under reduced motion). */
+:host([aria-invalid='true']) {
+  animation: field-shake calc(320ms * var(--pada-motion-scale)) var(--pada-ease-standard);
+}
+
+@keyframes field-shake {
+  25% {
+    translate: -2px 0;
+  }
+  50% {
+    translate: 2px 0;
+  }
+  75% {
+    translate: -1px 0;
+  }
+}
