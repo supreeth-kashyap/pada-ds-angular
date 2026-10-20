@@ -1,0 +1,66 @@
+:host {
+  /* Component tokens. The lifted state only reassigns these. */
+  --pada-list-item-bg: var(--pada-color-surface);
+  --pada-list-item-border: var(--pada-color-neutral-200);
+  --pada-list-item-shadow: none;
+  --pada-list-item-scale: 1;
+
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--pada-space-4);
+  min-height: 50px;
+  box-sizing: border-box;
+  padding: var(--pada-space-4);
+  overflow: hidden;
+  background-color: var(--pada-list-item-bg);
+  border-bottom: var(--pada-border-width-thin) solid var(--pada-list-item-border);
+  box-shadow: var(--pada-list-item-shadow);
+  scale: var(--pada-list-item-scale);
+  transition:
+    translate var(--pada-duration-normal) var(--pada-ease-emphasized),
+    scale var(--pada-duration-fast) var(--pada-ease-standard),
+    box-shadow var(--pada-duration-fast) var(--pada-ease-standard);
+}
+
+/* Lifted with the keyboard: raised above its neighbours. */
+:host([data-lifted]) {
+  --pada-list-item-bg: var(--pada-color-surface-raised);
+  --pada-list-item-shadow: var(--pada-shadow-md);
+  --pada-list-item-scale: 1.01;
+
+  z-index: var(--pada-z-raised);
+}
+
+/* Child elements */
+.list-item-drag {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  margin: calc(var(--pada-space-1) * -1);
+  padding: 0;
+  border: none;
+  border-radius: var(--pada-radius-sm);
+  background: none;
+  color: var(--pada-color-neutral-600);
+  cursor: grab;
+}
+
+.list-item-drag:hover,
+.list-item-drag[aria-pressed='true'] {
+  background-color: var(--pada-color-neutral-subtle-hover);
+}
+
+.list-item-drag:focus-visible {
+  outline: none;
+  box-shadow: var(--pada-shadow-focus);
+}
+
+.list-item-content {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  min-width: 0;
+}

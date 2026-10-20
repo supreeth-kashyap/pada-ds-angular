@@ -1,0 +1,72 @@
+<ng-container dsDialog [open]="open()" (openChange)="setOpen($event)">
+  <dialog *dsPresence="open()" dsDialogContent class="command-palette">
+    <h2 dsDialogTitle dsVisuallyHidden>{{ label() }}</h2>
+    <ng-container dsCombobox [open]="true" [filter]="false" #combobox="dsCombobox">
+      <div class="command-palette-search">
+        <ds-icon class="command-palette-search-icon" name="search" [size]="16" />
+        <input
+          class="command-palette-input"
+          role="combobox"
+          aria-expanded="true"
+          aria-autocomplete="list"
+          autocomplete="off"
+          spellcheck="false"
+          data-autofocus
+          [attr.aria-label]="label()"
+          [attr.aria-controls]="combobox.listboxId"
+          [attr.aria-activedescendant]="activeDescendant()"
+          [placeholder]="placeholder()"
+          [value]="query()"
+          (input)="onInput($event)"
+          (keydown)="onKeyDown($event)"
+        />
+      </div>
+      <div dsComboboxList class="command-palette-list" [attr.aria-label]="label()">
+        @for (group of groups(); track group.heading) {
+          <div
+            dsComboboxGroup
+            class="command-palette-group"
+            [attr.aria-labelledby]="group.heading ? group.headingId : null"
+          >
+            @if (group.heading) {
+              <div class="command-palette-heading" role="presentation" [id]="group.headingId">
+                {{ group.heading }}
+              </div>
+            }
+            @for (command of group.commands; track command.id) {
+              <div
+                dsComboboxItem
+                class="command-palette-item"
+                [value]="command.id"
+                [textValue]="command.label"
+                [disabled]="!!command.disabled"
+                (picked)="runCommand(command)"
+              >
+                @if (command.icon; as icon) {
+                  <ds-icon class="command-palette-item-icon" [name]="icon" [size]="16" />
+                }
+                <span class="command-palette-item-text">
+                  <span>{{ command.label }}</span>
+                  @if (command.description; as description) {
+                    <span class="command-palette-item-description">{{ description }}</span>
+                  }
+                </span>
+                @if (command.shortcut; as keys) {
+                  <kbd dsKbd aria-hidden="true" [keys]="keys"></kbd>
+                }
+              </div>
+            }
+          </div>
+        }
+        @if (runnable().length === 0) {
+          <div class="command-palette-empty">{{ emptyMessage() }}</div>
+        }
+      </div>
+    </ng-container>
+    <div class="command-palette-footer" aria-hidden="true">
+      <span><kbd dsKbd [keys]="['↑', '↓']"></kbd> to navigate</span>
+      <span><kbd dsKbd>↵</kbd> to run</span>
+      <span><kbd dsKbd>esc</kbd> to close</span>
+    </div>
+  </dialog>
+</ng-container>

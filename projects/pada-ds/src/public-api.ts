@@ -94,3 +94,6 @@ export * from './lib/date-picker/date-picker';
 export * from './lib/input-date/input-date';
 export * from './lib/tree/tree';
 export * from './lib/tree/tree.adapter';
+export * from './lib/list/list';
+export * from './lib/command-palette/command-palette';
+export * from './lib/command-palette/command-score';
