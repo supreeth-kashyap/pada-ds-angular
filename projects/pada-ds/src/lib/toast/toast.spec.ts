@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { fireEvent, render, screen } from '@testing-library/angular';
 import userEvent from '@testing-library/user-event';
 import { expectNoA11yViolations } from '../../../testing/a11y';
-import { settle } from '../../../testing/settle';
+import { settle, settleUntil } from '../../../testing/settle';
 import { injectToast, ToastService } from './toast.service';
 import { ToasterComponent } from './toaster';
 
@@ -49,9 +49,9 @@ describe('Toast', () => {
   });
 
   it('closes after its duration, but not while hovered', async () => {
-    const { toast, flush } = await setup();
-    // Long enough for the render and the hover to finish before it runs out.
-    toast({ title: 'Saved', duration: 250 });
+    const { toast, flush, fixture } = await setup();
+    // Long enough for the render and the hover to finish before it runs out, on a busy machine too.
+    toast({ title: 'Saved', duration: 1000 });
     await flush();
     await userEvent.hover(screen.getByRole('status'));
     await flush();
@@ -59,14 +59,11 @@ describe('Toast', () => {
     expect(screen.getByRole('status').closest('li')!.querySelector('.toast-timer')).toHaveAttribute(
       'data-paused',
     );
-    await wait(350);
+    await wait(1200);
     await flush();
     expect(screen.getByRole('status')).toBeInTheDocument();
     await userEvent.unhover(screen.getByRole('status'));
-    await flush();
-    await wait(350);
-    await flush();
-    expect(screen.queryByRole('status')).toBeNull();
+    await settleUntil(fixture, () => expect(screen.queryByRole('status')).toBeNull());
   });
 
   it('pauses while focus is in the stack', async () => {

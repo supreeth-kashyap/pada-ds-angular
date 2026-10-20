@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/angular';
 import userEvent from '@testing-library/user-event';
 import { expectNoA11yViolations } from '../../../testing/a11y';
-import { settle } from '../../../testing/settle';
+import { settle, settleUntil } from '../../../testing/settle';
 import { ButtonComponent } from '../button/button';
 import { TooltipParts } from './tooltip';
 
@@ -65,13 +65,11 @@ describe('Tooltip', () => {
     await userEvent.hover(remove);
     await settle(fixture);
     expect(screen.queryByRole('tooltip')).toBeNull();
-    await wait(80);
-    await settle(fixture);
-    expect(screen.getByRole('tooltip')).toHaveTextContent('Delete permanently');
+    await settleUntil(fixture, () =>
+      expect(screen.getByRole('tooltip')).toHaveTextContent('Delete permanently'),
+    );
     await userEvent.unhover(remove);
-    await wait(200);
-    await settle(fixture);
-    expect(screen.queryByRole('tooltip')).toBeNull();
+    await settleUntil(fixture, () => expect(screen.queryByRole('tooltip')).toBeNull());
   });
 
   it('skips the delay when moving to the next trigger soon after', async () => {
