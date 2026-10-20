@@ -9,7 +9,7 @@ The master roadmap lives in the React repo: [`pada/docs/roadmap`](https://github
 
 Bring `pada-ds-angular` to **full parity** with React Pada 2.0: the same components, parts, keyboard maps, tokens and motion, built the Angular way (signals, standalone components, `@angular/cdk`).
 
-Status (2026-10-20): phases 0 to 5 are done. The library ships 89 styled component folders and 27 headless directive groups, and every React component has an Angular counterpart. What remains is phase 7 (manifest and llms.txt, release), shared specs, Storybook and a zoneless app. See the [parity matrix](./parity.md).
+Status (2026-10-20): phases 0 to 5 are done. The library ships 89 styled component folders and 27 headless directive groups, and every React component has an Angular counterpart; React in turn has every Angular component except `ds-tag-group`. Storybook covers every public styled component. What remains is phase 7 (manifest and llms.txt, release), shared specs and a zoneless app. See the [parity matrix](./parity.md).
 
 ## Phase 0: infrastructure cleanup
 

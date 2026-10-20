@@ -63,11 +63,9 @@ const sameDay = (a: Date | undefined, b: Date | undefined) =>
  * one month's grid into the other), Home/End to the week's ends, PageUp/PageDown by month (Shift:
  * by year), Enter or Space picks.
  *
- * React has no two-month DateRangePicker yet (its `InputDate` with `selection="range"` shows one
- * month); this follows the `docs/roadmap/04-components.md` entry ("two-month range selection
- * with presets") in the style of `ds-input-date`. Unlike `ds-input-date` in range selection, the
- * value only changes once both ends are picked: a half-picked range is a draft inside the
- * dialog, dropped if it closes, so a forms control never holds `[start]` alone.
+ * Matches React's `DateRangePicker`, in the style of `ds-input-date`. Unlike `ds-input-date` in
+ * range selection, the value only changes once both ends are picked: a half-picked range is a
+ * draft inside the dialog, dropped if it closes, so a forms control never holds `[start]` alone.
  */
 @Component({
   selector: 'ds-date-range-picker',

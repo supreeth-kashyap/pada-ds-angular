@@ -24,8 +24,8 @@ const LEVEL_SIZES: Record<HeadingLevel, TextSize> = {
  * ```
  *
  * Sizes, weights, line height and letter spacing come from tokens (`--pada-heading-*`), never
- * inline styles. React has no Heading yet: it is designed from the roadmap entry ("Text
- * becomes Text + Heading with token-based sizes").
+ * inline styles. React's `Heading` takes the level as a `level` prop and renders the element;
+ * here the consumer writes the native heading.
  */
 @Component({
   selector: 'h1[dsHeading], h2[dsHeading], h3[dsHeading], h4[dsHeading], h5[dsHeading], h6[dsHeading]',

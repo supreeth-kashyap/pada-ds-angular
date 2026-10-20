@@ -4,7 +4,7 @@ This file is copied verbatim into the Angular repo as `docs/roadmap/parity.md`. 
 
 Legend: ✅ the 2.0 version ships (headless + styled) · 🟡 partial · ⛔ missing · **Phase** = roadmap phase where the 2.0 version (headless + styled, both frameworks) lands.
 
-Status as of 2026-10-20. Every React component now has an Angular 2.0 counterpart; the React column records what `pada/src/components` ships today.
+Status as of 2026-10-20. Every React component has an Angular 2.0 counterpart, and every Angular component has a React one except `ds-tag-group`. The React column records what `pada/src/components` ships today.
 
 ## 1. Existing React components
 
@@ -34,7 +34,7 @@ Status as of 2026-10-20. Every React component now has an Angular 2.0 counterpar
 | PageHeader | ✅ | ✅ | | PageHeader | 3 |
 | Pills | ✅ | ✅ | | Pills | 3 |
 | Popover | ✅ | ✅ | | Popover | 2 |
-| Progress | ✅ | ✅ | `ds-progress-circle` is Angular-only for now | Progress, ProgressCircle | 3 |
+| Progress | ✅ | ✅ | `ds-progress-circle` (React `ProgressCircle`) | Progress, ProgressCircle | 3 |
 | RadioGroup | ✅ | ✅ | | RadioGroup | 3 |
 | SearchField | ✅ | ✅ | | SearchField | 3 |
 | SegmentControl | ✅ | ✅ | | SegmentControl | 3 |
@@ -47,20 +47,23 @@ Status as of 2026-10-20. Every React component now has an Angular 2.0 counterpar
 | Table | ✅ | ✅ | Toolbar and pagination are parts outside `role="table"`; `[(columns)]` | Table | 3 |
 | Tabs | ✅ | ✅ | | Tabs | 3 |
 | Tags | ✅ | ✅ | `ds-tag-group` is Angular-only for now | Tag, TagGroup | 3 |
-| Text | ✅ | ✅ | `h1`–`h6[dsHeading]` is Angular-only for now | Text, Heading | 3 |
+| Text | ✅ | ✅ | `h1`–`h6[dsHeading]` (React `<Heading level>`) | Text, Heading | 3 |
 | Toolbar (+Filter, MoreFilter, FilterChip) | ✅ | ✅ | Adds `role="toolbar"` and roving focus; actions as data with `(action)` | Toolbar | 3 |
 | Tooltip | ✅ | ✅ | | Tooltip | 2 |
 | UploadField | ✅ | ✅ | | UploadField | 3 |
 
-## 2. Angular-only components
+## 2. Components that started in Angular
 
 | Component | Angular | React | 2.0 name | Phase |
 |---|---|---|---|---|
 | Avatar | ✅ | ✅ | Avatar, AvatarGroup | 4 |
 | Badge | ✅ | ✅ | Badge | 4 |
-| InfoTooltip | ✅ | 🟡 (Tooltip + info Icon) | Tooltip recipe | 2 |
-| Attributes / SectionHeader / AttributeRow | ✅ (as DescriptionList) | 🟡 (KeyValue) | DescriptionList | 3 |
-| Heading, ButtonGroup, ProgressCircle, TagGroup, CheckboxGroup | ✅ | ⛔ | (same) | 3 |
+| InfoTooltip | ✅ | ✅ (on Tooltip: portal, flips) | InfoTooltip | 2 |
+| Attributes / SectionHeader / AttributeRow | ✅ (as DescriptionList) | ✅ DescriptionList (`custom` value is a React node) | DescriptionList | 3 |
+| Heading, ButtonGroup, SplitButton, ProgressCircle, CheckboxGroup | ✅ | ✅ | (same) | 3 |
+| TagGroup | ✅ | ⛔ | TagGroup | 3 |
+
+React 2.0 deprecates its 1.x names, removed in 3.0: `Modal` (Dialog), `SideDrawer` (Drawer), `FormLabel` (Field), `Loader` (Spinner), `Notification` (Toaster), `Logo` (BrandLogo), `AccordionHeader` / `AccordionContent` and `Button split` (SplitButton). Angular ships only the 2.0 names. Storybook lists React's under **Legacy**.
 
 ## 3. New in 2.0
 
@@ -71,10 +74,10 @@ Status as of 2026-10-20. Every React component now has an Angular 2.0 counterpar
 | Separator | ✅ | ✅ | 4 | | PinInput | ✅ | ✅ | 5 |
 | VisuallyHidden | ✅ | ✅ (`DsVisuallyHidden`) | 2 | | TagInput / MultiSelect | ✅ | ✅ | 5 |
 | Toggle | ✅ | ✅ | 4 | | RangeSlider | ✅ | ✅ | 5 |
-| ToggleGroup | ✅ | ✅ | 4 | | CheckboxGroup | ⛔ | ✅ | 5 |
+| ToggleGroup | ✅ | ✅ | 4 | | CheckboxGroup | ✅ | ✅ | 5 |
 | DropdownMenu | ✅ | ✅ | 2 | | RadioCard | ✅ | ✅ (`ds-radio-card-group`) | 5 |
 | AlertDialog | ✅ | ✅ | 4 | | Rating | ✅ | ✅ | 5 |
-| Combobox (filterable) | ✅ (Autocomplete) | ✅ (`ds-autocomplete`) | 4 | | TimePicker | ⛔ | ✅ | 5 |
+| Combobox (filterable) | ✅ (Autocomplete) | ✅ (`ds-autocomplete`) | 4 | | TimePicker | ✅ (headless `TimeField`) | ✅ (headless `dsTimeField`) | 5 |
 | CommandPalette | ✅ | ✅ | 4 | | ColorPicker | ✅ | ✅ | 5 |
 | Breadcrumbs | ✅ | ✅ | 4 | | ContextMenu | ✅ | ✅ | 5 |
 | Pagination | ✅ | ✅ | 4 | | HoverCard | ✅ | ✅ | 5 |
@@ -82,8 +85,8 @@ Status as of 2026-10-20. Every React component now has an Angular 2.0 counterpar
 | Alert / Callout | ✅ | ✅ | 4 | | Menubar | ✅ | ✅ | 5 |
 | EmptyState | ✅ | ✅ | 4 | | Tree | ✅ | ✅ | 5 |
 | Kbd | ✅ | ✅ | 4 | | DataTable | ✅ | ✅ | 5 |
-| IconButton | ✅ | ✅ (`tooltip` still uses native `title`) | 4 | | Calendar | ✅ | ✅ (multi-month) | 5 |
-| Link | ✅ | ✅ | 4 | | DateRangePicker | ⛔ | ✅ | 5 |
+| IconButton | ✅ | ✅ (`tooltip` still uses native `title`) | 4 | | Calendar | ✅ (multi-month) | ✅ (multi-month) | 5 |
+| Link | ✅ | ✅ | 4 | | DateRangePicker | ✅ | ✅ | 5 |
 | ThemeProvider / ThemeToggle | ✅ | ✅ | 4 | | Timeline | ✅ | ✅ (no `Timeline.Item` children API) | 5 |
 | PadaLogo | ✅ | ✅ | 7 | | Stat | ✅ | ✅ | 5 |
 | | | | | | ScrollArea, AspectRatio, Grid, Container | ✅ | ✅ | 5 |
@@ -98,7 +101,7 @@ Status as of 2026-10-20. Every React component now has an Angular 2.0 counterpar
 | Headless core | ✅ | ✅ `pada-ds-angular/headless` |
 | Motion tokens | ✅ | ✅ (read from the synced tokens) |
 | Machine-readable manifest / llms.txt | ✅ | ⛔ |
-| Library test target | 🟡 (`node --test`, SSR only) | ✅ `npm run test:lib` (Vitest, jsdom, axe) |
+| Library test target | ✅ `npm test` (Vitest, Testing Library, axe, plus `node --test` scripts) | ✅ `npm run test:lib` (Vitest, jsdom, axe) |
 | Shared component specs (`specs/<component>.md`) | ⛔ | ⛔ |
 | Zoneless showcase app | n/a | ⛔ |
 

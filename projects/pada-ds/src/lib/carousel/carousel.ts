@@ -19,6 +19,33 @@ import { IconComponent } from '../icon/icon';
 const REDUCED_MOTION = '(prefers-reduced-motion: reduce)';
 
 /**
+ * One slide: a `group` named "n of N", shown while it is the current one. Declared before
+ * `CarouselComponent`, whose `contentChildren` query names this class when it is defined (JIT
+ * builds such as Storybook's evaluate it then).
+ */
+@Component({
+  selector: 'ds-carousel-slide',
+  template: '<ng-content />',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  host: {
+    class: 'carousel-slide',
+    role: 'group',
+    'aria-roledescription': 'slide',
+    '[attr.aria-label]': 'name()',
+    '[attr.hidden]': 'current() ? null : ""',
+    '[attr.data-state]': 'current() ? "active" : "inactive"',
+  },
+})
+export class CarouselSlideComponent {
+  private readonly carousel = inject(CarouselComponent);
+  /** Position among the slides, from 0. */
+  readonly position = computed(() => this.carousel.slides().indexOf(this));
+  /** Whether this is the slide on show. */
+  readonly current = computed(() => this.position() === this.carousel.index());
+  protected readonly name = computed(() => `${this.position() + 1} of ${this.carousel.total()}`);
+}
+
+/**
  * A rotating set of slides (WAI-ARIA APG Carousel): a `region` with
  * `aria-roledescription="carousel"`, slides as `group`s named "2 of 5", previous and next
  * buttons, a rotation button and one dot per slide (the current one has `aria-current`).
@@ -115,29 +142,6 @@ export class CarouselComponent {
     const host = event.currentTarget as HTMLElement;
     if (!host.contains(event.relatedTarget as Node | null)) this.focused.set(false);
   }
-}
-
-/** One slide: a `group` named "n of N", shown while it is the current one. */
-@Component({
-  selector: 'ds-carousel-slide',
-  template: '<ng-content />',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  host: {
-    class: 'carousel-slide',
-    role: 'group',
-    'aria-roledescription': 'slide',
-    '[attr.aria-label]': 'name()',
-    '[attr.hidden]': 'current() ? null : ""',
-    '[attr.data-state]': 'current() ? "active" : "inactive"',
-  },
-})
-export class CarouselSlideComponent {
-  private readonly carousel = inject(CarouselComponent);
-  /** Position among the slides, from 0. */
-  readonly position = computed(() => this.carousel.slides().indexOf(this));
-  /** Whether this is the slide on show. */
-  readonly current = computed(() => this.position() === this.carousel.index());
-  protected readonly name = computed(() => `${this.position() + 1} of ${this.carousel.total()}`);
 }
 
 /** Every Carousel part, for `imports`. */

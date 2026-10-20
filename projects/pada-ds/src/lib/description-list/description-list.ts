@@ -243,7 +243,9 @@ export class DescriptionListRowComponent {
  * ```
  *
  * Every button press comes out of `action`, with the section label (and the row key, button
- * label and position for row buttons). An Angular-only component: React has no equivalent.
+ * label and position for row buttons). React's `DescriptionList` takes the same data and calls
+ * `onAction`; there a `custom` value is any React node, here a component or a template, and
+ * avatars there take no `initials`.
  */
 @Component({
   selector: 'ds-description-list',

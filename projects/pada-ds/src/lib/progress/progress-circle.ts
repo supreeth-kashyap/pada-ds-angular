@@ -16,7 +16,7 @@ export type ProgressCircleSize = 'sm' | 'md' | 'lg';
  *
  * `role="progressbar"` named by `label`, with `aria-valuenow` (left out while indeterminate) and
  * `data-state` (`indeterminate`, `loading`, `complete`). The stroke dash transitions on value
- * change. React has no ProgressCircle yet: it is designed from the roadmap entry.
+ * change. Matches React's `ProgressCircle`.
  */
 @Component({
   selector: 'ds-progress-circle',

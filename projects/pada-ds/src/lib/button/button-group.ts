@@ -24,8 +24,7 @@ export type ButtonGroupOrientation = 'horizontal' | 'vertical';
  * ```
  *
  * Every button keeps its own tab stop: a group of actions is not a toolbar. For one tab stop and
- * arrow keys, or pressed states, use `ds-toggle-group`. React has no ButtonGroup yet: it is
- * designed from the roadmap entry (Button: "`ButtonGroup`").
+ * arrow keys, or pressed states, use `ds-toggle-group`. Matches React's `ButtonGroup`.
  */
 @Component({
   selector: 'ds-button-group',

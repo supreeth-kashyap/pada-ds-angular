@@ -81,8 +81,9 @@ const REFERENCE = new Date(2000, 0, 1, 13, 5, 6);
  * </div>
  * ```
  *
- * React has no TimePicker yet; this follows the `docs/roadmap/04-components.md` entry ("time
- * segments, spinbutton") and the segmented-field pattern of WAI-ARIA APG Spinbutton.
+ * Follows the segmented-field pattern of WAI-ARIA APG Spinbutton, like React's headless
+ * `TimeField` (`TimeField.Root`, `TimeField.Segment`), where `children` can be a function of
+ * the layout instead of `#time.layout()`.
  */
 @Directive({
   selector: '[dsTimeField]',

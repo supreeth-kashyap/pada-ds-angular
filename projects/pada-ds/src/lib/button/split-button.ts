@@ -21,9 +21,9 @@ export type SplitButtonVariant = 'primary' | 'secondary';
  * </ds-split-button>
  * ```
  *
- * Differences from React: React's `<Button split onSplitClick>` renders both halves from one
- * button; here they are composed, so any directive (a menu trigger, a tooltip) can go on either
- * half. The `primary` and `secondary` variants are the ones React supports for split buttons.
+ * Matches React's `SplitButton.Root` and `SplitButton.Splitter` (React's 1.x
+ * `<Button split onSplitClick>` is deprecated and now renders them). Both halves are separate
+ * buttons, so any directive (a menu trigger, a tooltip) can go on either one.
  */
 @Component({
   selector: 'ds-split-button',

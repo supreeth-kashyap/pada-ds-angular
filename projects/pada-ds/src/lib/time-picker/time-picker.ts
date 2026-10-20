@@ -38,9 +38,8 @@ import { IconComponent } from '../icon/icon';
  * With a forms control, `error` shows only once the control is invalid and touched; without one,
  * setting `error` marks the field invalid. A value outside `min`/`max` is marked invalid too.
  *
- * React has no TimePicker yet; this follows the `docs/roadmap/04-components.md` entry ("time
- * segments, spinbutton"), styled like `ds-input-text`. There is no dropdown of times: the
- * segments are the whole control.
+ * Styled like `ds-input-text`. There is no dropdown of times: the segments are the whole
+ * control. Matches React's `TimePicker`, where setting `error` always marks the field invalid.
  */
 @Component({
   selector: 'ds-time-picker',

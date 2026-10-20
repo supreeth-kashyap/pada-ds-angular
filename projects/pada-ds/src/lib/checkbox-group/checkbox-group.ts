@@ -41,9 +41,9 @@ export type CheckboxGroupOrientation = 'vertical' | 'horizontal';
  *
  * `role="group"` named by the label and described by `description` and `error`; each choice is
  * a `ds-checkbox`, so Tab moves between them and Space toggles. Select all only changes the
- * enabled choices. React has no CheckboxGroup yet: it is designed from the roadmap entry
- * ("Labelled group with select-all"). The choices come from `options` rather than projected
- * checkboxes, so `ds-checkbox` itself stays unchanged.
+ * enabled choices. The choices come from `options` rather than projected checkboxes, so
+ * `ds-checkbox` itself stays unchanged. Differences from React's `CheckboxGroup`: React has no
+ * touched state, so there the error shows whenever `invalid` is set.
  */
 @Component({
   selector: 'ds-checkbox-group',
