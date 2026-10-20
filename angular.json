@@ -136,7 +136,8 @@
             "compodoc": false,
             "styles": [
               "projects/pada-ds/src/styles/styles.css",
-              "projects/pada-ds/src/styles/base.css"
+              "projects/pada-ds/src/styles/base.css",
+              "projects/pada-ds/.storybook/pada-docs/pada-docs.css"
             ],
             "port": 6006
           }
@@ -150,7 +151,8 @@
             "compodoc": false,
             "styles": [
               "projects/pada-ds/src/styles/styles.css",
-              "projects/pada-ds/src/styles/base.css"
+              "projects/pada-ds/src/styles/base.css",
+              "projects/pada-ds/.storybook/pada-docs/pada-docs.css"
             ],
             "outputDir": "dist/storybook/pada-ds"
           }

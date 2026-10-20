@@ -5,7 +5,7 @@
     "allowSyntheticDefaultImports": true,
     "resolveJsonModule": true
   },
-  "include": ["../src/**/*.ts", "../headless/src/**/*.ts", "../stories/**/*.ts", "./preview.ts"],
+  "include": ["../src/**/*.ts", "../headless/src/**/*.ts", "../stories/**/*.ts", "./preview.ts", "./pada-docs/*.ts"],
   "exclude": ["../**/*.spec.ts"],
   "files": ["./typings.d.ts"]
 }

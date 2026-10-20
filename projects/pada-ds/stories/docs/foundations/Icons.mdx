@@ -1,0 +1,18 @@
+{/* Synced from pada 1.2.0 by scripts/sync-storybook-angular.mjs. Do not edit here. */}
+
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Docs/Foundations/Icons" />
+
+# Icons
+
+Pada's built-in icons take the current text colour, size with `--pada-icon-size-*`, and are
+decorative (`aria-hidden`) unless you give them a `label`. In Angular the set loads as a separate
+chunk on first use; `await loadIconNames()` lists the names.
+
+```html
+<ds-icon name="tick_1" [size]="16" />
+<ds-icon name="alert_1" label="Warning" />
+```
+
+See every icon in the **Display / Icon** stories. Use **IconButton** for icon-only actions.
