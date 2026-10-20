@@ -1,0 +1,17 @@
+:host {
+  /* Component tokens */
+  --pada-separator-color: var(--pada-color-border-subtle);
+  --pada-separator-thickness: var(--pada-border-width-thin);
+
+  display: block;
+  flex-shrink: 0;
+  width: 100%;
+  height: var(--pada-separator-thickness);
+  background-color: var(--pada-separator-color);
+}
+
+:host([data-orientation='vertical']) {
+  width: var(--pada-separator-thickness);
+  height: auto;
+  align-self: stretch;
+}

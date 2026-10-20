@@ -1,0 +1,40 @@
+:host {
+  /* Component tokens */
+  --pada-key-value-label-width: 200px;
+  --pada-key-value-label-fg: var(--pada-color-neutral-900);
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--pada-space-4);
+  width: 100%;
+}
+
+.key-value-label-section {
+  display: flex;
+  flex-direction: row;
+  flex-shrink: 0;
+  align-items: center;
+  gap: var(--pada-space-1-5);
+  min-width: var(--pada-key-value-label-width);
+  max-width: var(--pada-key-value-label-width);
+}
+
+.key-value-label {
+  color: var(--pada-key-value-label-fg);
+  font-size: var(--pada-font-size-md);
+  font-weight: var(--pada-font-weight-medium);
+  line-height: var(--pada-line-height-md);
+}
+
+.key-value-value-section {
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  min-width: 0;
+  text-align: left;
+  overflow-wrap: anywhere;
+}

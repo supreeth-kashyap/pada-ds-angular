@@ -1,0 +1,49 @@
+:host {
+  /* Component tokens, read by the avatars inside (they overlap by this much). */
+  --pada-avatar-group-overlap: -8px;
+  --pada-avatar-group-size: 32px;
+  --pada-avatar-group-font-size: var(--pada-font-size-sm);
+
+  display: inline-flex;
+  align-items: center;
+  padding-inline-start: calc(-1 * var(--pada-avatar-group-overlap));
+}
+
+:host([data-size='xs']) {
+  --pada-avatar-group-overlap: -6px;
+  --pada-avatar-group-size: 20px;
+  --pada-avatar-group-font-size: 8px;
+}
+:host([data-size='sm']) {
+  --pada-avatar-group-overlap: -6px;
+  --pada-avatar-group-size: 24px;
+  --pada-avatar-group-font-size: var(--pada-font-size-xs);
+}
+:host([data-size='lg']) {
+  --pada-avatar-group-size: 40px;
+  --pada-avatar-group-font-size: var(--pada-font-size-md);
+}
+:host([data-size='xl']) {
+  --pada-avatar-group-size: 56px;
+  --pada-avatar-group-font-size: var(--pada-font-size-xl);
+}
+
+/* The "+N" counter, drawn like a neutral avatar. */
+.avatar-group-overflow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: var(--pada-avatar-group-size);
+  height: var(--pada-avatar-group-size);
+  margin-inline-start: var(--pada-avatar-group-overlap);
+  border-radius: var(--pada-radius-full);
+  background-color: var(--pada-color-neutral-subtle);
+  box-shadow: 0 0 0 2px var(--pada-color-surface);
+  color: var(--pada-color-fg-muted);
+  font-family: var(--pada-font-sans);
+  font-size: var(--pada-avatar-group-font-size);
+  font-weight: var(--pada-font-weight-semibold);
+  line-height: 1;
+  user-select: none;
+}

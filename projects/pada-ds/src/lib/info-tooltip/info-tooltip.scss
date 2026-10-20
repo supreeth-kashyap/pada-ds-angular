@@ -1,4 +1,9 @@
 :host {
+  /* Component tokens */
+  --pada-info-tooltip-icon: var(--pada-color-fg-muted);
+  --pada-info-tooltip-bg: var(--pada-color-surface-inverse);
+  --pada-info-tooltip-fg: var(--pada-color-fg-on-inverse);
+
   position: relative;
   display: inline-flex;
   align-items: center;
@@ -9,34 +14,33 @@
   align-items: center;
   padding: 0;
   border: 0;
-  border-radius: 50%;
+  border-radius: var(--pada-radius-full);
   background: none;
-  color: #4d4d4d;
+  color: var(--pada-info-tooltip-icon);
   cursor: help;
 
   &:focus-visible {
-    outline: 2px solid #0066cc;
-    outline-offset: 2px;
+    outline: none;
+    box-shadow: var(--pada-shadow-focus);
   }
 }
 
 .info-tooltip__popup {
   position: absolute;
-  bottom: calc(100% + 6px);
+  bottom: calc(100% + var(--pada-space-1-5));
   left: 50%;
   transform: translateX(-50%);
-  z-index: 1;
+  z-index: var(--pada-z-tooltip);
   width: max-content;
   max-width: 240px;
-  padding: 4px 8px;
-  border-radius: 4px;
-  background-color: #333333;
-
-  font-family: 'Open Sans', sans-serif;
-  font-weight: 400;
-  font-size: 12px;
-  line-height: 16px;
-  color: #ffffff;
+  padding: var(--pada-space-1) var(--pada-space-2);
+  border-radius: var(--pada-radius-sm);
+  background-color: var(--pada-info-tooltip-bg);
+  color: var(--pada-info-tooltip-fg);
+  font-family: var(--pada-font-sans);
+  font-size: var(--pada-font-size-xs);
+  font-weight: var(--pada-font-weight-regular);
+  line-height: var(--pada-line-height-sm);
 
   &[hidden] {
     display: none;
