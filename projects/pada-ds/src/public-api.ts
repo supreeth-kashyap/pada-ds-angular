@@ -18,3 +18,5 @@ export * from './lib/hover-card/hover-card';
 export * from './lib/alert-dialog/alert-dialog';
 export * from './lib/drawer/drawer';
 export * from './lib/sheet/sheet';
+export * from './lib/toast/toast.service';
+export * from './lib/toast/toaster';
