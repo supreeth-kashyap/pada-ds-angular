@@ -1,0 +1,31 @@
+/* Square, as wide as it is tall. Only overrides Button's component tokens. */
+:host {
+  --pada-button-pad-x: 0;
+  --pada-button-splitter-divider: var(--pada-color-accent-solid-pressed);
+
+  width: var(--pada-button-height);
+  border-start-start-radius: 0;
+  border-end-start-radius: 0;
+  border-inline-start-color: var(--pada-button-splitter-divider);
+}
+
+:host([data-variant='secondary']) {
+  --pada-button-splitter-divider: var(--pada-color-border);
+}
+
+:host(:hover:not(:disabled)) {
+  border-inline-start-color: var(--pada-button-border-hover);
+}
+
+:host([data-variant='primary']:hover:not(:disabled)) {
+  border-inline-start-color: var(--pada-button-splitter-divider);
+}
+
+:host(:disabled) {
+  border-inline-start-color: var(--pada-button-border-disabled);
+}
+
+/* Only a trailing label icon nudges on hover; the chevron stays put. */
+:host(:hover:not(:disabled)) > .button-icon {
+  translate: none;
+}

@@ -95,3 +95,5 @@ export * from './lib/input-date/input-date';
 export * from './lib/tree/tree';
 export * from './lib/tree/tree.adapter';
 export * from './lib/text/heading';
+export * from './lib/button/button-group';
+export * from './lib/button/split-button';
