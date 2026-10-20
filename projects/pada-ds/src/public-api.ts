@@ -95,3 +95,5 @@ export * from './lib/input-date/input-date';
 export * from './lib/tree/tree';
 export * from './lib/tree/tree.adapter';
 export * from './lib/table/table';
+export * from './lib/data-table/data-table';
+export * from './lib/data-table/data-table.adapter';
