@@ -10,10 +10,24 @@
   font-family: var(--pada-font-sans);
 }
 
+.progress-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--pada-space-2);
+}
+
 .progress-label {
   color: var(--pada-color-fg);
   font-size: var(--pada-font-size-md);
   font-weight: var(--pada-font-weight-medium);
+}
+
+.progress-value {
+  margin-inline-start: auto;
+  color: var(--pada-color-fg-muted);
+  font-size: var(--pada-font-size-sm);
+  font-variant-numeric: tabular-nums;
 }
 
 .progress-bar {
@@ -26,6 +40,35 @@
 
 .progress-indicator {
   height: 100%;
+  border-radius: inherit;
   background-color: var(--pada-progress-fill);
   transition: width var(--pada-duration-slow) var(--pada-ease-standard);
+}
+
+/* Indeterminate: a third of the track sweeps across it. */
+.progress-indicator[data-state='indeterminate'] {
+  width: 33%;
+  animation: progress-sweep 1.4s var(--pada-ease-standard) infinite;
+}
+
+@keyframes progress-sweep {
+  from {
+    translate: -100% 0;
+  }
+  to {
+    translate: 300% 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .progress-indicator[data-state='indeterminate'] {
+    width: 100%;
+    animation: progress-pulse 2s var(--pada-ease-standard) infinite;
+  }
+}
+
+@keyframes progress-pulse {
+  50% {
+    opacity: 0.4;
+  }
 }
