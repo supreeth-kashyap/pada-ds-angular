@@ -1,0 +1,99 @@
+/* Shared by the item, checkbox item, radio item and submenu trigger. */
+:host {
+  /* Component tokens */
+  --pada-menu-item-fg: var(--pada-color-fg);
+  --pada-menu-item-bg-highlighted: var(--pada-color-neutral-subtle-hover);
+  --pada-menu-item-fg-highlighted: var(--pada-color-fg);
+
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--pada-space-2);
+  min-height: var(--pada-control-height-sm);
+  padding: var(--pada-space-1) var(--pada-space-2);
+  box-sizing: border-box;
+  border-radius: var(--pada-radius-md);
+  color: var(--pada-menu-item-fg);
+  cursor: default;
+  user-select: none;
+  outline: none;
+  transition: background-color var(--pada-duration-instant) var(--pada-ease-standard);
+}
+
+:host([data-tone='danger']) {
+  --pada-menu-item-fg: var(--pada-color-danger-fg);
+  --pada-menu-item-bg-highlighted: var(--pada-color-danger-subtle);
+  --pada-menu-item-fg-highlighted: var(--pada-color-danger-fg);
+}
+
+:host([data-highlighted]),
+:host([data-state='open']) {
+  background-color: var(--pada-menu-item-bg-highlighted);
+  color: var(--pada-menu-item-fg-highlighted);
+}
+
+:host([data-disabled]) {
+  color: var(--pada-color-fg-disabled);
+  pointer-events: none;
+}
+
+/* Child elements */
+.menu-item-icon {
+  flex-shrink: 0;
+  color: var(--pada-color-fg-muted);
+}
+
+.menu-item-label {
+  flex: 1;
+  min-width: 0;
+}
+
+.menu-item-indicator {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: var(--pada-icon-size-md);
+  height: var(--pada-icon-size-md);
+  color: var(--pada-color-accent-fg);
+}
+
+.menu-item-indicator > [hidden] {
+  display: none;
+}
+
+.menu-check {
+  display: inline-flex;
+}
+
+.menu-radio-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: var(--pada-radius-full);
+  background-color: currentColor;
+}
+
+.menu-radio-dot[data-state='checked'] {
+  animation: menu-pop var(--pada-duration-normal) var(--pada-ease-spring);
+}
+
+.menu-item-chevron {
+  flex-shrink: 0;
+  margin-inline-start: auto;
+  color: var(--pada-color-fg-muted);
+}
+
+.menu-shortcut {
+  margin-inline-start: auto;
+  padding-inline-start: var(--pada-space-4);
+  font-family: var(--pada-font-sans);
+  font-size: var(--pada-font-size-xs);
+  letter-spacing: var(--pada-letter-spacing-xl);
+  color: var(--pada-color-fg-subtle);
+}
+
+@keyframes menu-pop {
+  from {
+    scale: 0;
+  }
+}

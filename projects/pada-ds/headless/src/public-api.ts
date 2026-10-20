@@ -53,3 +53,6 @@ export { createTypeahead } from './utils/typeahead';
 export { uniqueId } from './utils/id';
 export { injectButtonType } from './utils/button';
 export { injectControlStatus, type ControlStatus } from './utils/forms';
+export * from './menu/menu.directive';
+export * from './context-menu/context-menu.directive';
+export * from './menubar/menubar.directive';
