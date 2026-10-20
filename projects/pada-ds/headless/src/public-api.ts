@@ -53,3 +53,17 @@ export { createTypeahead } from './utils/typeahead';
 export { uniqueId } from './utils/id';
 export { injectButtonType } from './utils/button';
 export { injectControlStatus, type ControlStatus } from './utils/forms';
+export * from './toggle/toggle.directive';
+export * from './slider/slider.directive';
+export * from './number-input/number-input.directive';
+export {
+  createNumberFormatter,
+  roundToPrecision,
+  type NumberFormatter,
+} from './number-input/number-format';
+export {
+  clamp,
+  injectHiddenInputs,
+  injectFieldContext,
+  type FieldContext,
+} from './utils/form-controls';
