@@ -9,6 +9,8 @@ import { brandMark } from './sample-images';
 const meta: Meta<BrandLogoComponent> = {
   title: 'Display/BrandLogo',
   component: BrandLogoComponent,
+  // `background` is a boolean here, so keep the global /(background|color)$/ colour matcher off it.
+  parameters: { controls: { matchers: { color: /color$/i } } },
   argTypes: {
     size: { control: 'select', options: ['xs', 'sm', 'md', 'lg', 'xl', '2xl'] },
     background: { control: 'boolean' },
