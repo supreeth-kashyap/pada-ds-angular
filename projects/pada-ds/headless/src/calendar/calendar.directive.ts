@@ -9,6 +9,8 @@ import {
   input,
   model,
   numberAttribute,
+  OnDestroy,
+  OnInit,
   signal,
 } from '@angular/core';
 import { injectButtonType } from '../utils/button';
@@ -28,6 +30,9 @@ import {
   startOfWeek,
   type DateRangeValue,
 } from './dates';
+
+const monthsBetween = (from: Date, to: Date) =>
+  (to.getFullYear() - from.getFullYear()) * 12 + to.getMonth() - from.getMonth();
 
 /** `single` picks one day; `range` picks a start and an end day. */
 export type CalendarMode = 'single' | 'range';
@@ -123,6 +128,11 @@ export class DsCalendar {
   readonly readOnly = input(false, { transform: booleanAttribute });
   /** The day marked as today (`aria-current="date"`). Defaults to the current date. */
   readonly today = input<Date | undefined>(undefined);
+  /**
+   * How many consecutive months are shown, starting at `month`. Render one grid (and heading)
+   * per month with `monthOffset` 0 … n-1; keyboard focus moves across them. @default 1
+   */
+  readonly numberOfMonths = input(1, { transform: numberAttribute });
 
   /** Id of the heading, which labels the grid. */
   readonly headingId = uniqueId('ds-calendar-heading-');
@@ -140,14 +150,20 @@ export class DsCalendar {
   /** First day of the month shown. */
   readonly visibleMonth = computed(() => startOfMonth(this.month() ?? this.initial()));
 
-  /** The day in the tab order, always inside the visible month. */
+  private readonly monthCount = computed(() => Math.max(1, Math.floor(this.numberOfMonths())));
+  /** First day of the last month shown (the visible month unless `numberOfMonths` > 1). */
+  readonly lastVisibleMonth = computed(() => this.monthAt(this.monthCount() - 1));
+
+  /** The day in the tab order, always inside the visible months. */
   readonly focused = computed(() => {
-    const month = this.visibleMonth();
+    const first = this.visibleMonth();
+    const last = this.lastVisibleMonth();
     const focused = this.focusedState() ?? this.initial();
-    if (isSameMonth(focused, month)) return focused;
-    const months =
-      (month.getFullYear() - focused.getFullYear()) * 12 + month.getMonth() - focused.getMonth();
-    return clampDay(addMonths(focused, months), this.min(), this.max());
+    const month = startOfMonth(focused);
+    // Outside the shown months it moves to the same day of the nearest shown month.
+    const target = month < first ? first : month > last ? last : null;
+    if (!target) return focused;
+    return clampDay(addMonths(focused, monthsBetween(month, target)), this.min(), this.max());
   });
 
   /** Day under the pointer (or keyboard focus) while a range is half chosen, for the preview. */
@@ -162,6 +178,35 @@ export class DsCalendar {
 
   /** Six weeks of seven days covering the visible month. */
   readonly weeks = computed(() => getMonthGrid(this.visibleMonth(), this.weekStartsOn()));
+
+  /** First day of the month `offset` months after the visible one. */
+  monthAt(offset: number): Date {
+    return offset ? addMonths(this.visibleMonth(), offset) : this.visibleMonth();
+  }
+
+  /** The weeks of the month `offset` months after the visible one. */
+  weeksAt(offset: number): Date[][] {
+    return offset ? getMonthGrid(this.monthAt(offset), this.weekStartsOn()) : this.weeks();
+  }
+
+  /** The label of the month `offset` months after the visible one ("April 2026"). */
+  monthLabelAt(offset: number): string {
+    if (!offset) return this.monthLabel();
+    return new Intl.DateTimeFormat(this.locale(), { month: 'long', year: 'numeric' }).format(
+      this.monthAt(offset),
+    );
+  }
+
+  /** Id of the heading of the month at `offset`, which labels that month's grid. */
+  headingIdAt(offset: number): string {
+    return offset ? `${this.headingId}-${offset}` : this.headingId;
+  }
+
+  /** Offset of the last month shown. */
+  readonly lastVisibleMonthOffset = computed(() => this.monthCount() - 1);
+
+  /** The grids, registered by `dsCalendarGrid`, so keyboard focus can move between them. */
+  readonly grids = signal<readonly HTMLElement[]>([]);
 
   /** Weekday names in column order. */
   readonly weekdays = computed<CalendarWeekday[]>(() => {
@@ -206,7 +251,11 @@ export class DsCalendar {
   setFocused(date: Date) {
     const next = clampDay(date, this.min(), this.max());
     this.focusedState.set(next);
-    this.setMonth(next);
+    // With several months shown, the view only scrolls when the day is outside all of them.
+    const month = startOfMonth(next);
+    if (month < this.visibleMonth()) this.setMonth(month);
+    else if (month > this.lastVisibleMonth())
+      this.setMonth(addMonths(month, 1 - this.monthCount()));
   }
 
   /** Selects a day: the value in single mode, the next end of the range in range mode. */
@@ -231,10 +280,11 @@ export class DsCalendar {
     return this.mode() === 'range' && !!range?.[0] && !range[1];
   });
 
-  /** Everything a day needs to render. */
-  dayState(date: Date): CalendarDayState {
+  /** Everything a day needs to render, in the grid of the month at `monthOffset`. */
+  dayState(date: Date, monthOffset = 0): CalendarDayState {
     const mode = this.mode();
     const [rangeStart, rangeEnd] = this.range() ?? [];
+    const outsideMonth = !isSameMonth(date, this.monthAt(monthOffset));
     const state: CalendarDayState = {
       date,
       selected:
@@ -242,9 +292,10 @@ export class DsCalendar {
           ? isSameDay(date, this.value())
           : isSameDay(date, rangeStart) || isSameDay(date, rangeEnd),
       today: isSameDay(date, this.todayDate()),
-      outsideMonth: !isSameMonth(date, this.visibleMonth()),
+      outsideMonth,
       unavailable: this.isUnavailable(date),
-      focused: isSameDay(date, this.focused()),
+      // With several months, a day shown muted in a neighbour's grid never takes the tab stop.
+      focused: isSameDay(date, this.focused()) && !(outsideMonth && this.monthCount() > 1),
       rangeStart: false,
       rangeEnd: false,
       inRange: false,
@@ -270,10 +321,12 @@ export class DsCalendar {
  */
 @Directive({
   selector: '[dsCalendarHeading]',
-  host: { '[id]': 'calendar.headingId', 'aria-live': 'polite' },
+  host: { '[id]': 'calendar.headingIdAt(monthOffset())', 'aria-live': 'polite' },
 })
 export class DsCalendarHeading {
   protected readonly calendar = inject(DsCalendar);
+  /** Which shown month this heads, with `numberOfMonths` > 1: 0 is the first. @default 0 */
+  readonly monthOffset = input(0, { transform: numberAttribute });
 }
 
 abstract class CalendarNavButton {
@@ -293,7 +346,8 @@ abstract class CalendarNavButton {
       return (
         !!min && compareDays(new Date(target.getFullYear(), target.getMonth() + 1, 0), min) < 0
       );
-    return !!max && compareDays(target, max) > 0;
+    // The month that would come into view last.
+    return !!max && compareDays(addMonths(target, this.calendar.lastVisibleMonthOffset()), max) > 0;
   });
   protected readonly flag = dataFlag;
 
@@ -339,7 +393,7 @@ export class DsCalendarNextButton extends CalendarNavButton {
   exportAs: 'dsCalendarGrid',
   host: {
     role: 'grid',
-    '[attr.aria-labelledby]': 'calendar.headingId',
+    '[attr.aria-labelledby]': 'calendar.headingIdAt(monthOffset())',
     '[attr.aria-readonly]': 'calendar.readOnly() || null',
     '[attr.aria-disabled]': 'calendar.disabled() || null',
     '[attr.aria-multiselectable]': 'calendar.mode() === "range" || null',
@@ -347,12 +401,24 @@ export class DsCalendarNextButton extends CalendarNavButton {
     '(pointerleave)': 'calendar.preview.set(null)',
   },
 })
-export class DsCalendarGrid {
+export class DsCalendarGrid implements OnInit, OnDestroy {
   protected readonly calendar = inject(DsCalendar);
   private readonly element = inject<ElementRef<HTMLElement>>(ElementRef).nativeElement;
   private readonly injector = inject(Injector);
   /** Leave days of the previous and next months empty instead of showing them muted. */
   readonly hideOutsideDays = input(false, { transform: booleanAttribute });
+  /**
+   * Which shown month this grid renders, with `numberOfMonths` > 1: 0 is the first. Render its
+   * weeks from the calendar's `weeksAt(monthOffset)`. @default 0
+   */
+  readonly monthOffset = input(0, { transform: numberAttribute });
+
+  ngOnInit() {
+    this.calendar.grids.update((grids) => [...grids, this.element]);
+  }
+  ngOnDestroy() {
+    this.calendar.grids.update((grids) => grids.filter((grid) => grid !== this.element));
+  }
 
   protected onKeyDown(event: KeyboardEvent) {
     if (event.defaultPrevented) return;
@@ -382,9 +448,15 @@ export class DsCalendarGrid {
     calendar.setFocused(next);
     if (calendar.picking()) calendar.preview.set(next);
     // The newly focused day takes DOM focus once it is rendered (possibly in another month).
+    // With several months shown, it may be in another grid.
     afterNextRender(
-      () =>
-        this.element.querySelector<HTMLElement>('[data-focused]')?.focus({ preventScroll: true }),
+      () => {
+        const grids = this.calendar.grids();
+        for (const grid of grids.length ? grids : [this.element]) {
+          const day = grid.querySelector<HTMLElement>('[data-focused]');
+          if (day) return day.focus({ preventScroll: true });
+        }
+      },
       { injector: this.injector },
     );
   }
@@ -405,7 +477,7 @@ export class DsCalendarCell {
   readonly date = input.required<Date>({ alias: 'dsCalendarCell' });
 
   protected readonly selected = computed(() => {
-    const state = this.calendar.dayState(this.date());
+    const state = this.calendar.dayState(this.date(), this.grid?.monthOffset() ?? 0);
     if (state.outsideMonth && this.grid?.hideOutsideDays()) return null;
     const complete = !!this.calendar.range()?.[1];
     return state.selected || (this.calendar.mode() === 'range' && state.inRange && complete);
@@ -442,10 +514,13 @@ export class DsCalendarCell {
 })
 export class DsCalendarDay {
   protected readonly calendar = inject(DsCalendar);
+  private readonly grid = inject(DsCalendarGrid, { optional: true });
   /** The day. */
   readonly date = input.required<Date>({ alias: 'dsCalendarDay' });
   /** The day's state, for rendering. */
-  readonly state = computed(() => this.calendar.dayState(this.date()));
+  readonly state = computed(() =>
+    this.calendar.dayState(this.date(), this.grid?.monthOffset() ?? 0),
+  );
   protected readonly label = computed(() => this.calendar.dayLabel(this.date()));
   protected readonly flag = dataFlag;
 

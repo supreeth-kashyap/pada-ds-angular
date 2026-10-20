@@ -1,4 +1,9 @@
-<table dsCalendarGrid class="calendar-grid" [hideOutsideDays]="hideOutsideDays()">
+<table
+  dsCalendarGrid
+  class="calendar-grid"
+  [hideOutsideDays]="hideOutsideDays()"
+  [monthOffset]="monthOffset()"
+>
   <thead>
     <tr>
       @for (weekday of calendar.weekdays(); track weekday.long) {
