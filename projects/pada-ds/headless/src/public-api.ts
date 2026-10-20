@@ -84,3 +84,4 @@ export * from './combobox/combobox.directive';
 export * from './calendar/calendar.directive';
 export type { DateRangeValue } from './calendar/dates';
 export * from './tree/tree.directive';
+export * from './time-field/time-field.directive';

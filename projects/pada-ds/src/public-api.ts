@@ -95,3 +95,4 @@ export * from './lib/input-date/input-date';
 export * from './lib/tree/tree';
 export * from './lib/tree/tree.adapter';
 export * from './lib/date-range-picker/date-range-picker';
+export * from './lib/time-picker/time-picker';
