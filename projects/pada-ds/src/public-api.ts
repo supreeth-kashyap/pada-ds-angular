@@ -97,3 +97,5 @@ export * from './lib/tree/tree.adapter';
 export * from './lib/table/table';
 export * from './lib/data-table/data-table';
 export * from './lib/data-table/data-table.adapter';
+export * from './lib/timeline/timeline';
+export * from './lib/timeline/timeline.adapter';
