@@ -1,0 +1,33 @@
+:host {
+  /* Component tokens */
+  --pada-table-bg: var(--pada-color-surface);
+  --pada-table-border: var(--pada-color-neutral-200);
+  --pada-table-divider: var(--pada-color-neutral-100);
+  --pada-table-radius: var(--pada-radius-lg);
+  --pada-table-header-bg: var(--pada-color-neutral-50);
+  --pada-table-header-fg: var(--pada-color-neutral-900);
+  --pada-table-cell-fg: var(--pada-color-neutral-800);
+  --pada-table-cell-height: 60px;
+  --pada-table-row-hover-bg: var(--pada-color-neutral-50);
+  --pada-table-row-selected-bg: var(--pada-color-accent-50);
+  --pada-table-row-selected-hover-bg: var(--pada-color-accent-100);
+  --pada-table-row-selected-divider: var(--pada-color-accent-100);
+
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  width: 100%;
+  overflow: hidden;
+  border: var(--pada-border-width-thin) solid var(--pada-table-border);
+  border-radius: var(--pada-table-radius);
+  background-color: var(--pada-table-bg);
+  font-family: var(--pada-font-sans);
+}
+
+/* Child elements */
+.table-content,
+.table-grid {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}

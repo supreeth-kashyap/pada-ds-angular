@@ -1,0 +1,24 @@
+:host {
+  /* State variables, read by the cells */
+  --pada-table-cell-bg: var(--pada-table-bg);
+  --pada-table-cell-divider: var(--pada-table-divider);
+
+  display: grid;
+  /* Without columns on the table, cells share the row equally. */
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(0, 1fr);
+  width: 100%;
+}
+
+:host(:hover:not([data-selected])) {
+  --pada-table-cell-bg: var(--pada-table-row-hover-bg);
+}
+
+:host([data-selected]) {
+  --pada-table-cell-bg: var(--pada-table-row-selected-bg);
+  --pada-table-cell-divider: var(--pada-table-row-selected-divider);
+}
+
+:host([data-selected]:hover) {
+  --pada-table-cell-bg: var(--pada-table-row-selected-hover-bg);
+}

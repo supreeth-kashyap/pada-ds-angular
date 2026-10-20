@@ -1,0 +1,105 @@
+:host {
+  /* State variables */
+  --pada-table-sort-icon-opacity: 0;
+  --pada-table-sort-icon-hover-opacity: 0;
+  --pada-table-sort-icon-rotate: 0deg;
+
+  position: relative;
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  min-width: 0;
+  min-height: 44px;
+  padding: var(--pada-space-2) var(--pada-space-3);
+  border-right: var(--pada-border-width-thin) solid var(--pada-table-border);
+  border-bottom: var(--pada-border-width-thin) solid var(--pada-table-border);
+  background-color: var(--pada-table-header-bg);
+  color: var(--pada-table-header-fg);
+  font-size: var(--pada-font-size-sm);
+  font-weight: var(--pada-font-weight-semibold);
+  user-select: none;
+}
+
+:host(:last-child) {
+  border-right: none;
+}
+
+:host([data-sort='ascending']) {
+  --pada-table-sort-icon-opacity: 1;
+  --pada-table-sort-icon-rotate: 180deg;
+}
+
+:host([data-sort='descending']) {
+  --pada-table-sort-icon-opacity: 1;
+}
+
+/* Child elements */
+.table-header-cell-label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.table-header-cell-sort {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--pada-space-1);
+  min-width: 0;
+  margin: calc(var(--pada-space-1) * -1);
+  padding: var(--pada-space-1);
+  border: none;
+  border-radius: var(--pada-radius-sm);
+  background: none;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+
+.table-header-cell-sort:hover {
+  --pada-table-sort-icon-hover-opacity: 0.5;
+}
+
+.table-header-cell-sort:focus-visible {
+  outline: none;
+  box-shadow: var(--pada-shadow-focus);
+}
+
+.table-header-cell-sort-icon {
+  flex-shrink: 0;
+  opacity: max(var(--pada-table-sort-icon-opacity), var(--pada-table-sort-icon-hover-opacity));
+  rotate: var(--pada-table-sort-icon-rotate);
+  transition:
+    opacity var(--pada-duration-fast) var(--pada-ease-standard),
+    rotate var(--pada-duration-normal) var(--pada-ease-emphasized);
+}
+
+/* The resize handle shows a line on hover and keyboard focus. */
+.table-header-cell-resizer {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 6px;
+  height: 100%;
+  cursor: col-resize;
+}
+
+.table-header-cell-resizer::after {
+  content: '';
+  position: absolute;
+  inset-block: var(--pada-space-2);
+  right: 2px;
+  width: 2px;
+  border-radius: var(--pada-radius-full);
+  background-color: var(--pada-color-accent-solid);
+  opacity: 0;
+  transition: opacity var(--pada-duration-fast) var(--pada-ease-standard);
+}
+
+.table-header-cell-resizer:hover::after,
+.table-header-cell-resizer:focus-visible::after {
+  opacity: 1;
+}
+
+.table-header-cell-resizer:focus-visible {
+  outline: none;
+}

@@ -1,0 +1,27 @@
+:host {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--pada-space-3);
+  box-sizing: border-box;
+  width: 100%;
+  padding: var(--pada-space-1) var(--pada-space-3);
+}
+
+/* Child elements */
+.table-pagination-start,
+.table-pagination-end {
+  display: flex;
+  align-items: center;
+  gap: var(--pada-space-3);
+}
+
+.table-pagination-label,
+.table-pagination-range {
+  color: var(--pada-color-neutral-600);
+  font-size: var(--pada-font-size-md);
+  font-weight: var(--pada-font-weight-regular);
+  line-height: var(--pada-line-height-md);
+  font-variant-numeric: tabular-nums;
+}
