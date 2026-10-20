@@ -99,3 +99,7 @@ export * from './lib/data-table/data-table';
 export * from './lib/data-table/data-table.adapter';
 export * from './lib/timeline/timeline';
 export * from './lib/timeline/timeline.adapter';
+export * from './lib/toolbar/toolbar';
+export * from './lib/toolbar/filter';
+export * from './lib/toolbar/more-filter';
+export * from './lib/toolbar/filter-chip';

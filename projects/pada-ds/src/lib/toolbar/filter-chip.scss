@@ -1,0 +1,117 @@
+:host {
+  /* Component tokens */
+  --pada-filter-chip-height: 24px;
+  --pada-filter-chip-bg: var(--pada-color-surface);
+  --pada-filter-chip-bg-hover: var(--pada-color-neutral-50);
+  --pada-filter-chip-bg-active: var(--pada-color-neutral-100);
+  --pada-filter-chip-border: var(--pada-color-neutral-200);
+  --pada-filter-chip-border-style: solid;
+  --pada-filter-chip-fg: var(--pada-color-neutral-800);
+  --pada-filter-chip-value-fg: var(--pada-color-amber-700);
+  --pada-filter-chip-icon: var(--pada-color-neutral-600);
+
+  display: inline-flex;
+  align-items: center;
+  gap: var(--pada-space-2);
+  box-sizing: border-box;
+  height: var(--pada-filter-chip-height);
+  padding: var(--pada-space-0-5) var(--pada-space-2);
+  border: var(--pada-border-width-thin) var(--pada-filter-chip-border-style)
+    var(--pada-filter-chip-border);
+  border-radius: var(--pada-radius-md);
+  background-color: var(--pada-filter-chip-bg);
+  color: var(--pada-filter-chip-fg);
+  font-family: var(--pada-font-sans);
+  font-size: var(--pada-font-size-sm);
+  line-height: var(--pada-line-height-md);
+  white-space: nowrap;
+}
+
+/* Variant variables */
+:host([data-variant='prompt']) {
+  --pada-filter-chip-border-style: dashed;
+  --pada-filter-chip-border: var(--pada-color-neutral-400);
+}
+
+:host([data-variant='prompt']:hover:not([data-disabled])) {
+  --pada-filter-chip-border: var(--pada-color-neutral-500);
+}
+
+:host([data-variant='button']) {
+  --pada-filter-chip-border: var(--pada-color-amber-500);
+  --pada-filter-chip-bg-hover: var(--pada-color-amber-50);
+  --pada-filter-chip-bg-active: var(--pada-color-amber-100);
+}
+
+:host(:hover:not([data-disabled])) {
+  --pada-filter-chip-bg: var(--pada-filter-chip-bg-hover);
+}
+
+:host(:active:not([data-disabled])) {
+  --pada-filter-chip-bg: var(--pada-filter-chip-bg-active);
+}
+
+:host([data-disabled]) {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Child elements: two buttons, each with its own focus ring. */
+.filter-chip-remove-button,
+.filter-chip-content {
+  display: inline-flex;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  border: none;
+  border-radius: var(--pada-radius-sm);
+  background: none;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+
+.filter-chip-remove-button:disabled,
+.filter-chip-content:disabled {
+  cursor: not-allowed;
+}
+
+.filter-chip-remove-button:focus-visible,
+.filter-chip-content:focus-visible {
+  outline: none;
+  box-shadow: var(--pada-shadow-focus);
+}
+
+.filter-chip-remove {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--pada-space-1);
+}
+
+.filter-chip-remove-button {
+  justify-content: center;
+  color: var(--pada-filter-chip-icon);
+}
+
+.filter-chip-divider {
+  height: 14px;
+  border-inline-end: var(--pada-border-width-thin) solid var(--pada-color-neutral-300);
+}
+
+.filter-chip-content {
+  gap: var(--pada-space-1);
+}
+
+.filter-chip-colon {
+  font-weight: var(--pada-font-weight-regular);
+}
+
+.filter-chip-value,
+.filter-chip-button-label {
+  color: var(--pada-filter-chip-value-fg);
+  font-weight: var(--pada-font-weight-semibold);
+}
+
+.filter-chip-chevron {
+  color: var(--pada-color-blue-600);
+}

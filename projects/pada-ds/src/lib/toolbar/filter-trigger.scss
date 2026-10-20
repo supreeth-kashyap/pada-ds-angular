@@ -1,0 +1,139 @@
+/* The chip that opens a filter popover; shared by ds-filter and ds-more-filter. */
+:host {
+  /* Component tokens */
+  --pada-filter-trigger-height: var(--pada-control-height-md);
+  --pada-filter-trigger-bg: var(--pada-color-surface);
+  --pada-filter-trigger-border: var(--pada-color-neutral-200);
+  --pada-filter-trigger-border-hover: var(--pada-color-neutral-400);
+  --pada-filter-trigger-fg: var(--pada-color-neutral-900);
+  --pada-filter-trigger-active-border: var(--pada-color-accent-600);
+  --pada-filter-trigger-active-fg: var(--pada-color-accent-700);
+  --pada-filter-popover-bg: var(--pada-color-surface);
+  --pada-filter-popover-radius: var(--pada-radius-xl);
+  --pada-filter-popover-shadow: var(--pada-shadow-lg);
+  --pada-filter-footer-border: var(--pada-color-neutral-100);
+
+  position: relative;
+  display: inline-flex;
+  font-family: var(--pada-font-sans);
+}
+
+.filter-trigger {
+  /* State variables */
+  --pada-filter-trigger-current-border: var(--pada-filter-trigger-border);
+  --pada-filter-trigger-current-fg: var(--pada-filter-trigger-fg);
+  --pada-filter-trigger-chevron: var(--pada-color-neutral-600);
+
+  display: inline-flex;
+  align-items: center;
+  gap: var(--pada-space-2);
+  box-sizing: border-box;
+  height: var(--pada-filter-trigger-height);
+  padding: var(--pada-space-1-5) var(--pada-space-4);
+  border: var(--pada-border-width-thin) solid var(--pada-filter-trigger-current-border);
+  border-radius: var(--pada-radius-lg);
+  background-color: var(--pada-filter-trigger-bg);
+  color: var(--pada-filter-trigger-current-fg);
+  font: inherit;
+  font-size: var(--pada-font-size-md);
+  font-weight: var(--pada-font-weight-medium);
+  line-height: var(--pada-line-height-md);
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    border-color var(--pada-duration-fast) var(--pada-ease-standard),
+    background-color var(--pada-duration-fast) var(--pada-ease-standard);
+}
+
+.filter-trigger:hover:not(:disabled),
+.filter-trigger[data-open] {
+  --pada-filter-trigger-current-border: var(--pada-filter-trigger-border-hover);
+}
+
+/* Active: at least one committed selection. */
+.filter-trigger[data-active] {
+  --pada-filter-trigger-current-border: var(--pada-filter-trigger-active-border);
+  --pada-filter-trigger-current-fg: var(--pada-filter-trigger-active-fg);
+  --pada-filter-trigger-chevron: var(--pada-filter-trigger-active-fg);
+}
+
+.filter-trigger:focus-visible {
+  outline: none;
+  box-shadow: var(--pada-shadow-focus);
+}
+
+.filter-trigger:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.filter-trigger-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 18px;
+  height: 18px;
+  box-sizing: border-box;
+  padding: 0 var(--pada-space-1-5);
+  border-radius: var(--pada-radius-full);
+  background-color: var(--pada-color-accent-solid);
+  color: var(--pada-color-accent-on-solid);
+  font-size: var(--pada-font-size-sm);
+  font-weight: var(--pada-font-weight-semibold);
+  line-height: 1;
+}
+
+/* A short dash in place of the count while nothing is selected. */
+.filter-trigger-dash {
+  width: 8px;
+  height: var(--pada-border-width-thick, 2px);
+  border-radius: var(--pada-radius-full);
+  background-color: var(--pada-color-neutral-500);
+}
+
+.filter-trigger-chevron {
+  color: var(--pada-filter-trigger-chevron);
+}
+
+/* The popover: in the top layer, positioned under the chip, animated from it. */
+.filter-popover {
+  z-index: var(--pada-z-popover);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border-radius: var(--pada-filter-popover-radius);
+  background-color: var(--pada-filter-popover-bg);
+  box-shadow: var(--pada-filter-popover-shadow);
+  transform-origin: var(--pada-floating-transform-origin);
+  transition:
+    opacity var(--pada-duration-normal) var(--pada-ease-enter),
+    scale var(--pada-duration-normal) var(--pada-ease-enter);
+}
+
+.filter-popover[data-state='closed'] {
+  opacity: 0;
+  scale: var(--pada-motion-scale-enter);
+  transition-duration: var(--pada-duration-fast);
+  transition-timing-function: var(--pada-ease-exit);
+}
+
+@starting-style {
+  .filter-popover[data-state='open'] {
+    opacity: 0;
+    scale: var(--pada-motion-scale-enter);
+  }
+}
+
+.filter-popover:focus-visible {
+  outline: none;
+}
+
+.filter-footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--pada-space-2);
+  padding: var(--pada-space-2) var(--pada-space-3);
+  border-top: var(--pada-border-width-thin) solid var(--pada-filter-footer-border);
+  background-color: var(--pada-filter-popover-bg);
+}
