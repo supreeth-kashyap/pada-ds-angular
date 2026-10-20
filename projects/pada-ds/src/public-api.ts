@@ -19,3 +19,5 @@ export * from './lib/radio-group/radio-group';
 export * from './lib/toggle/toggle';
 export * from './lib/toggle-group/toggle-group';
 export * from './lib/segment-control/segment-control';
+export * from './lib/slider/slider';
+export * from './lib/range-slider/range-slider';

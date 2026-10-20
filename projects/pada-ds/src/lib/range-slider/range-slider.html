@@ -1,0 +1,48 @@
+<div
+  class="range-slider"
+  [attr.data-invalid]="flag(invalid())"
+  [attr.data-disabled]="flag(isDisabled())"
+>
+  <div class="range-slider-header">
+    <span class="range-slider-label" [id]="id + '-label'">{{ label() }}</span>
+    @if (showValue()) {
+      <span class="range-slider-value" aria-hidden="true">{{ texts()[0] }} – {{ texts()[1] }}</span>
+    }
+  </div>
+  <span
+    dsSlider
+    class="range-slider-root"
+    role="group"
+    [attr.aria-labelledby]="id + '-label'"
+    [value]="current()"
+    [min]="min()"
+    [max]="max()"
+    [step]="step()"
+    [minStepsBetweenThumbs]="minStepsBetweenThumbs()"
+    [disabled]="isDisabled()"
+    [name]="name()"
+    (valueChange)="handleChange($event)"
+    (valueCommit)="handleCommit($event)"
+  >
+    <span dsSliderTrack class="range-slider-track"
+      ><span dsSliderRange class="range-slider-range"></span
+    ></span>
+    @for (thumbLabel of labels(); track $index) {
+      <span
+        dsSliderThumb
+        class="range-slider-thumb"
+        [index]="$index"
+        [attr.aria-label]="thumbLabel"
+        [attr.aria-valuetext]="texts()[$index]"
+        [attr.aria-describedby]="describedBy()"
+        [attr.aria-invalid]="invalid() ? 'true' : null"
+        (blur)="onTouched()"
+      ></span>
+    }
+  </span>
+  @if (showError()) {
+    <p class="range-slider-error" role="alert" [id]="id + '-error'">{{ error() }}</p>
+  } @else if (description(); as description) {
+    <p class="range-slider-description" [id]="id + '-description'">{{ description }}</p>
+  }
+</div>
