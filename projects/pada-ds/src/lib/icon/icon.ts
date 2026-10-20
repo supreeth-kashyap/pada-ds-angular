@@ -28,6 +28,15 @@ export type IconVariant = 'stroke' | 'fill';
  * fetched from a CDN. If the name resolves in neither place, nothing renders.
  *
  * Decorative by default (`aria-hidden`); pass `label` when the icon carries meaning on its own.
+ *
+ * ```html
+ * <ds-icon name="tick_1" [size]="16" color="var(--pada-color-success-fg)" />
+ * <ds-icon name="alert_1" label="Warning" />
+ * ```
+ *
+ * Differences from React: the built-in set (the same 154 SVGs) loads as a separate chunk, so
+ * the list of names is `await loadIconNames()` instead of a synchronous `iconNames` array, and
+ * `getBuiltInIcon()` is async too.
  */
 @Component({
   selector: 'ds-icon',
@@ -42,6 +51,7 @@ export type IconVariant = 'stroke' | 'fill';
     '[attr.aria-label]': 'label() || null',
     '[attr.aria-hidden]': 'label() ? null : "true"',
     '[attr.data-variant]': 'variant()',
+    '[style.color]': 'color() ?? null',
   },
 })
 export class IconComponent {
@@ -56,6 +66,8 @@ export class IconComponent {
   readonly size = input<number | string>(20);
   /** Material Symbols style: outlined (`stroke`) or filled (`fill`). Built-in icons have one style. */
   readonly variant = input<IconVariant>('stroke');
+  /** Colour override: any CSS colour, ideally a token. Inherits the text colour when unset. */
+  readonly color = input<string>();
   /** Accessible name. Without it the icon is hidden from assistive technology. */
   readonly label = input<string>();
 

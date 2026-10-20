@@ -1,0 +1,15 @@
+:host {
+  /* Component tokens */
+  --pada-tag-group-gap: var(--pada-space-1-5);
+
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--pada-tag-group-gap);
+}
+
+:host(:focus-visible) {
+  outline: none;
+  box-shadow: var(--pada-shadow-focus);
+  border-radius: var(--pada-radius-md);
+}

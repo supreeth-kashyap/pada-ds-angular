@@ -86,3 +86,4 @@ export type { DateRangeValue } from './calendar/dates';
 export * from './tree/tree.directive';
 export * from './list/list.directive';
 export * from './time-field/time-field.directive';
+export * from './tag-group/tag-group.directive';
