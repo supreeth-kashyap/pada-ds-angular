@@ -181,6 +181,20 @@ describe('DsDropdownMenu', () => {
     expect(trigger).toHaveFocus();
   });
 
+  it('two quick Escapes close the submenu and then the menu', async () => {
+    const { trigger, press, fixture } = await setup();
+    trigger.focus();
+    await press('{ArrowUp}{ArrowRight}');
+    const target = screen.getByRole('menuitem', { name: 'Archive' });
+    // Both before change detection runs, as with a fast double press (Testing Library's
+    // fireEvent would run change detection in between).
+    const escape = () => new KeyboardEvent('keydown', { key: 'Escape', bubbles: true });
+    target.dispatchEvent(escape());
+    target.dispatchEvent(escape());
+    await settle(fixture);
+    expect(screen.queryByRole('menu')).toBeNull();
+  });
+
   it('Tab closes the menu', async () => {
     const { trigger, press } = await setup();
     trigger.focus();

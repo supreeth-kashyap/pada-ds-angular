@@ -301,7 +301,12 @@ export class DsDropdownMenuContent {
       anchor: () => null,
       dismiss: () => ({
         onDismiss: () => menu.setOpen(false),
-        onEscapeKeyDown: (event) => this.escapeKeyDown.emit(event),
+        onEscapeKeyDown: (event) => {
+          this.escapeKeyDown.emit(event);
+          // A closed submenu stays the top layer until change detection removes its listener;
+          // an Escape in that gap (pressed twice quickly) is meant for the parent.
+          if (!event.defaultPrevented && !menu.open() && menu.parent) menu.parent.setOpen(false);
+        },
         onPointerDownOutside: (event) => this.pointerDownOutside.emit(event),
         onFocusOutside: (event) => this.focusOutside.emit(event),
         dismissOnFocusOutside: true,
