@@ -65,3 +65,18 @@ export * from './menubar/menubar.directive';
 export * from './collapsible/collapsible.directive';
 export * from './accordion/accordion.directive';
 export * from './tabs/tabs.directive';
+export * from './toggle/toggle.directive';
+export * from './slider/slider.directive';
+export * from './number-input/number-input.directive';
+export {
+  createNumberFormatter,
+  roundToPrecision,
+  type NumberFormatter,
+} from './number-input/number-format';
+export {
+  clamp,
+  injectHiddenInputs,
+  injectFieldContext,
+  type FieldContext,
+} from './utils/form-controls';
+export * from './pin-input/pin-input.directive';

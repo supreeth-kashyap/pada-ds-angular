@@ -1,0 +1,150 @@
+/* A 12px track and a 24×16 rounded-rectangle thumb with a 2px surface-coloured notch border. */
+:host {
+  display: block;
+  font-family: var(--pada-font-sans);
+}
+
+.slider {
+  /* Component tokens */
+  --pada-slider-track-height: var(--pada-space-3);
+  --pada-slider-track-bg: var(--pada-color-neutral-300);
+  --pada-slider-fill-bg: var(--pada-color-accent-500);
+  --pada-slider-thumb-width: var(--pada-space-6);
+  --pada-slider-thumb-height: var(--pada-space-4);
+  --pada-slider-thumb-bg: var(--pada-color-accent-600);
+  --pada-slider-thumb-bg-hover: var(--pada-color-accent-700);
+  --pada-slider-thumb-bg-active: var(--pada-color-accent-700);
+  --pada-slider-thumb-border: var(--pada-color-surface);
+
+  display: flex;
+  flex-direction: column;
+  gap: var(--pada-space-1);
+  width: 100%;
+}
+
+/* Variant variables */
+.slider[data-invalid] {
+  --pada-slider-track-bg: var(--pada-color-danger-100);
+  --pada-slider-fill-bg: var(--pada-color-danger-500);
+  --pada-slider-thumb-bg: var(--pada-color-danger-500);
+  --pada-slider-thumb-bg-hover: var(--pada-color-danger-600);
+  --pada-slider-thumb-bg-active: var(--pada-color-danger-700);
+}
+
+.slider[data-disabled] {
+  --pada-slider-thumb-bg: var(--pada-color-accent-300);
+  --pada-slider-thumb-bg-hover: var(--pada-slider-thumb-bg);
+  --pada-slider-thumb-bg-active: var(--pada-slider-thumb-bg);
+}
+
+/* Child elements */
+.slider-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--pada-space-2);
+}
+
+.slider-label {
+  font-size: var(--pada-font-size-sm);
+  font-weight: var(--pada-font-weight-medium);
+  line-height: var(--pada-line-height-md);
+  color: var(--pada-color-fg);
+}
+
+.slider-required {
+  margin-inline-start: var(--pada-space-0-5);
+  color: var(--pada-color-danger-fg);
+}
+
+.slider-value {
+  min-width: fit-content;
+  font-size: var(--pada-font-size-sm);
+  font-weight: var(--pada-font-weight-medium);
+  font-variant-numeric: tabular-nums;
+  color: var(--pada-color-neutral-700);
+}
+
+.slider-root {
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: var(--pada-slider-thumb-height);
+  /* The thumb is centred on its value; the margin keeps its overhang at the ends in the layout. */
+  margin-inline: calc(var(--pada-slider-thumb-width) / 2);
+  touch-action: none;
+  user-select: none;
+  cursor: pointer;
+}
+
+.slider[data-disabled] .slider-root {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.slider-track {
+  position: relative;
+  flex: 1;
+  height: var(--pada-slider-track-height);
+  border-radius: var(--pada-radius-sm);
+  background-color: var(--pada-slider-track-bg);
+}
+
+.slider-range {
+  position: absolute;
+  inset-block: 0;
+  inset-inline-start: var(--pada-slider-range-start);
+  inset-inline-end: calc(100% - var(--pada-slider-range-end));
+  border-radius: inherit;
+  background-color: var(--pada-slider-fill-bg);
+  transition: inset-inline-end var(--pada-duration-fast) var(--pada-ease-enter);
+}
+
+.slider-thumb {
+  position: absolute;
+  inset-inline-start: calc(var(--pada-slider-thumb-position) - var(--pada-slider-thumb-width) / 2);
+  box-sizing: border-box;
+  width: var(--pada-slider-thumb-width);
+  height: var(--pada-slider-thumb-height);
+  border: 2px solid var(--pada-slider-thumb-border);
+  border-radius: var(--pada-radius-sm);
+  background-color: var(--pada-slider-thumb-bg);
+  outline: none;
+  cursor: grab;
+  transition:
+    inset-inline-start var(--pada-duration-fast) var(--pada-ease-enter),
+    background-color var(--pada-duration-fast) var(--pada-ease-standard),
+    box-shadow var(--pada-duration-fast) var(--pada-ease-standard);
+}
+
+.slider-thumb:hover {
+  background-color: var(--pada-slider-thumb-bg-hover);
+}
+
+.slider-thumb:active {
+  background-color: var(--pada-slider-thumb-bg-active);
+  cursor: grabbing;
+}
+
+.slider-thumb:focus-visible {
+  box-shadow: var(--pada-shadow-focus);
+}
+
+.slider[data-disabled] .slider-thumb {
+  cursor: not-allowed;
+}
+
+.slider-description,
+.slider-error {
+  margin: var(--pada-space-1) 0 0;
+  font-size: var(--pada-font-size-xs);
+  line-height: var(--pada-line-height-md);
+}
+
+.slider-description {
+  color: var(--pada-color-fg-muted);
+}
+
+.slider-error {
+  color: var(--pada-color-danger-fg);
+}

@@ -1,0 +1,57 @@
+<ng-template #starIcon let-fill>
+  <svg viewBox="0 0 24 24" class="rating-star" aria-hidden="true" [style.--pada-rating-fill]="fill">
+    <path
+      class="rating-star-empty"
+      d="M12 2.8l2.83 5.73 6.33.92-4.58 4.46 1.08 6.3L12 17.24l-5.66 2.97 1.08-6.3-4.58-4.46 6.33-.92z"
+    />
+    <path
+      class="rating-star-full"
+      d="M12 2.8l2.83 5.73 6.33.92-4.58 4.46 1.08 6.3L12 17.24l-5.66 2.97 1.08-6.3-4.58-4.46 6.33-.92z"
+    />
+  </svg>
+</ng-template>
+
+@if (readonly()) {
+  <span class="rating" [attr.data-size]="size()" data-readonly="">
+    @if (showLabel()) {
+      <span class="rating-label">{{ label() }}</span>
+    }
+    <span class="rating-stars" role="img" [attr.aria-label]="summary()">
+      @for (fill of fills(); track $index) {
+        <ng-container *ngTemplateOutlet="starIcon; context: { $implicit: fill }" />
+      }
+    </span>
+  </span>
+} @else {
+  <div class="rating" [attr.data-size]="size()" [attr.data-disabled]="flag(isDisabled())">
+    <span class="rating-label" [id]="id + '-label'" [hidden]="!showLabel()">{{ label() }}</span>
+    <div
+      role="radiogroup"
+      class="rating-stars"
+      [attr.aria-labelledby]="id + '-label'"
+      (pointerleave)="hover.set(null)"
+    >
+      @for (star of stars(); track star; let index = $index) {
+        <label
+          class="rating-option"
+          [attr.data-filled]="flag(star <= shown())"
+          (pointerenter)="preview(star)"
+        >
+          <input
+            type="radio"
+            class="rating-input"
+            [name]="name()"
+            [value]="star"
+            [checked]="star === value()"
+            [disabled]="isDisabled()"
+            [attr.aria-label]="star + (star === 1 ? ' star' : ' stars')"
+            (click)="handleClick(star)"
+            (change)="handleChange(star)"
+            (blur)="onTouched()"
+          />
+          <ng-container *ngTemplateOutlet="starIcon; context: { $implicit: fills()[index] }" />
+        </label>
+      }
+    </div>
+  </div>
+}

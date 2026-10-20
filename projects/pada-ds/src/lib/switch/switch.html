@@ -1,0 +1,30 @@
+<label
+  class="switch-wrapper"
+  [for]="field.controlId()"
+  [attr.data-loading]="flag(loading())"
+  [attr.data-disabled]="flag(isDisabled())"
+>
+  <input
+    type="checkbox"
+    role="switch"
+    class="switch-input"
+    [id]="field.controlId()"
+    [checked]="checked()"
+    [disabled]="isDisabled() || loading()"
+    [attr.name]="name() ?? null"
+    [attr.aria-busy]="loading() || null"
+    [attr.aria-label]="ariaLabel() ?? null"
+    [attr.aria-describedby]="field.describedBy()"
+    [attr.aria-invalid]="field.invalid() ? 'true' : null"
+    (change)="handleChange($event)"
+    (blur)="onTouched()"
+  />
+  <span class="switch-track" aria-hidden="true">
+    <span class="switch-knob">
+      @if (loading()) {
+        <span class="switch-spinner"></span>
+      }
+    </span>
+  </span>
+  <span class="switch-label">{{ label() }}<ng-content /></span>
+</label>

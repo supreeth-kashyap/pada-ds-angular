@@ -1,0 +1,47 @@
+<div class="slider" [attr.data-invalid]="flag(invalid())" [attr.data-disabled]="flag(isDisabled())">
+  @if (label() || showValue()) {
+    <div class="slider-header">
+      @if (label(); as label) {
+        <span class="slider-label" [id]="id + '-label'"
+          >{{ label }}
+          @if (isRequired()) {
+            <span class="slider-required" aria-hidden="true">*</span>
+          }
+        </span>
+      }
+      @if (showValue()) {
+        <span class="slider-value" aria-live="polite">{{ value() }}</span>
+      }
+    </div>
+  }
+  <span
+    dsSlider
+    class="slider-root"
+    [value]="values()"
+    [min]="min()"
+    [max]="max()"
+    [step]="step()"
+    [largeStep]="largeStep()"
+    [disabled]="isDisabled()"
+    [name]="name()"
+    (valueChange)="handleChange($event)"
+    (valueCommit)="valueCommit.emit($event[0])"
+  >
+    <span dsSliderTrack class="slider-track"><span dsSliderRange class="slider-range"></span></span>
+    <span
+      dsSliderThumb
+      class="slider-thumb"
+      [id]="field.controlId()"
+      [attr.aria-labelledby]="label() ? id + '-label' : null"
+      [attr.aria-label]="label() ? null : (ariaLabel() ?? null)"
+      [attr.aria-describedby]="describedBy()"
+      [attr.aria-invalid]="invalid() ? 'true' : null"
+      (blur)="onTouched()"
+    ></span>
+  </span>
+  @if (showError()) {
+    <p class="slider-error" role="alert" [id]="id + '-error'">{{ error() }}</p>
+  } @else if (description(); as description) {
+    <p class="slider-description" [id]="id + '-description'">{{ description }}</p>
+  }
+</div>

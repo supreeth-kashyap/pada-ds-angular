@@ -1,0 +1,74 @@
+/* A 1px framed row with 4px between segments; segments are 8×6px padded, 11px medium labels. */
+:host {
+  /* Component tokens */
+  --pada-segment-control-border: var(--pada-color-neutral-100);
+  --pada-segment-control-fg: var(--pada-color-neutral-900);
+  --pada-segment-control-fg-selected: var(--pada-color-accent-700);
+  --pada-segment-control-bg-selected: var(--pada-color-accent-50);
+  --pada-segment-control-bg-selected-hover: var(--pada-color-accent-100);
+
+  position: relative;
+  display: inline-flex;
+  font-family: var(--pada-font-sans);
+}
+
+.segment-options {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--pada-space-1);
+  padding: 1px;
+  border: var(--pada-border-width-thin) solid var(--pada-segment-control-border);
+  border-radius: var(--pada-radius-lg);
+  background-color: var(--pada-color-surface);
+}
+
+.segment-option {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--pada-space-1-5);
+  padding: var(--pada-space-1-5) var(--pada-space-2);
+  border: none;
+  border-radius: var(--pada-radius-lg);
+  background-color: var(--pada-color-surface);
+  color: var(--pada-segment-control-fg);
+  font-family: inherit;
+  font-size: var(--pada-font-size-sm);
+  font-weight: var(--pada-font-weight-medium);
+  line-height: 16px;
+  white-space: nowrap;
+  outline: none;
+  cursor: pointer;
+  transition:
+    background-color var(--pada-duration-normal) var(--pada-ease-standard),
+    color var(--pada-duration-normal) var(--pada-ease-standard),
+    box-shadow var(--pada-duration-normal) var(--pada-ease-standard);
+}
+
+.segment-option:hover:not(:disabled):not([aria-selected='true']) {
+  color: var(--pada-segment-control-fg-selected);
+}
+
+.segment-option:focus-visible {
+  box-shadow: var(--pada-shadow-focus);
+}
+
+.segment-option[aria-selected='true'] {
+  background-color: var(--pada-segment-control-bg-selected);
+  color: var(--pada-segment-control-fg-selected);
+}
+
+.segment-option[aria-selected='true']:not(:disabled):hover {
+  background-color: var(--pada-segment-control-bg-selected-hover);
+}
+
+.segment-option:disabled {
+  color: var(--pada-color-neutral-400);
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.segment-icon,
+.segment-label {
+  flex-shrink: 0;
+}

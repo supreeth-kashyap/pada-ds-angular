@@ -1,0 +1,84 @@
+<div
+  #area
+  class="color-picker-area"
+  (pointerdown)="handlePointerDown($event)"
+  (pointermove)="handlePointerMove($event)"
+  (pointerup)="handlePointerUp($event)"
+  (pointercancel)="handlePointerUp($event)"
+>
+  <canvas #canvas class="color-picker-canvas" width="96" height="64" aria-hidden="true"></canvas>
+  <span
+    role="slider"
+    class="color-picker-thumb"
+    aria-label="Lightness and chroma"
+    aria-roledescription="2D slider"
+    aria-valuemin="0"
+    aria-valuemax="100"
+    [attr.tabindex]="isDisabled() ? null : 0"
+    [attr.aria-valuenow]="lightness()"
+    [attr.aria-valuetext]="areaText()"
+    [attr.aria-disabled]="isDisabled() || null"
+    [style.left.%]="thumbX()"
+    [style.top.%]="thumbY()"
+    (keydown)="handleAreaKeydown($event)"
+  ></span>
+</div>
+
+<div class="color-picker-row">
+  <span class="color-picker-preview" aria-hidden="true"></span>
+  <span
+    dsSlider
+    class="color-picker-hue"
+    [min]="0"
+    [max]="360"
+    [step]="1"
+    [value]="hue()"
+    [disabled]="isDisabled()"
+    (valueChange)="setHue($event)"
+  >
+    <span dsSliderTrack class="color-picker-hue-track"
+      ><span dsSliderRange class="color-picker-hue-range"></span
+    ></span>
+    <span
+      dsSliderThumb
+      class="color-picker-hue-thumb"
+      aria-label="Hue"
+      [attr.aria-valuetext]="hueText()"
+    ></span>
+  </span>
+</div>
+
+<div class="color-picker-row">
+  <label class="color-picker-field" [for]="hexId">
+    <span class="color-picker-field-label">Hex</span>
+    <input
+      class="color-picker-input"
+      autocomplete="off"
+      spellcheck="false"
+      [id]="hexId"
+      [value]="hexDraft() ?? hex()"
+      [disabled]="isDisabled()"
+      [attr.aria-invalid]="hexInvalid() ? 'true' : null"
+      (input)="hexDraft.set($any($event.target).value)"
+      (blur)="commitHex()"
+      (keydown)="handleHexKeydown($event)"
+    />
+  </label>
+  <output class="color-picker-oklch" aria-label="OKLCH" [attr.for]="hexId">{{ readout() }}</output>
+</div>
+
+@if (items().length) {
+  <div class="color-picker-swatches" role="group" aria-label="Swatches">
+    @for (swatch of items(); track swatch.value) {
+      <button
+        type="button"
+        class="color-picker-swatch"
+        [attr.aria-label]="swatch.label ?? swatch.value"
+        [attr.aria-pressed]="swatch.selected"
+        [disabled]="isDisabled() || !swatch.parsed"
+        [style.--pada-color-picker-swatch]="swatch.hex ?? 'transparent'"
+        (click)="pickSwatch(swatch.parsed)"
+      ></button>
+    }
+  </div>
+}

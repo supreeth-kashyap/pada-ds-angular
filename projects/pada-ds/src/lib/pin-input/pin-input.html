@@ -1,0 +1,39 @@
+<div class="pin-input-field" [attr.data-invalid]="flag(invalid())">
+  <span class="pin-input-label" [id]="id + '-label'">{{ label() }}</span>
+  <div
+    dsPinInput
+    class="pin-input"
+    [attr.data-size]="size()"
+    [attr.aria-labelledby]="id + '-label'"
+    [attr.aria-describedby]="describedBy()"
+    [length]="length()"
+    [value]="value()"
+    [type]="type()"
+    [mask]="mask()"
+    [otp]="otp()"
+    [disabled]="isDisabled()"
+    [placeholder]="placeholder()"
+    [name]="name()"
+    (valueChange)="handleChange($event)"
+    (complete)="complete.emit($event)"
+  >
+    @for (index of indexes(); track index) {
+      @if (groupSize() && index > 0 && index % groupSize()! === 0) {
+        <span class="pin-input-separator" aria-hidden="true"></span>
+      }
+      <input
+        dsPinInputInput
+        class="pin-input-box"
+        [index]="index"
+        [attr.aria-invalid]="invalid() ? 'true' : null"
+        (blur)="onTouched()"
+      />
+    }
+  </div>
+  @if (description(); as description) {
+    <p class="pin-input-description" [id]="id + '-description'">{{ description }}</p>
+  }
+  @if (showError()) {
+    <p class="pin-input-error" role="alert" [id]="id + '-error'">{{ error() }}</p>
+  }
+</div>

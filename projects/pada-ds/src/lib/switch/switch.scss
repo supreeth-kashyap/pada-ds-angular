@@ -1,0 +1,134 @@
+/* Track: 64×24 pill with 2px padding; knob: 28×20 pill that slides 32px when on. */
+:host {
+  /* Component tokens */
+  --pada-switch-track-width: 64px;
+  --pada-switch-track-height: 24px;
+  --pada-switch-knob-width: 28px;
+  --pada-switch-knob-height: 20px;
+  --pada-switch-padding: 2px;
+  --pada-switch-track-bg: var(--pada-color-neutral-300);
+  --pada-switch-track-bg-on: var(--pada-color-accent-600);
+  --pada-switch-knob-bg: var(--pada-color-surface);
+
+  display: inline-flex;
+  vertical-align: middle;
+  font-family: var(--pada-font-sans);
+}
+
+.switch-wrapper {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--pada-space-2);
+  cursor: pointer;
+  user-select: none;
+}
+
+/* Disabled and loading: the track washes out, both off and on. */
+.switch-wrapper[data-disabled],
+.switch-wrapper[data-loading] {
+  --pada-switch-track-bg: var(--pada-color-neutral-200);
+  --pada-switch-track-bg-on: var(--pada-color-accent-300);
+  cursor: not-allowed;
+}
+
+.switch-label {
+  font-size: var(--pada-font-size-sm);
+  line-height: var(--pada-line-height-md);
+  color: var(--pada-color-fg);
+}
+
+.switch-label:empty {
+  display: none;
+}
+
+.switch-wrapper[data-disabled] .switch-label {
+  color: var(--pada-color-fg-disabled);
+}
+
+/* Visually hidden but kept in the accessibility tree. */
+.switch-input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+.switch-track {
+  position: relative;
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  box-sizing: border-box;
+  width: var(--pada-switch-track-width);
+  height: var(--pada-switch-track-height);
+  padding: var(--pada-switch-padding);
+  border-radius: var(--pada-radius-3xl);
+  background-color: var(--pada-switch-track-bg);
+  transition:
+    background-color var(--pada-duration-normal) var(--pada-ease-standard),
+    box-shadow var(--pada-duration-normal) var(--pada-ease-standard);
+}
+
+.switch-knob {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--pada-switch-knob-width);
+  height: var(--pada-switch-knob-height);
+  border-radius: var(--pada-radius-3xl);
+  background-color: var(--pada-switch-knob-bg);
+  transform: translateX(0);
+  transition: transform var(--pada-duration-normal) var(--pada-ease-standard);
+}
+
+.switch-input:checked + .switch-track {
+  background-color: var(--pada-switch-track-bg-on);
+}
+
+/* The knob travels the track's inner width minus its own. */
+.switch-input:checked + .switch-track .switch-knob {
+  transform: translateX(
+    calc(
+      var(--pada-switch-track-width) - 2 *
+        var(--pada-switch-padding) - var(--pada-switch-knob-width)
+    )
+  );
+}
+
+/* Focus: the ring renders around the track; the base colour stays. */
+.switch-input:focus-visible + .switch-track {
+  box-shadow: var(--pada-shadow-focus);
+}
+
+/* Loading: the knob hosts a spinner. */
+.switch-spinner {
+  box-sizing: border-box;
+  width: 10px;
+  height: 10px;
+  border: 2px solid var(--pada-color-accent-600);
+  border-right-color: transparent;
+  border-radius: var(--pada-radius-full);
+  animation: switch-spin 0.8s linear infinite;
+}
+
+@keyframes switch-spin {
+  to {
+    rotate: 1turn;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .switch-knob,
+  .switch-track {
+    transition: none;
+  }
+
+  .switch-spinner {
+    animation-duration: 2.8s;
+  }
+}
