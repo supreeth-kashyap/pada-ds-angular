@@ -25,3 +25,5 @@ export * from './lib/number-input/number-input';
 export * from './lib/password-input/password-input';
 export * from './lib/password-input/password-strength';
 export * from './lib/pin-input/pin-input';
+export * from './lib/radio-card/radio-card';
+export * from './lib/rating/rating';

@@ -1,0 +1,48 @@
+<fieldset
+  class="radio-card-group"
+  [disabled]="isDisabled()"
+  [attr.aria-describedby]="description() ? id + '-description' : null"
+  [style.--pada-radio-card-columns]="columns()"
+>
+  <legend class="radio-card-legend">{{ label() }}</legend>
+  @if (description(); as description) {
+    <p class="radio-card-group-description" [id]="id + '-description'">{{ description }}</p>
+  }
+  <div class="radio-card-grid">
+    @for (option of options(); track option.value; let index = $index) {
+      <label
+        class="radio-card"
+        [attr.data-checked]="flag(value() === option.value)"
+        [attr.data-disabled]="flag(isDisabled() || !!option.disabled)"
+      >
+        <input
+          type="radio"
+          class="radio-card-input"
+          [name]="name()"
+          [value]="option.value"
+          [checked]="value() === option.value"
+          [disabled]="!!option.disabled"
+          [required]="isRequired()"
+          [attr.aria-describedby]="option.description ? id + '-' + index + '-description' : null"
+          (change)="select(option.value)"
+          (blur)="onTouched()"
+        />
+        <span class="radio-card-indicator" aria-hidden="true"></span>
+        @if (option.icon) {
+          <span class="radio-card-icon" aria-hidden="true"
+            ><ds-icon [name]="option.icon" [size]="20"
+          /></span>
+        }
+        <span class="radio-card-title">{{ option.title }}</span>
+        @if (option.description) {
+          <span class="radio-card-description" [id]="id + '-' + index + '-description'">{{
+            option.description
+          }}</span>
+        }
+        @if (option.meta) {
+          <span class="radio-card-meta">{{ option.meta }}</span>
+        }
+      </label>
+    }
+  </div>
+</fieldset>
