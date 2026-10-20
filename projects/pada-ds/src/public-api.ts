@@ -16,3 +16,6 @@ export * from './lib/input-text/input-text';
 export * from './lib/checkbox/checkbox';
 export * from './lib/switch/switch';
 export * from './lib/radio-group/radio-group';
+export * from './lib/toggle/toggle';
+export * from './lib/toggle-group/toggle-group';
+export * from './lib/segment-control/segment-control';
