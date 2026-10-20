@@ -62,3 +62,5 @@ export * from './lib/tabs/tabs';
 export * from './lib/calendar/calendar';
 export * from './lib/date-picker/date-picker';
 export * from './lib/input-date/input-date';
+export * from './lib/tree/tree';
+export * from './lib/tree/tree.adapter';
