@@ -1,0 +1,60 @@
+@for (step of resolved(); track $index) {
+  <div
+    role="listitem"
+    class="step"
+    [attr.data-status]="step.status"
+    [attr.data-clickable]="step.interactive ? '' : null"
+    [attr.data-last]="$last ? '' : null"
+    [attr.aria-current]="step.status === 'current' ? 'step' : null"
+  >
+    <div class="step-icon-container" aria-hidden="true">
+      @switch (step.status) {
+        @case ('completed') {
+          <span class="step-icon" data-icon="completed">
+            <ds-icon class="step-checkmark" name="tick_1" [size]="12" />
+          </span>
+        }
+        @case ('current') {
+          <span class="step-icon" data-icon="current"></span>
+        }
+        @default {
+          <span class="step-icon" data-icon="rest">
+            <span class="step-icon-outer"></span>
+            <span class="step-icon-dot"></span>
+          </span>
+        }
+      }
+      @if (!$last) {
+        <span class="step-line"></span>
+      }
+    </div>
+    <div class="step-content">
+      <span class="step-box"></span>
+      <ng-template #label>
+        <!-- Steps without a title still get a name for assistive technology. -->
+        @if (step.title) {
+          <span class="step-title">{{ step.title }}</span>
+          <span dsVisuallyHidden>{{ step.statusLabel }}</span>
+        } @else {
+          <span dsVisuallyHidden>Step {{ step.value + step.statusLabel }}</span>
+        }
+      </ng-template>
+      @if (step.interactive) {
+        <!-- The button's hit area stretches over the whole step (see .step-action::after). -->
+        <button
+          type="button"
+          class="step-action"
+          [attr.aria-describedby]="step.description ? step.descriptionId : null"
+          (click)="select(step)"
+        >
+          <ng-container [ngTemplateOutlet]="label" />
+        </button>
+      } @else {
+        <span class="step-label"><ng-container [ngTemplateOutlet]="label" /></span>
+      }
+      @if (step.description) {
+        <span class="step-description" [id]="step.descriptionId">{{ step.description }}</span>
+      }
+    </div>
+  </div>
+}

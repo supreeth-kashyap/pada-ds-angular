@@ -20,3 +20,6 @@ export * from './lib/aspect-ratio/aspect-ratio';
 export * from './lib/scroll-area/scroll-area';
 export * from './lib/resizable/resizable';
 export * from './lib/theme/theme';
+export * from './lib/breadcrumbs/breadcrumbs';
+export * from './lib/pagination/pagination';
+export * from './lib/steps/steps';
