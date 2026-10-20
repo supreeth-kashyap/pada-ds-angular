@@ -1,0 +1,63 @@
+<div
+  class="time-picker"
+  [attr.data-invalid]="invalid() ? '' : null"
+  [attr.data-disabled]="isDisabled() ? '' : null"
+>
+  @if (label(); as label) {
+    <span
+      class="time-picker-label"
+      [id]="labelId()"
+      [attr.data-disabled]="isDisabled() ? '' : null"
+    >
+      {{ label }}
+      @if (isRequired()) {
+        <span class="time-picker-required" aria-hidden="true">*</span>
+        <span dsVisuallyHidden>(required)</span>
+      }
+      @if (optional()) {
+        <span class="time-picker-optional">(optional)</span>
+      }
+    </span>
+  }
+  <div
+    dsTimeField
+    #time="dsTimeField"
+    class="time-picker-box"
+    [id]="inputId()"
+    [attr.aria-labelledby]="label() ? labelId() : null"
+    [attr.aria-describedby]="describedBy()"
+    [value]="value()"
+    (valueChange)="handleChange($event)"
+    [granularity]="granularity()"
+    [hourCycle]="hourCycle()"
+    [locale]="locale()"
+    [minuteStep]="minuteStep()"
+    [min]="min()"
+    [max]="max()"
+    [disabled]="isDisabled()"
+    [readOnly]="readonly()"
+    [name]="name()"
+    (focusout)="onTouched()"
+  >
+    <span class="time-picker-segments">
+      @for (part of time.layout(); track $index) {
+        @if (part.type === 'literal') {
+          <span class="time-picker-literal" aria-hidden="true">{{ part.text }}</span>
+        } @else {
+          <span
+            class="time-picker-segment"
+            [dsTimeSegment]="part.type"
+            [attr.aria-required]="isRequired() || null"
+            [attr.aria-invalid]="invalid() || null"
+          ></span>
+        }
+      }
+    </span>
+    <ds-icon class="time-picker-icon" name="time_1" [size]="14" />
+  </div>
+  @if (showError()) {
+    <p class="time-picker-error" role="alert" [id]="errorId()">{{ error() }}</p>
+  } @else if (description(); as description) {
+    <p class="time-picker-description" [id]="descriptionId()">{{ description }}</p>
+  }
+</div>

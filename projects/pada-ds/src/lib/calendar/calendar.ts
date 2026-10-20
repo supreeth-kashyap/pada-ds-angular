@@ -8,6 +8,7 @@ import {
   Directive,
   inject,
   input,
+  numberAttribute,
   TemplateRef,
 } from '@angular/core';
 import {
@@ -35,6 +36,7 @@ const CALENDAR_INPUTS = [
   'disabled',
   'readOnly',
   'today',
+  'numberOfMonths',
 ];
 const CALENDAR_OUTPUTS = ['valueChange', 'rangeChange', 'monthChange'];
 
@@ -61,9 +63,9 @@ export class CalendarDayContentDirective {
 /** The month and year. Labels the grid and is announced when it changes. */
 @Component({
   selector: 'ds-calendar-heading',
-  template: '<ng-content>{{ calendar.monthLabel() }}</ng-content>',
+  template: '<ng-content>{{ calendar.monthLabelAt(heading.monthOffset()) }}</ng-content>',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  hostDirectives: [DsCalendarHeading],
+  hostDirectives: [{ directive: DsCalendarHeading, inputs: ['monthOffset'] }],
   host: { class: 'calendar-heading', role: 'heading', '[attr.aria-level]': 'level()' },
   styles: `
     :host {
@@ -79,6 +81,7 @@ export class CalendarDayContentDirective {
 })
 export class CalendarHeadingComponent {
   protected readonly calendar = inject(DsCalendar);
+  protected readonly heading = inject(DsCalendarHeading);
   /** Heading level announced to assistive technology. @default 2 */
   readonly level = input(2);
 }
@@ -171,12 +174,15 @@ export class CalendarGridComponent {
   protected readonly calendar = inject(DsCalendar);
   /** Leave days of the previous and next months empty instead of showing them muted. */
   readonly hideOutsideDays = input(false, { transform: booleanAttribute });
+  /** Which shown month this grid renders, with `numberOfMonths` > 1: 0 is the first. @default 0 */
+  readonly monthOffset = input(0, { transform: numberAttribute });
   protected readonly dayContent = contentChild(CalendarDayContentDirective);
 
   protected readonly weeks = computed(() => {
-    const month = this.calendar.visibleMonth().getMonth();
+    const offset = this.monthOffset();
+    const month = this.calendar.monthAt(offset).getMonth();
     const hide = this.hideOutsideDays();
-    return this.calendar.weeks().map((week) => ({
+    return this.calendar.weeksAt(offset).map((week) => ({
       key: week[0].getTime(),
       days: week.map((date) => ({
         date,
@@ -223,7 +229,8 @@ export class CalendarRootComponent {}
  *
  * Inputs (from the headless `DsCalendar`): `mode` (`single` | `range`), `value` and `range`
  * (two-way), `month` (two-way, the visible month), `min`, `max`, `isDateUnavailable`,
- * `weekStartsOn`, `locale`, `disabled`, `readOnly`, `today`. Outputs: `valueChange`,
+ * `weekStartsOn`, `locale`, `disabled`, `readOnly`, `today`, `numberOfMonths` (compose two grids
+ * with `monthOffset` in `ds-calendar-root` to show them). Outputs: `valueChange`,
  * `rangeChange`, `monthChange`.
  *
  * Differences from React: the single value and the range are separate models (`value` and

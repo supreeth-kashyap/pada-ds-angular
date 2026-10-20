@@ -97,3 +97,5 @@ export * from './lib/tree/tree.adapter';
 export * from './lib/list/list';
 export * from './lib/command-palette/command-palette';
 export * from './lib/command-palette/command-score';
+export * from './lib/date-range-picker/date-range-picker';
+export * from './lib/time-picker/time-picker';
