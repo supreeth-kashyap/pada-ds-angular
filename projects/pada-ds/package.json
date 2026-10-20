@@ -1,7 +1,27 @@
 {
   "name": "pada-ds-angular",
-  "version": "0.0.1",
-  "description": "Pada design system for Angular: headless directives and styled components",
+  "version": "1.2.0",
+  "description": "Pada design system for Angular: accessible styled components, headless directives and design tokens.",
+  "license": "MIT",
+  "author": "Supreeth Kashyap",
+  "homepage": "https://github.com/supreeth-kashyap/pada-ds-angular#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/supreeth-kashyap/pada-ds-angular.git"
+  },
+  "bugs": {
+    "url": "https://github.com/supreeth-kashyap/pada-ds-angular/issues"
+  },
+  "keywords": [
+    "angular",
+    "design-system",
+    "components",
+    "ui",
+    "headless",
+    "signals",
+    "pada",
+    "design-tokens"
+  ],
   "peerDependencies": {
     "@angular/cdk": "^21.2.0",
     "@angular/common": "^21.2.0",
@@ -32,5 +52,8 @@
   },
   "sideEffects": [
     "*.css"
-  ]
+  ],
+  "publishConfig": {
+    "access": "public"
+  }
 }
