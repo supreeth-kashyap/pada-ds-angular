@@ -1,0 +1,96 @@
+<div
+  class="autocomplete"
+  [attr.data-invalid]="invalid() ? '' : null"
+  [attr.data-disabled]="isDisabled() ? '' : null"
+>
+  <label class="autocomplete-label" [for]="inputId()">
+    {{ label() }}
+    @if (isRequired()) {
+      <span class="autocomplete-required" aria-hidden="true">*</span>
+    }
+  </label>
+  <ng-container
+    dsCombobox
+    #combobox="dsCombobox"
+    [multiple]="multiple()"
+    [value]="value()"
+    (valueChange)="pickSingle($event)"
+    [values]="values()"
+    (valuesChange)="pickMultiple($event)"
+    [(inputValue)]="inputValue"
+    [filter]="filter()"
+    [disabled]="isDisabled()"
+  >
+    <div dsComboboxAnchor class="autocomplete-control">
+      @for (chip of chips(); track chip.value) {
+        <span class="autocomplete-chip">
+          {{ chip.label }}
+          <button
+            type="button"
+            class="autocomplete-chip-remove"
+            [attr.aria-label]="'Remove ' + chip.label"
+            [disabled]="isDisabled()"
+            (click)="remove(chip.value)"
+          >
+            <ds-icon name="cross_1" [size]="10" />
+          </button>
+        </span>
+      }
+      <input
+        dsComboboxInput
+        type="text"
+        class="autocomplete-input"
+        [id]="inputId()"
+        [attr.placeholder]="shownPlaceholder()"
+        [attr.aria-describedby]="describedBy()"
+        [attr.aria-invalid]="invalid() ? 'true' : null"
+        [required]="isRequired() && selection().length === 0"
+        (keydown)="onKeyDown($event)"
+        (blur)="onBlur()"
+      />
+      <button dsComboboxTrigger class="autocomplete-trigger">
+        <ds-icon name="chevron_down" [size]="12" />
+      </button>
+    </div>
+    <div
+      *dsPresence="combobox.isOpen()"
+      dsComboboxContent
+      class="autocomplete-list"
+      align="start"
+      [attr.aria-label]="label()"
+    >
+      @for (option of options(); track option.value) {
+        <div
+          dsComboboxItem
+          class="autocomplete-option"
+          [value]="option.value"
+          [textValue]="option.label"
+          [disabled]="!!option.disabled"
+        >
+          @if (option.icon) {
+            <ds-icon class="autocomplete-option-icon" [name]="option.icon" [size]="16" />
+          }
+          <span class="autocomplete-option-text">
+            <span class="autocomplete-option-label">{{ option.label }}</span>
+            @if (option.description) {
+              <span class="autocomplete-option-description">{{ option.description }}</span>
+            }
+          </span>
+          <ds-icon class="autocomplete-option-check" name="tick_1" [size]="14" />
+        </div>
+      }
+      <div dsComboboxEmpty class="autocomplete-empty">{{ emptyMessage() }}</div>
+    </div>
+  </ng-container>
+  @if (name(); as name) {
+    @for (item of selection(); track item) {
+      <input type="hidden" [name]="name" [value]="item" [disabled]="isDisabled()" />
+    }
+  }
+  @if (description(); as description) {
+    <p class="autocomplete-description" [id]="descriptionId()">{{ description }}</p>
+  }
+  @if (showError()) {
+    <p class="autocomplete-error" role="alert" [id]="errorId()">{{ error() }}</p>
+  }
+</div>

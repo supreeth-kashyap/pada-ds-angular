@@ -53,3 +53,4 @@ export { createTypeahead } from './utils/typeahead';
 export { uniqueId } from './utils/id';
 export { injectButtonType } from './utils/button';
 export { injectControlStatus, type ControlStatus } from './utils/forms';
+export * from './combobox/combobox.directive';

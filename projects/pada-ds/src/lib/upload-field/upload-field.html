@@ -1,0 +1,130 @@
+<div class="upload-field-wrapper">
+  @if (label(); as label) {
+    <label class="upload-field-label" [for]="inputId()">
+      {{ label }}
+      @if (isRequired()) {
+        <span class="upload-field-required" aria-hidden="true">*</span>
+      }
+    </label>
+  }
+
+  <div
+    #container
+    class="upload-field-container"
+    [attr.data-dragging]="dragging() ? '' : null"
+    [attr.data-invalid]="hasError() ? '' : null"
+    [attr.data-disabled]="isDisabled() ? '' : null"
+    (dragover)="onDragOver($event)"
+    (dragleave)="onDragLeave($event)"
+    (drop)="onDrop($event)"
+  >
+    <input
+      #fileInput
+      type="file"
+      class="upload-field-input"
+      [id]="inputId()"
+      [attr.accept]="accept() ?? null"
+      [multiple]="multiple()"
+      [disabled]="isDisabled()"
+      [attr.aria-label]="label() ? null : 'Upload files'"
+      [attr.aria-invalid]="hasError() ? 'true' : null"
+      [attr.aria-required]="isRequired() || null"
+      [attr.aria-describedby]="describedBy()"
+      (change)="onInputChange($event)"
+    />
+
+    <div class="upload-field-dropzone">
+      <div class="upload-field-content" [attr.data-with-files]="files().length ? '' : null">
+        <ds-icon class="upload-field-icon" name="upload_2" [size]="20" />
+        <p class="upload-field-text">Drag and drop or click to upload files</p>
+        <span class="upload-field-hints" [id]="hintsId()">
+          @if (accept(); as accept) {
+            <span class="upload-field-hint">Supported type(s): {{ accept }}</span>
+          }
+          @if (maxSizeText(); as maxSize) {
+            <span class="upload-field-hint">Max size: {{ maxSize }}</span>
+          }
+          @if (maxFiles(); as maxFiles) {
+            <span class="upload-field-hint">Max count: {{ maxFiles }}</span>
+          }
+        </span>
+      </div>
+
+      @if (rows().length > 0) {
+        <div class="upload-field-files" role="list" aria-label="Files">
+          @for (row of rows(); track row.file.id) {
+            <div
+              role="listitem"
+              class="upload-field-file"
+              [attr.data-status]="row.file.status ?? null"
+            >
+              @switch (row.file.status) {
+                @case ('success') {
+                  <ds-icon class="upload-field-file-icon" name="tick_1" [size]="16" />
+                }
+                @case ('error') {
+                  <ds-icon class="upload-field-file-icon" name="upload_fail" [size]="16" />
+                }
+                @default {
+                  <ds-icon class="upload-field-file-icon" name="attachment_1" [size]="16" />
+                }
+              }
+              <div class="upload-field-file-info">
+                <div class="upload-field-file-header">
+                  <span class="upload-field-file-name">{{ row.file.file.name }}</span>
+                  <span class="upload-field-file-size">{{ row.size }}</span>
+                </div>
+                @if (row.file.error) {
+                  <span class="upload-field-file-error">{{ row.file.error }}</span>
+                }
+                @if (row.uploading) {
+                  <div
+                    class="upload-field-progress"
+                    role="progressbar"
+                    aria-valuemin="0"
+                    aria-valuemax="100"
+                    [attr.aria-label]="'Uploading ' + row.file.file.name"
+                    [attr.aria-valuenow]="row.progress"
+                  >
+                    <div
+                      class="upload-field-progress-bar"
+                      [style.width.%]="row.file.progress"
+                    ></div>
+                  </div>
+                }
+              </div>
+              <div class="upload-field-file-actions">
+                <button
+                  type="button"
+                  class="upload-field-view"
+                  [attr.aria-label]="'View ' + row.file.file.name"
+                  (click)="viewFile($event, row.file)"
+                >
+                  View
+                </button>
+                @if (!isDisabled()) {
+                  <button
+                    type="button"
+                    class="upload-field-remove"
+                    [attr.aria-label]="'Remove ' + row.file.file.name"
+                    (click)="remove($event, row.file.id)"
+                  >
+                    <ds-icon name="delete" [size]="12" />
+                  </button>
+                }
+              </div>
+            </div>
+          }
+        </div>
+      }
+
+      @if (hasError()) {
+        <p class="upload-field-error" role="alert" [id]="errorId()">{{ error() }}</p>
+      } @else if (description(); as description) {
+        <p class="upload-field-hint upload-field-description" [id]="descriptionId()">
+          {{ description }}
+        </p>
+      }
+    </div>
+  </div>
+</div>

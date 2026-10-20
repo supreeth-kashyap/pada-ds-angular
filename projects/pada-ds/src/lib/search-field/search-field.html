@@ -1,0 +1,25 @@
+<div
+  class="search-field"
+  [attr.data-empty]="empty() ? '' : null"
+  [attr.data-disabled]="isDisabled() ? '' : null"
+>
+  <span class="search-icon"><ds-icon name="search" [size]="16" /></span>
+  <input
+    #field
+    class="search-input"
+    type="text"
+    [attr.id]="inputId() ?? null"
+    [value]="value()"
+    [attr.placeholder]="placeholder()"
+    [attr.aria-label]="ariaLabel()"
+    [disabled]="isDisabled()"
+    (input)="onInput($event)"
+    (keydown)="onKeyDown($event)"
+    (blur)="onBlur()"
+  />
+  @if (!empty() && !isDisabled()) {
+    <button type="button" class="search-clear" aria-label="Clear search" (click)="clear()">
+      <ds-icon name="cross_1" [size]="12" />
+    </button>
+  }
+</div>

@@ -1,0 +1,105 @@
+:host {
+  display: inline-block;
+}
+
+/* Root */
+.search-field {
+  /* Component tokens */
+  --pada-search-field-width: 240px;
+  --pada-search-field-height: var(--pada-space-8);
+  --pada-search-field-bg: var(--pada-color-surface);
+  --pada-search-field-border: var(--pada-color-neutral-300);
+  --pada-search-field-border-focus: var(--pada-color-neutral-900);
+  --pada-search-field-icon: var(--pada-color-neutral-600);
+
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  width: var(--pada-search-field-width);
+  height: var(--pada-search-field-height);
+  border: var(--pada-border-width-thin) solid var(--pada-search-field-border);
+  border-radius: var(--pada-radius-md);
+  background-color: var(--pada-search-field-bg);
+  font-family: var(--pada-font-sans);
+  transition:
+    border-color var(--pada-duration-normal) var(--pada-ease-standard),
+    box-shadow var(--pada-duration-normal) var(--pada-ease-standard);
+}
+
+.search-field:focus-within {
+  border-color: var(--pada-search-field-border-focus);
+  box-shadow: 0 0 0 2px var(--pada-color-focus-ring);
+}
+
+.search-field[data-disabled] {
+  opacity: 0.6;
+  pointer-events: none;
+  background-color: var(--pada-color-neutral-50);
+}
+
+/* Icon */
+.search-icon {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  padding-left: var(--pada-space-2);
+  color: var(--pada-search-field-icon);
+}
+
+/* Input */
+.search-input {
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+  padding: 0 var(--pada-space-2);
+  border: none;
+  background: transparent;
+  color: var(--pada-color-neutral-900);
+  font: inherit;
+  font-size: var(--pada-font-size-sm);
+  line-height: var(--pada-line-height-md);
+  outline: none;
+}
+
+.search-input::placeholder {
+  color: var(--pada-color-neutral-500);
+}
+
+.search-input:disabled {
+  color: var(--pada-color-neutral-400);
+  cursor: not-allowed;
+}
+
+/* Clear button */
+.search-clear {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: 0 var(--pada-space-1);
+  border: none;
+  background: transparent;
+  color: var(--pada-search-field-icon);
+  cursor: pointer;
+  outline: none;
+  transition: color var(--pada-duration-normal) var(--pada-ease-standard);
+  animation: search-clear-in var(--pada-duration-fast) var(--pada-ease-enter);
+}
+
+.search-clear:hover {
+  color: var(--pada-color-neutral-900);
+}
+
+.search-clear:focus-visible {
+  outline: 2px solid var(--pada-color-focus-ring);
+  outline-offset: 2px;
+}
+
+@keyframes search-clear-in {
+  from {
+    opacity: 0;
+    scale: 0.8;
+  }
+}

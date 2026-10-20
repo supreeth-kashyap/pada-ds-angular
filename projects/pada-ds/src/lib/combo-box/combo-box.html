@@ -1,0 +1,33 @@
+@for (section of sections(); track $index) {
+  @if (section.label !== null) {
+    <div class="combo-box-group" role="group" [attr.aria-labelledby]="section.labelId">
+      <div class="combo-box-group-label" role="presentation" [id]="section.labelId">
+        {{ section.label }}
+      </div>
+      @for (entry of section.entries; track entry.item.id) {
+        <ng-container *ngTemplateOutlet="option; context: { $implicit: entry }" />
+      }
+    </div>
+  } @else {
+    @for (entry of section.entries; track entry.item.id) {
+      <ng-container *ngTemplateOutlet="option; context: { $implicit: entry }" />
+    }
+  }
+}
+
+<ng-template #option let-entry>
+  <button
+    dsComboBoxMenuItem
+    [attr.id]="entry.optionId"
+    [attr.tabindex]="managesFocus() && entry.index === tabStop() ? 0 : -1"
+    [attr.data-active]="entry.item.active ? '' : null"
+    [iconName]="entry.item.iconName"
+    [selected]="!!entry.item.selected"
+    [disabled]="!!entry.item.disabled"
+    [multiSelect]="multiSelect()"
+    (focus)="onFocus(entry.index)"
+    (click)="itemClick.emit({ item: entry.item, index: entry.index })"
+  >
+    {{ entry.item.label }}
+  </button>
+</ng-template>
