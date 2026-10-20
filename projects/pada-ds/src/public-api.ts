@@ -27,3 +27,11 @@ export * from './lib/password-input/password-strength';
 export * from './lib/pin-input/pin-input';
 export * from './lib/radio-card/radio-card';
 export * from './lib/rating/rating';
+export * from './lib/color-picker/color-picker';
+export {
+  formatHex,
+  formatOklch,
+  parseColor,
+  type ColorFormat,
+  type Oklch,
+} from './lib/color-picker/color';
