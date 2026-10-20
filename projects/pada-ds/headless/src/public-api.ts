@@ -56,3 +56,5 @@ export { injectControlStatus, type ControlStatus } from './utils/forms';
 export * from './menu/menu.directive';
 export * from './context-menu/context-menu.directive';
 export * from './menubar/menubar.directive';
+export * from './collapsible/collapsible.directive';
+export * from './accordion/accordion.directive';

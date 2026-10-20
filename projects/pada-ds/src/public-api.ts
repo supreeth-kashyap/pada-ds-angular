@@ -16,3 +16,4 @@ export * from './lib/input-text/input-text';
 export * from './lib/dropdown-menu/dropdown-menu';
 export * from './lib/context-menu/context-menu';
 export * from './lib/menubar/menubar';
+export * from './lib/accordion/accordion';
