@@ -66,3 +66,48 @@
 .tags-icon-slot:empty {
   display: none;
 }
+
+/* Removable: a small round remove button after the label. */
+:host([data-removable]) {
+  padding-inline-end: 4px;
+}
+
+.tags-remove {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  width: 16px;
+  height: 16px;
+  margin: 0;
+  margin-inline-start: 2px;
+  padding: 0;
+  border: 0;
+  border-radius: var(--pada-radius-sm);
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+  transition:
+    background-color var(--pada-duration-fast) var(--pada-ease-standard),
+    scale var(--pada-duration-instant) var(--pada-ease-standard);
+}
+
+.tags-remove:hover:not(:disabled) {
+  background-color: var(--pada-tags-border);
+}
+
+.tags-remove:active:not(:disabled) {
+  scale: var(--pada-motion-scale-press);
+}
+
+.tags-remove:focus-visible {
+  outline: none;
+  box-shadow: var(--pada-shadow-focus);
+}
+
+.tags-remove:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
