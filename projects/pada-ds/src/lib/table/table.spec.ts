@@ -48,10 +48,11 @@ describe('Table', () => {
     const table = screen.getByRole('table', { name: 'Users' });
     const rows = within(table).getAllByRole('row');
     expect(rows).toHaveLength(3);
-    expect(within(rows[0]).getAllByRole('columnheader').map((cell) => cell.textContent)).toEqual([
-      expect.stringContaining('Name'),
-      expect.stringContaining('Role'),
-    ]);
+    expect(
+      within(rows[0])
+        .getAllByRole('columnheader')
+        .map((cell) => cell.textContent),
+    ).toEqual([expect.stringContaining('Name'), expect.stringContaining('Role')]);
     expect(within(rows[1]).getByRole('rowheader')).toHaveTextContent('Ada');
     expect(rows[1]).toHaveAttribute('aria-selected', 'true');
     expect(rows[1]).toHaveAttribute('data-selected', '');
