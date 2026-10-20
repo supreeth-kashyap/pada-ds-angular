@@ -12,6 +12,7 @@ import {
 import { NgTemplateOutlet } from '@angular/common';
 import { uniqueId } from 'pada-ds-angular/headless';
 import { IconComponent } from '../icon/icon';
+import { PadaLogoComponent } from '../pada-logo/pada-logo';
 
 /** An icon: a built-in (or Material Symbols) icon name, or an image URL. */
 export type SidebarIcon = string;
@@ -83,7 +84,7 @@ const isImage = (icon: string) => /[/.:]/.test(icon);
  */
 @Component({
   selector: 'ds-sidebar-logo',
-  imports: [IconComponent, NgTemplateOutlet],
+  imports: [IconComponent, NgTemplateOutlet, PadaLogoComponent],
   template: `
     <ng-template #content>
       @if (src()) {
@@ -92,14 +93,9 @@ const isImage = (icon: string) => /[/.:]/.test(icon);
         <!-- Stand-in for BrandLogo (built by another batch). -->
         <ds-icon class="sidebar-logo-mark" [name]="name()" [size]="32" />
       } @else if (title()) {
-        <!-- Stand-in for <PadaLogo variant="mark" decorative>. -->
-        <span class="sidebar-logo-mark sidebar-logo-default-mark" aria-hidden="true">P</span>
+        <ds-pada-logo class="sidebar-logo-mark" variant="mark" [size]="32" decorative />
       } @else {
-        <!-- Stand-in for <PadaLogo variant="lockup" title="Pada">. -->
-        <span class="sidebar-logo-lockup" role="img" [attr.aria-label]="alt() || 'Pada'">
-          <span class="sidebar-logo-default-mark" aria-hidden="true">P</span>
-          <span aria-hidden="true">Pada</span>
-        </span>
+        <ds-pada-logo variant="lockup" [size]="28" [title]="alt() || 'Pada'" />
       }
       @if (title()) {
         <span class="sidebar-logo-title">{{ title() }}</span>
@@ -358,8 +354,7 @@ export class SidebarSectionMenuComponent {}
  * It fills its parent's height (give the shell a height) and scrolls the body, so the logo
  * stays pinned. Differences from React: item labels and icons are strings (icon names or
  * image URLs), item `onClick` is the `itemClick` output, `ds-sidebar-body` wraps composed
- * sections, selection is `aria-current="page"` plus `data-selected` (no state classes), and
- * the default Pada logo is a stand-in until the PadaLogo component lands.
+ * sections, and selection is `aria-current="page"` plus `data-selected` (no state classes).
  */
 @Component({
   selector: 'ds-sidebar',
