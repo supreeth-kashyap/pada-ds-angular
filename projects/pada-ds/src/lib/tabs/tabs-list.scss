@@ -1,0 +1,50 @@
+:host {
+  position: relative;
+  display: flex;
+  align-items: stretch;
+  gap: var(--pada-tabs-gap);
+  width: fit-content;
+  min-width: var(--pada-tabs-list-min-width);
+  box-sizing: border-box;
+  padding: var(--pada-tabs-list-pad);
+  background-color: var(--pada-tabs-list-bg);
+  border-bottom: var(--pada-border-width-thin) solid var(--pada-tabs-list-border);
+  border-radius: var(--pada-tabs-list-radius);
+}
+
+:host([data-orientation='vertical']) {
+  flex-direction: column;
+  width: auto;
+  min-width: 0;
+  border-bottom: none;
+}
+
+/* The indicator slides between tabs: the headless part sets its offset and size. */
+.tabs-indicator {
+  position: absolute;
+  inset: var(--pada-tabs-indicator-inset);
+  left: var(--pada-tabs-indicator-offset);
+  width: var(--pada-tabs-indicator-size);
+  height: var(--pada-tabs-indicator-thickness);
+  background-color: var(--pada-tabs-indicator-color);
+  border-radius: var(--pada-tabs-indicator-radius);
+  box-shadow: var(--pada-tabs-indicator-shadow);
+  transition:
+    left var(--pada-duration-normal) var(--pada-ease-emphasized),
+    width var(--pada-duration-normal) var(--pada-ease-emphasized);
+}
+
+.tabs-indicator[data-orientation='vertical'] {
+  inset: auto auto auto -1px;
+  top: var(--pada-tabs-indicator-offset);
+  left: auto;
+  width: var(--pada-tabs-indicator-thickness);
+  height: var(--pada-tabs-indicator-size);
+  transition:
+    top var(--pada-duration-normal) var(--pada-ease-emphasized),
+    height var(--pada-duration-normal) var(--pada-ease-emphasized);
+}
+
+.tabs-indicator[data-state='hidden'] {
+  display: none;
+}
