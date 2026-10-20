@@ -1,69 +1,76 @@
-# AngularDesignSystem
+# Pada for Angular
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.12.
+`pada-ds-angular` is the Angular twin of the React design system [`pada-ds`](https://github.com/supreeth-kashyap/pada): the same components, parts, keyboard maps, tokens and motion, built with signals, standalone components and OnPush change detection.
 
-## Development server
+The library has two entry points:
 
-To start a local development server, run:
+| Entry point | Contents |
+|---|---|
+| `pada-ds-angular` | Styled components (`ds-dialog`, `button[dsButton]`, `ds-data-table` …), built only from `--pada-*` tokens |
+| `pada-ds-angular/headless` | Directives with the behaviour, keyboard handling, focus, ARIA and state attributes, and no styles (`[dsDialog]`, `[dsMenuItem]`, `[dsToolbar]` …) |
 
-```bash
-ng serve
+Every component in React `pada-ds` has an Angular counterpart. The [parity matrix](docs/roadmap/parity.md) lists them, with any deliberate differences.
+
+## Using the library
+
+Load the styles once, globally:
+
+```scss
+@import 'pada-ds-angular/styles.css'; // tokens (light and dark) and component rules
+@import 'pada-ds-angular/base.css';   // optional base element styles
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+Import components (or a component's `Parts` array) into a standalone component:
 
-## Code scaffolding
+```ts
+import { ButtonComponent, DialogParts } from 'pada-ds-angular';
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
+@Component({
+  selector: 'app-profile',
+  imports: [ButtonComponent, ...DialogParts],
+  template: `
+    <ds-dialog [(open)]="editing">
+      <button dsButton dsDialogTrigger>Edit profile</button>
+      <ds-dialog-content size="sm">
+        <ds-dialog-header>
+          <ds-dialog-title>Edit profile</ds-dialog-title>
+        </ds-dialog-header>
+        <ds-dialog-body>…</ds-dialog-body>
+      </ds-dialog-content>
+    </ds-dialog>
+  `,
+})
+export class Profile {
+  editing = signal(false);
+}
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+Form controls implement `ControlValueAccessor`, so they work with reactive and template-driven forms, and also standalone through `[(value)]`. Data components (Table, DataTable, Tree, Timeline, DescriptionList …) take one typed `data` input, which a `to<Name>Data` adapter builds from your API response.
+
+## Development
 
 ```bash
-ng generate --help
+npm install
+npm start           # placeholder app at http://localhost:4200/
+npm run test:lib    # library tests (Vitest, jsdom, axe)
+npm run build:lib   # ng-packagr build of both entry points into dist/
+npm run check       # tokens:check, lint, all tests, both builds
 ```
 
-## Building
+| Path | What it holds |
+|---|---|
+| `projects/pada-ds/headless/src/` | Headless directives and shared behaviour (`utils/`) |
+| `projects/pada-ds/src/lib/` | Styled components, one folder each, with their tests |
+| `projects/pada-ds/src/styles/` | `tokens.css` and `_tokens.scss` (synced from React, never edited by hand), `styles.css`, `base.css` |
+| `src/` | The app, which `tsconfig.json` points at the library sources |
+| `docs/` | [Roadmap](docs/roadmap/README.md), [parity matrix](docs/roadmap/parity.md), [contributing guide](docs/contributing.md) |
 
-To build the project run:
+Read [`CLAUDE.md`](CLAUDE.md) for the rules and [`docs/contributing.md`](docs/contributing.md) for how to build a component step by step.
 
-```bash
-ng build
-```
+## What's left on the roadmap
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Library
-
-The `ds-*` components live in the `pada-ds` library under `projects/pada-ds`, and everything consumers may import is listed in `projects/pada-ds/src/public-api.ts`. The showcase app in `src/` imports them from `'pada-ds'`, which `tsconfig.json` maps to the library sources.
-
-To package the library with ng-packagr into `dist/pada-ds`, run:
-
-```bash
-ng build pada-ds
-```
-
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+- A `manifest.json` / `llms.txt` generator with the same shape as React's
+- Shared `specs/<component>.md` files and spec-generated keyboard tests
+- Storybook for component documentation and examples
+- A zoneless app to prove the components work without Zone.js
+- Release: `0.x` previews until the 2.0.0 release aligned with React
