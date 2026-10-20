@@ -99,3 +99,4 @@ export * from './lib/button/button-group';
 export * from './lib/button/split-button';
 export * from './lib/progress/progress-circle';
 export * from './lib/tags/tag-group';
+export * from './lib/checkbox-group/checkbox-group';
