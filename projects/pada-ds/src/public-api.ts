@@ -25,3 +25,5 @@ export * from './lib/pagination/pagination';
 export * from './lib/steps/steps';
 export * from './lib/indexer/indexer';
 export * from './lib/carousel/carousel';
+export * from './lib/sidebar/sidebar';
+export * from './lib/page-header/page-header';

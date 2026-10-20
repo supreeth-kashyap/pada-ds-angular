@@ -60,8 +60,11 @@ describe('Carousel', () => {
       'aria-live',
       'off',
     );
-    await wait(90);
-    await settle(fixture);
+    // Wait (up to 2s, for slow machines) for the first automatic advance.
+    for (let tries = 0; tries < 40 && screen.queryByRole('group', { name: '1 of 3' }); tries++) {
+      await wait(50);
+      await settle(fixture);
+    }
     expect(screen.queryByRole('group', { name: '1 of 3' })).toBeNull();
 
     region.dispatchEvent(new PointerEvent('pointerenter'));

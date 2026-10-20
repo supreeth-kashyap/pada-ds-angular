@@ -1,0 +1,45 @@
+<aside class="sidebar" [attr.aria-label]="label()">
+  @if (data()) {
+    @if (logo(); as logo) {
+      <ds-sidebar-logo
+        [src]="logo.src"
+        [alt]="logo.alt ?? ''"
+        [name]="logo.name"
+        [title]="logo.title"
+        [href]="logo.href"
+      />
+    }
+    <ds-sidebar-body>
+      @for (section of sections(); track section.id ?? section.label ?? $index) {
+        <ds-sidebar-section [label]="section.label" [icon]="section.icon">
+          @for (entry of section.items; track entry.item.id) {
+            @if (entry.item.href && !entry.item.disabled) {
+              <a
+                dsSidebarMenu
+                [attr.href]="entry.item.href"
+                [icon]="entry.item.icon"
+                [trailing]="entry.item.trailing"
+                [selected]="entry.selected"
+                (click)="itemClick.emit({ item: entry.item, event: $event })"
+                >{{ entry.item.label }}</a
+              >
+            } @else {
+              <button
+                dsSidebarMenu
+                [icon]="entry.item.icon"
+                [trailing]="entry.item.trailing"
+                [selected]="entry.selected"
+                [disabled]="!!entry.item.disabled"
+                (click)="itemClick.emit({ item: entry.item, event: $event })"
+              >
+                {{ entry.item.label }}
+              </button>
+            }
+          }
+        </ds-sidebar-section>
+      }
+    </ds-sidebar-body>
+  } @else {
+    <ng-content />
+  }
+</aside>

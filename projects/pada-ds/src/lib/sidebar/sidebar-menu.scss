@@ -1,0 +1,104 @@
+:host {
+  /* Component tokens. Selection and disabled only reassign these. */
+  --pada-sidebar-menu-bg: var(--pada-color-surface);
+  --pada-sidebar-menu-bg-hover: var(--pada-sidebar-menu-bg);
+  --pada-sidebar-menu-fg: var(--pada-color-fg);
+  --pada-sidebar-menu-fg-hover: var(--pada-color-accent-700);
+  --pada-sidebar-menu-weight: var(--pada-font-weight-medium);
+
+  display: flex;
+  align-items: center;
+  gap: var(--pada-space-2);
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 170px;
+  min-height: 32px;
+  margin: 0;
+  padding: 6px var(--pada-space-3);
+  overflow: hidden;
+  appearance: none;
+  border: 0;
+  border-radius: var(--pada-radius-lg);
+  background: var(--pada-sidebar-menu-bg);
+  color: var(--pada-sidebar-menu-fg);
+  font-family: inherit;
+  font-size: var(--pada-font-size-md);
+  font-weight: var(--pada-sidebar-menu-weight);
+  line-height: 20px;
+  text-align: left;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    background-color var(--pada-duration-fast) var(--pada-ease-standard),
+    color var(--pada-duration-fast) var(--pada-ease-standard),
+    box-shadow var(--pada-duration-fast) var(--pada-ease-standard);
+}
+
+:host([data-selected]) {
+  --pada-sidebar-menu-bg: var(--pada-color-neutral-50);
+  --pada-sidebar-menu-bg-hover: var(--pada-color-neutral-100);
+  --pada-sidebar-menu-fg: var(--pada-color-accent-700);
+  --pada-sidebar-menu-weight: var(--pada-font-weight-semibold);
+}
+
+:host(:hover) {
+  background: var(--pada-sidebar-menu-bg-hover);
+  color: var(--pada-sidebar-menu-fg-hover);
+}
+
+:host(:focus) {
+  outline: none;
+}
+
+:host(:focus-visible) {
+  box-shadow:
+    0 0 0 2px var(--pada-color-surface),
+    0 0 0 3px var(--pada-color-accent-600);
+}
+
+:host([data-disabled]),
+:host([data-disabled]:hover) {
+  --pada-sidebar-menu-bg: var(--pada-color-surface);
+  --pada-sidebar-menu-bg-hover: var(--pada-color-surface);
+  --pada-sidebar-menu-fg: var(--pada-color-neutral-400);
+  --pada-sidebar-menu-fg-hover: var(--pada-color-neutral-400);
+
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* Icons inherit the colour, so they follow rest, hover, selected and disabled. */
+.sidebar-menu-icon {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  color: inherit;
+}
+
+.sidebar-menu-icon-img {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  height: 100%;
+}
+
+.sidebar-menu-label {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.sidebar-menu-trailing,
+:host ::ng-deep [dsSidebarMenuTrailing] {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  color: inherit;
+  font-size: var(--pada-font-size-sm);
+  font-weight: var(--pada-font-weight-semibold);
+}
