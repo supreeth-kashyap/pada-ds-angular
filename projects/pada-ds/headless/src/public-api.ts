@@ -80,3 +80,4 @@ export {
   type FieldContext,
 } from './utils/form-controls';
 export * from './pin-input/pin-input.directive';
+export * from './combobox/combobox.directive';

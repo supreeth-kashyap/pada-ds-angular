@@ -1,0 +1,53 @@
+<div class="select-group">
+  <label class="select-label" [id]="labelId()" [for]="triggerId()">{{ label() }}</label>
+  <div class="select-container" [attr.data-error]="invalid() ? '' : null">
+    <button
+      #trigger
+      type="button"
+      role="combobox"
+      class="select-trigger"
+      aria-haspopup="listbox"
+      [id]="triggerId()"
+      [disabled]="isDisabled()"
+      [attr.aria-expanded]="open()"
+      [attr.aria-controls]="open() ? listboxId() : null"
+      [attr.aria-activedescendant]="activeDescendant()"
+      [attr.aria-invalid]="invalid() ? 'true' : null"
+      [attr.aria-describedby]="describedBy()"
+      [attr.data-filled]="selectedOption() ? '' : null"
+      (click)="onClick()"
+      (keydown)="onKeyDown($event)"
+      (blur)="onBlur($event)"
+    >
+      <span class="select-trigger-text" [attr.data-placeholder]="selectedOption() ? null : ''">
+        {{ displayText() }}
+      </span>
+      <ds-icon class="select-icon" name="chevron_down" [size]="12" />
+    </button>
+    <!-- A button cannot carry a form value; this hidden input submits the selection. -->
+    @if (name(); as name) {
+      <input type="hidden" [name]="name" [value]="value() ?? ''" [disabled]="isDisabled()" />
+    }
+    <div
+      *dsPresence="open()"
+      dsSelectDropdown
+      class="select-dropdown"
+      [open]="open()"
+      [anchor]="trigger"
+      (dismissed)="close()"
+    >
+      <ds-combo-box
+        [id]="listboxId()"
+        [items]="items()"
+        [attr.aria-labelledby]="labelId()"
+        (itemClick)="onItemClick($event)"
+      />
+    </div>
+  </div>
+  @if (description(); as description) {
+    <p class="select-description" [id]="descriptionId()">{{ description }}</p>
+  }
+  @if (showError()) {
+    <p class="select-error" [id]="errorId()">{{ error() }}</p>
+  }
+</div>

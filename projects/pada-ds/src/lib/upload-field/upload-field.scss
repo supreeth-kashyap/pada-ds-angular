@@ -1,0 +1,295 @@
+:host {
+  display: block;
+}
+
+.upload-field-wrapper {
+  /* Component tokens */
+  --pada-upload-field-border: var(--pada-color-neutral-300);
+  --pada-upload-field-border-hover: var(--pada-color-accent-500);
+  --pada-upload-field-border-focus: var(--pada-color-accent-600);
+  --pada-upload-field-ring: var(--pada-color-accent-50);
+  --pada-upload-field-bg: var(--pada-color-surface);
+  --pada-upload-field-muted: var(--pada-color-neutral-600);
+
+  display: flex;
+  flex-direction: column;
+  gap: var(--pada-space-1);
+  width: 100%;
+  font-family: var(--pada-font-sans);
+}
+
+.upload-field-label {
+  display: inline-block;
+  margin-bottom: var(--pada-space-0-5);
+  font-size: var(--pada-font-size-sm);
+  font-weight: var(--pada-font-weight-medium);
+  line-height: var(--pada-line-height-md);
+  color: var(--pada-color-neutral-900);
+}
+
+.upload-field-required {
+  margin-inline-start: var(--pada-space-0-5);
+  color: var(--pada-color-red-600);
+}
+
+/* The drop zone */
+.upload-field-container {
+  position: relative;
+  min-height: 120px;
+  border: 2px dashed var(--pada-upload-field-border);
+  border-radius: var(--pada-radius-md);
+  background-color: var(--pada-upload-field-bg);
+  cursor: pointer;
+  transition:
+    border-color var(--pada-duration-normal) var(--pada-ease-standard),
+    background-color var(--pada-duration-normal) var(--pada-ease-standard),
+    box-shadow var(--pada-duration-normal) var(--pada-ease-standard);
+}
+
+/* Variant variables */
+.upload-field-container[data-invalid] {
+  --pada-upload-field-border: var(--pada-color-red-500);
+  --pada-upload-field-border-hover: var(--pada-color-red-500);
+  --pada-upload-field-border-focus: var(--pada-color-red-500);
+  --pada-upload-field-ring: var(--pada-color-red-50);
+}
+
+.upload-field-container:hover:not([data-disabled]),
+.upload-field-container[data-dragging] {
+  border-color: var(--pada-upload-field-border-hover);
+}
+
+.upload-field-container:focus-within {
+  border-color: var(--pada-upload-field-border-focus);
+  box-shadow: 0 0 0 3px var(--pada-upload-field-ring);
+  outline: none;
+}
+
+.upload-field-container[data-disabled] {
+  border-color: var(--pada-color-neutral-200);
+  background-color: var(--pada-color-neutral-50);
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.upload-field-input {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.upload-field-dropzone {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: var(--pada-space-3);
+  min-height: 120px;
+  box-sizing: border-box;
+  padding: var(--pada-space-6);
+  text-align: center;
+}
+
+.upload-field-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--pada-space-1);
+}
+
+.upload-field-content[data-with-files] {
+  box-sizing: border-box;
+  width: 100%;
+  margin-bottom: var(--pada-space-3);
+  padding-bottom: var(--pada-space-3);
+  border-bottom: var(--pada-border-width-thin) solid var(--pada-color-neutral-200);
+}
+
+.upload-field-icon {
+  flex-shrink: 0;
+  color: var(--pada-upload-field-muted);
+}
+
+.upload-field-text {
+  margin: 0;
+  font-size: var(--pada-font-size-sm);
+  font-weight: var(--pada-font-weight-medium);
+  line-height: var(--pada-line-height-md);
+  color: var(--pada-color-neutral-900);
+}
+
+.upload-field-hints {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--pada-space-1);
+}
+
+.upload-field-hint {
+  display: block;
+  margin: 0;
+  font-size: var(--pada-font-size-xs);
+  line-height: var(--pada-line-height-md);
+  color: var(--pada-upload-field-muted);
+}
+
+.upload-field-description {
+  margin-top: var(--pada-space-2);
+  text-align: center;
+}
+
+/* The file list */
+.upload-field-files {
+  display: flex;
+  flex-direction: column;
+  gap: var(--pada-space-2);
+  width: 100%;
+  cursor: default;
+}
+
+.upload-field-file {
+  display: flex;
+  align-items: center;
+  gap: var(--pada-space-2);
+  padding: var(--pada-space-2) 0;
+  border: none;
+  background-color: transparent;
+  text-align: left;
+  animation: upload-field-file-in var(--pada-duration-normal) var(--pada-ease-enter);
+}
+
+.upload-field-file-icon {
+  color: var(--pada-upload-field-muted);
+}
+
+.upload-field-file[data-status='success'] .upload-field-file-icon {
+  color: var(--pada-color-green-600);
+}
+
+.upload-field-file[data-status='error'] .upload-field-file-icon {
+  color: var(--pada-color-red-600);
+}
+
+.upload-field-file-info {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--pada-space-0-5);
+  min-width: 0;
+}
+
+.upload-field-file-header {
+  display: flex;
+  align-items: center;
+  gap: var(--pada-space-2);
+}
+
+.upload-field-file-name {
+  overflow: hidden;
+  font-size: var(--pada-font-size-sm);
+  font-weight: var(--pada-font-weight-regular);
+  color: var(--pada-color-neutral-900);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.upload-field-file-size {
+  font-size: var(--pada-font-size-xs);
+  color: var(--pada-upload-field-muted);
+  white-space: nowrap;
+}
+
+.upload-field-file-error {
+  font-size: var(--pada-font-size-xs);
+  color: var(--pada-color-red-600);
+}
+
+.upload-field-progress {
+  width: 100%;
+  height: 4px;
+  margin-top: var(--pada-space-1);
+  overflow: hidden;
+  border-radius: var(--pada-radius-full);
+  background-color: var(--pada-color-neutral-200);
+}
+
+.upload-field-progress-bar {
+  height: 100%;
+  border-radius: var(--pada-radius-full);
+  background-color: var(--pada-color-accent-500);
+  transition: width var(--pada-duration-slow) var(--pada-ease-standard);
+}
+
+.upload-field-file-actions {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: var(--pada-space-2);
+}
+
+.upload-field-view {
+  padding: 0;
+  border: none;
+  border-radius: var(--pada-radius-xs);
+  background: none;
+  color: var(--pada-color-accent-600);
+  cursor: pointer;
+  font: inherit;
+  font-size: var(--pada-font-size-sm);
+  font-weight: var(--pada-font-weight-medium);
+  text-decoration: underline;
+  transition: color var(--pada-duration-normal) var(--pada-ease-standard);
+}
+
+.upload-field-view:hover {
+  color: var(--pada-color-accent-700);
+}
+
+.upload-field-view:focus-visible,
+.upload-field-remove:focus-visible {
+  outline: 2px solid var(--pada-color-focus-ring);
+  outline-offset: 2px;
+}
+
+.upload-field-remove {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: var(--pada-space-5);
+  height: var(--pada-space-5);
+  padding: var(--pada-space-1);
+  border: none;
+  border-radius: var(--pada-radius-full);
+  background: none;
+  color: var(--pada-upload-field-muted);
+  cursor: pointer;
+  transition: background-color var(--pada-duration-normal) var(--pada-ease-standard);
+}
+
+.upload-field-remove:hover {
+  background-color: var(--pada-color-neutral-200);
+}
+
+.upload-field-remove:active {
+  background-color: var(--pada-color-neutral-300);
+}
+
+.upload-field-error {
+  width: 100%;
+  margin: var(--pada-space-2) 0 0;
+  font-size: var(--pada-font-size-xs);
+  line-height: var(--pada-line-height-md);
+  color: var(--pada-color-red-600);
+  text-align: left;
+}
+
+@keyframes upload-field-file-in {
+  from {
+    opacity: 0;
+    translate: 0 calc(-1 * var(--pada-motion-distance-sm));
+  }
+}

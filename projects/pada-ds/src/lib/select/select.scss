@@ -1,0 +1,153 @@
+:host {
+  display: block;
+}
+
+/* Wrapper */
+.select-group {
+  /* Component tokens */
+  --pada-select-height: 32px;
+  --pada-select-min-width: 300px;
+  --pada-select-bg: var(--pada-color-surface);
+  --pada-select-fg: var(--pada-color-neutral-900);
+  --pada-select-border: var(--pada-color-neutral-200);
+  --pada-select-border-hover: var(--pada-color-neutral-400);
+  --pada-select-placeholder: var(--pada-color-neutral-400);
+  --pada-select-radius: var(--pada-radius-lg);
+
+  display: flex;
+  flex-direction: column;
+  gap: var(--pada-space-2);
+  font-family: var(--pada-font-sans);
+}
+
+/* Label */
+.select-label {
+  display: block;
+  font-size: var(--pada-font-size-sm);
+  font-weight: var(--pada-font-weight-medium);
+  color: var(--pada-color-neutral-900);
+}
+
+/* Container */
+.select-container {
+  position: relative;
+}
+
+/* Error state: the border turns red. */
+.select-container[data-error] {
+  --pada-select-border: var(--pada-color-red-400);
+  --pada-select-border-hover: var(--pada-color-red-400);
+}
+
+/* Trigger: 32px tall, 8px/16px padding, 8px gap between text and chevron. */
+.select-trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--pada-space-2);
+  box-sizing: border-box;
+  width: 100%;
+  min-width: var(--pada-select-min-width);
+  height: var(--pada-select-height);
+  padding: var(--pada-space-2) var(--pada-space-4);
+  border: var(--pada-border-width-thin) solid var(--pada-select-border);
+  border-radius: var(--pada-select-radius);
+  background-color: var(--pada-select-bg);
+  color: var(--pada-select-fg);
+  cursor: pointer;
+  font-family: inherit;
+  font-size: var(--pada-font-size-md);
+  font-weight: var(--pada-font-weight-regular);
+  line-height: 20px;
+  outline: none;
+  transition:
+    background-color var(--pada-duration-normal) var(--pada-ease-standard),
+    border-color var(--pada-duration-normal) var(--pada-ease-standard),
+    box-shadow var(--pada-duration-normal) var(--pada-ease-standard);
+}
+
+.select-trigger:hover:not(:disabled),
+.select-trigger[aria-expanded='true']:not(:disabled) {
+  border-color: var(--pada-select-border-hover);
+}
+
+/* The base border is not overridden, so it keeps showing rest, hover and error. */
+.select-trigger:focus-visible {
+  box-shadow: var(--pada-shadow-focus);
+}
+
+.select-trigger:disabled {
+  border-color: var(--pada-color-neutral-200);
+  background-color: var(--pada-color-neutral-50);
+  cursor: not-allowed;
+}
+
+.select-trigger:disabled .select-trigger-text,
+.select-trigger:disabled .select-icon {
+  opacity: 0.5;
+}
+
+/* Trigger text */
+.select-trigger-text {
+  flex: 1;
+  overflow: hidden;
+  text-align: left;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.select-trigger-text[data-placeholder] {
+  color: var(--pada-select-placeholder);
+}
+
+/* Chevron */
+.select-icon {
+  flex-shrink: 0;
+  color: var(--pada-select-fg);
+}
+
+/* The list: floating under (or above) the trigger and as wide as it. */
+.select-dropdown {
+  z-index: var(--pada-z-popover);
+  box-sizing: border-box;
+  width: var(--pada-floating-anchor-width);
+  padding: 0;
+  border: none;
+  background: transparent;
+  overflow: visible;
+  transform-origin: var(--pada-floating-transform-origin);
+  transition:
+    opacity var(--pada-duration-fast) var(--pada-ease-enter),
+    scale var(--pada-duration-fast) var(--pada-ease-enter);
+}
+
+@starting-style {
+  .select-dropdown[data-state='open'] {
+    opacity: 0;
+    scale: var(--pada-motion-scale-enter);
+  }
+}
+
+/* As wide as the trigger; six options tall, or less when the viewport has less room. */
+.select-dropdown ds-combo-box {
+  width: 100%;
+  max-width: none;
+  max-height: min(
+    var(--pada-combo-box-max-height),
+    var(--pada-floating-available-height, var(--pada-combo-box-max-height))
+  );
+}
+
+/* Helper text */
+.select-description {
+  margin: 0;
+  font-size: var(--pada-font-size-xs);
+  color: var(--pada-color-neutral-600);
+}
+
+/* Error message */
+.select-error {
+  margin: 0;
+  font-size: var(--pada-font-size-xs);
+  color: var(--pada-color-red-500);
+}

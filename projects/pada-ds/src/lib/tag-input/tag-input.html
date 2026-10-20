@@ -1,0 +1,71 @@
+<div
+  dsField
+  class="tag-input-field"
+  [controlId]="inputId()"
+  [invalid]="!!shownError()"
+  [required]="isRequired()"
+  [disabled]="isDisabled()"
+>
+  <label dsFieldLabel class="tag-input-label">
+    {{ label() }}
+    @if (isRequired()) {
+      <span class="tag-input-required" aria-hidden="true">*</span>
+    }
+  </label>
+  <div #box class="tag-input" [attr.data-disabled]="isDisabled() ? '' : null">
+    @if (value().length > 0) {
+      <ul #list class="tag-input-tags" [attr.aria-label]="listLabel()">
+        @for (tag of value(); track $index) {
+          <li class="tag-input-tag">
+            <span class="tag-input-tag-label">{{ tag }}</span>
+            <button
+              type="button"
+              class="tag-input-remove"
+              tabindex="-1"
+              [attr.aria-label]="'Remove ' + tag"
+              [disabled]="isDisabled()"
+              (click)="remove($index, 'input')"
+              (keydown)="onTagKeyDown($event, $index)"
+            >
+              <svg viewBox="0 0 16 16" width="10" height="10" aria-hidden="true">
+                <path
+                  d="M4 4l8 8M12 4l-8 8"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.75"
+                  stroke-linecap="round"
+                />
+              </svg>
+            </button>
+          </li>
+        }
+      </ul>
+    }
+    <input
+      #field
+      dsFieldControl
+      class="tag-input-input"
+      enterkeyhint="enter"
+      [value]="text()"
+      [attr.placeholder]="full() ? null : (placeholder() ?? null)"
+      [readOnly]="full()"
+      [attr.aria-readonly]="full() || null"
+      (input)="onInput($event)"
+      (keydown)="onInputKeyDown($event)"
+      (paste)="onPaste($event)"
+      (blur)="onBlur()"
+    />
+  </div>
+  @if (description(); as description) {
+    <p dsFieldDescription class="tag-input-description">{{ description }}</p>
+  }
+  @if (shownError(); as error) {
+    <p dsFieldError class="tag-input-error">{{ error }}</p>
+  }
+  <span dsVisuallyHidden aria-live="polite" aria-atomic="true">{{ announcement() }}</span>
+  @if (name(); as name) {
+    @for (tag of value(); track $index) {
+      <input type="hidden" [name]="name" [value]="tag" [disabled]="isDisabled()" />
+    }
+  }
+</div>

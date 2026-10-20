@@ -1,0 +1,36 @@
+<div
+  dsField
+  class="input-textarea-wrapper"
+  [controlId]="inputId()"
+  [invalid]="invalid()"
+  [required]="isRequired()"
+  [disabled]="isDisabled()"
+>
+  @if (label(); as label) {
+    <label dsFieldLabel class="input-textarea-label">
+      {{ label }}
+      @if (isRequired()) {
+        <span class="input-textarea-required" aria-hidden="true">*</span>
+      }
+      @if (optional()) {
+        <span class="input-textarea-optional">(optional)</span>
+      }
+    </label>
+  }
+  <textarea
+    dsFieldControl
+    class="input-textarea"
+    [value]="value()"
+    [attr.placeholder]="placeholder() ?? null"
+    [attr.rows]="rows() ?? null"
+    [attr.maxlength]="maxLength() ?? null"
+    [readOnly]="readonly()"
+    (input)="handleInput($event)"
+    (blur)="handleBlur($event)"
+  ></textarea>
+  @if (error() && invalid()) {
+    <p dsFieldError class="input-textarea-error">{{ error() }}</p>
+  } @else if (description(); as description) {
+    <p dsFieldDescription class="input-textarea-description">{{ description }}</p>
+  }
+</div>

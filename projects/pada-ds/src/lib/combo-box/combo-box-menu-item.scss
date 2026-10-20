@@ -1,0 +1,101 @@
+:host {
+  /* Component tokens */
+  --pada-combo-box-item-bg: var(--pada-color-surface);
+  --pada-combo-box-item-fg: var(--pada-color-neutral-900);
+  --pada-combo-box-item-bg-selected: var(--pada-color-neutral-50);
+  --pada-combo-box-item-fg-selected: var(--pada-color-accent-700);
+  --pada-combo-box-item-border-active: var(--pada-color-accent-600);
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--pada-space-3);
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 220px;
+  margin: 0;
+  padding: var(--pada-space-2) var(--pada-space-3);
+  border: var(--pada-border-width-thin) solid transparent;
+  border-radius: var(--pada-radius-lg);
+  background-color: var(--pada-combo-box-item-bg);
+  color: var(--pada-combo-box-item-fg);
+  cursor: pointer;
+  font-family: inherit;
+  font-size: var(--pada-font-size-md);
+  font-weight: var(--pada-font-weight-medium);
+  line-height: var(--pada-line-height-md);
+  text-align: left;
+  transition:
+    background-color var(--pada-duration-normal) var(--pada-ease-standard),
+    border-color var(--pada-duration-normal) var(--pada-ease-standard),
+    color var(--pada-duration-normal) var(--pada-ease-standard);
+}
+
+/* Child elements */
+.combo-box-menu-item__label {
+  flex: 1;
+  min-width: 0;
+}
+
+.combo-box-menu-item__icon,
+.combo-box-menu-item__tick {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  color: currentColor;
+}
+
+.combo-box-menu-item__icon {
+  width: var(--pada-space-4);
+  height: var(--pada-space-4);
+}
+
+.combo-box-menu-item__tick {
+  width: var(--pada-space-3);
+  height: var(--pada-space-3);
+  opacity: 0;
+  scale: 0.6;
+  transition:
+    opacity var(--pada-duration-fast) var(--pada-ease-standard),
+    scale var(--pada-duration-normal) var(--pada-ease-spring);
+}
+
+/* States via attributes */
+:host([data-selected='true']) {
+  background-color: var(--pada-combo-box-item-bg-selected);
+  color: var(--pada-combo-box-item-fg-selected);
+}
+
+:host([data-selected='true']) .combo-box-menu-item__tick {
+  opacity: 1;
+  scale: 1;
+}
+
+:host(:hover:not(:disabled)) {
+  background-color: var(--pada-combo-box-item-bg-selected);
+  color: var(--pada-combo-box-item-fg-selected);
+}
+
+/* Active descendant of a combobox: keyboard focus stays on the trigger. */
+:host([data-active]) {
+  border-color: var(--pada-combo-box-item-border-active);
+  background-color: var(--pada-combo-box-item-bg-selected);
+  color: var(--pada-combo-box-item-fg-selected);
+}
+
+:host(:focus-visible) {
+  outline: none;
+  border-color: var(--pada-combo-box-item-border-active);
+  box-shadow: var(--pada-shadow-focus);
+}
+
+:host(:disabled) {
+  background-color: var(--pada-combo-box-item-bg-selected);
+  color: var(--pada-color-neutral-400);
+  cursor: not-allowed;
+}
+
+:host(:disabled[data-selected='true']) .combo-box-menu-item__tick {
+  opacity: 0.6;
+}

@@ -81,3 +81,11 @@ export {
   type ColorFormat,
   type Oklch,
 } from './lib/color-picker/color';
+export * from './lib/combo-box/combo-box';
+export * from './lib/combo-box/combo-box-menu-item';
+export * from './lib/autocomplete/autocomplete';
+export * from './lib/select/select';
+export * from './lib/tag-input/tag-input';
+export * from './lib/search-field/search-field';
+export * from './lib/input-text-area/input-text-area';
+export * from './lib/upload-field/upload-field';
