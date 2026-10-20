@@ -54,3 +54,8 @@ export * from './lib/indexer/indexer';
 export * from './lib/carousel/carousel';
 export * from './lib/sidebar/sidebar';
 export * from './lib/page-header/page-header';
+export * from './lib/dropdown-menu/dropdown-menu';
+export * from './lib/context-menu/context-menu';
+export * from './lib/menubar/menubar';
+export * from './lib/accordion/accordion';
+export * from './lib/tabs/tabs';

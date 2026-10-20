@@ -1,0 +1,19 @@
+/* An item (and the standalone section). Component tokens; states only reassign these. */
+:host {
+  --pada-accordion-bg: var(--pada-color-surface);
+  --pada-accordion-border: var(--pada-color-neutral-100);
+  --pada-accordion-fg: var(--pada-color-neutral-900);
+  --pada-accordion-fg-hover: var(--pada-color-accent-700);
+  --pada-accordion-body-fg: var(--pada-color-fg);
+  --pada-accordion-header-pad-y: var(--pada-space-2);
+  --pada-accordion-header-pad-x: var(--pada-space-4);
+  --pada-accordion-body-pad: var(--pada-space-2) var(--pada-space-4) var(--pada-space-6);
+  --pada-accordion-duration: var(--pada-duration-normal);
+  --pada-accordion-ease: var(--pada-ease-emphasized);
+
+  display: block;
+  width: 100%;
+  min-width: 300px;
+  background-color: var(--pada-accordion-bg);
+  box-sizing: border-box;
+}

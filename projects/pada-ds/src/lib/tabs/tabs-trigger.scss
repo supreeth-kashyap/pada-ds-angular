@@ -1,0 +1,53 @@
+:host {
+  display: contents;
+}
+
+.tabs-trigger {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--pada-space-2);
+  padding: var(--pada-tabs-trigger-pad);
+  border: none;
+  border-radius: var(--pada-tabs-trigger-radius);
+  background: transparent;
+  color: var(--pada-tabs-trigger-fg);
+  font-family: inherit;
+  font-size: var(--pada-font-size-md);
+  font-weight: var(--pada-font-weight-medium);
+  line-height: 20px;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: color var(--pada-duration-fast) var(--pada-ease-standard);
+}
+
+.tabs-trigger:hover:not([data-disabled]) {
+  color: var(--pada-tabs-trigger-fg-active);
+}
+
+.tabs-trigger[data-state='active'] {
+  color: var(--pada-tabs-trigger-fg-active);
+}
+
+.tabs-trigger[data-disabled] {
+  color: var(--pada-color-fg-disabled);
+  cursor: not-allowed;
+}
+
+.tabs-trigger:focus-visible {
+  outline: none;
+  box-shadow: var(--pada-shadow-focus);
+}
+
+/* Notification dot: 8×8 red disc with a 2px surface ring so it reads on any underline. */
+.tabs-notification {
+  width: 8px;
+  height: 8px;
+  flex-shrink: 0;
+  box-sizing: content-box;
+  background-color: var(--pada-color-danger-solid);
+  border: 2px solid var(--pada-color-surface);
+  border-radius: var(--pada-radius-full);
+}
