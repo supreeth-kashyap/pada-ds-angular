@@ -1,5 +1,6 @@
 import { render, screen, waitFor } from '@testing-library/angular';
 import { vi } from 'vitest';
+import { expectNoA11yViolations } from '../../../testing/a11y';
 import { IconComponent } from './icon';
 import { getBuiltInIcon, loadIconNames } from './icon-markup';
 
@@ -18,8 +19,21 @@ describe('IconComponent', () => {
   });
 
   it('is an image with a name when given a label', async () => {
-    await render(`<ds-icon name="search" label="Search" />`, { imports: [IconComponent] });
+    const { container } = await render(`<ds-icon name="search" label="Search" />`, {
+      imports: [IconComponent],
+    });
     expect(screen.getByRole('img', { name: 'Search' })).toBeInTheDocument();
+    await expectNoA11yViolations(container);
+  });
+
+  it('takes a colour override, and inherits the text colour without one', async () => {
+    const { container } = await render(
+      `<ds-icon name="tick_1" color="var(--pada-color-success-fg)" /><ds-icon name="cross_1" />`,
+      { imports: [IconComponent] },
+    );
+    const [coloured, plain] = Array.from(container.querySelectorAll('ds-icon')) as HTMLElement[];
+    expect(coloured.style.color).toBe('var(--pada-color-success-fg)');
+    expect(plain.style.color).toBe('');
   });
 
   it('renders inline SVG markup passed as src without a request', async () => {
