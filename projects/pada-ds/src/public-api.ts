@@ -59,3 +59,4 @@ export * from './lib/context-menu/context-menu';
 export * from './lib/menubar/menubar';
 export * from './lib/accordion/accordion';
 export * from './lib/tabs/tabs';
+export * from './lib/calendar/calendar';

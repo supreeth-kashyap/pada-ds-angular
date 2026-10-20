@@ -1,0 +1,30 @@
+<table dsCalendarGrid class="calendar-grid" [hideOutsideDays]="hideOutsideDays()">
+  <thead>
+    <tr>
+      @for (weekday of calendar.weekdays(); track weekday.long) {
+        <th scope="col" [attr.abbr]="weekday.long">{{ weekday.short }}</th>
+      }
+    </tr>
+  </thead>
+  <tbody>
+    @for (week of weeks(); track week.key) {
+      <tr>
+        @for (day of week.days; track day.key) {
+          <td [dsCalendarCell]="day.date">
+            @if (!day.hidden) {
+              <button [dsCalendarDay]="day.date" #button="dsCalendarDay" class="calendar-day">
+                @if (dayContent(); as content) {
+                  <ng-container
+                    *ngTemplateOutlet="content.template; context: { $implicit: button.state() }"
+                  />
+                } @else {
+                  {{ day.date.getDate() }}
+                }
+              </button>
+            }
+          </td>
+        }
+      </tr>
+    }
+  </tbody>
+</table>

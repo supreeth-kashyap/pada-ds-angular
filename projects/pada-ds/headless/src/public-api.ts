@@ -65,3 +65,5 @@ export * from './menubar/menubar.directive';
 export * from './collapsible/collapsible.directive';
 export * from './accordion/accordion.directive';
 export * from './tabs/tabs.directive';
+export * from './calendar/calendar.directive';
+export type { DateRangeValue } from './calendar/dates';
