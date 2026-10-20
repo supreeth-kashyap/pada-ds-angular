@@ -1,0 +1,197 @@
+:host {
+  display: block;
+}
+
+.number-input-field {
+  /* Component tokens. Sizes and the invalid state only reassign these. */
+  --pada-number-input-height: var(--pada-control-height-md);
+  --pada-number-input-font-size: var(--pada-font-size-md);
+  --pada-number-input-bg: var(--pada-color-surface);
+  --pada-number-input-border: var(--pada-color-border-strong);
+  --pada-number-input-border-hover: var(--pada-color-neutral-500);
+  --pada-number-input-border-focus: var(--pada-color-accent-solid);
+  --pada-number-input-ring: var(--pada-color-accent-subtle);
+  --pada-number-input-radius: var(--pada-radius-lg);
+  --pada-number-input-step-fg: var(--pada-color-fg-muted);
+  --pada-number-input-step-bg-hover: var(--pada-color-neutral-subtle-hover);
+
+  display: flex;
+  flex-direction: column;
+  gap: var(--pada-space-1);
+  font-family: var(--pada-font-sans);
+}
+
+/* Variant variables */
+.number-input-field[data-invalid] {
+  --pada-number-input-border: var(--pada-color-danger-solid);
+  --pada-number-input-border-hover: var(--pada-color-danger-solid);
+  --pada-number-input-border-focus: var(--pada-color-danger-solid);
+  --pada-number-input-ring: var(--pada-color-danger-subtle);
+}
+
+.number-input[data-size='sm'] {
+  --pada-number-input-height: var(--pada-control-height-sm);
+  --pada-number-input-font-size: var(--pada-font-size-sm);
+}
+
+.number-input[data-size='lg'] {
+  --pada-number-input-height: var(--pada-control-height-lg);
+}
+
+/* Child elements */
+.number-input-label {
+  font-size: var(--pada-font-size-sm);
+  font-weight: var(--pada-font-weight-medium);
+  line-height: var(--pada-line-height-md);
+  color: var(--pada-color-fg);
+}
+
+.number-input-label[data-disabled] {
+  color: var(--pada-color-fg-disabled);
+}
+
+.number-input-required {
+  margin-inline-start: var(--pada-space-0-5);
+  color: var(--pada-color-danger-fg);
+}
+
+.number-input-optional {
+  margin-inline-start: var(--pada-space-1);
+  font-size: var(--pada-font-size-xs);
+  font-weight: var(--pada-font-weight-regular);
+  color: var(--pada-color-fg-subtle);
+}
+
+/* The bordered box around the input and its steppers. */
+.number-input {
+  display: flex;
+  align-items: stretch;
+  box-sizing: border-box;
+  width: 100%;
+  height: var(--pada-number-input-height);
+  overflow: hidden;
+  border: var(--pada-border-width-thin) solid var(--pada-number-input-border);
+  border-radius: var(--pada-number-input-radius);
+  background-color: var(--pada-number-input-bg);
+  transition:
+    border-color var(--pada-duration-fast) var(--pada-ease-standard),
+    box-shadow var(--pada-duration-fast) var(--pada-ease-standard);
+}
+
+.number-input:hover:not([data-disabled]) {
+  border-color: var(--pada-number-input-border-hover);
+}
+
+.number-input:has(.number-input-input:focus-visible) {
+  border-color: var(--pada-number-input-border-focus);
+  box-shadow: 0 0 0 3px var(--pada-number-input-ring);
+}
+
+.number-input[data-disabled] {
+  background-color: var(--pada-color-surface-sunken);
+  cursor: not-allowed;
+}
+
+.number-input-input {
+  flex: 1;
+  min-width: 0;
+  padding: 0 var(--pada-space-3);
+  border: none;
+  background: none;
+  color: var(--pada-color-fg);
+  font: inherit;
+  font-size: var(--pada-number-input-font-size);
+  font-variant-numeric: tabular-nums;
+  outline: none;
+}
+
+.number-input[data-stepper='split'] .number-input-input {
+  text-align: center;
+}
+
+.number-input-input::placeholder {
+  color: var(--pada-color-fg-subtle);
+}
+
+.number-input-input:disabled {
+  color: var(--pada-color-fg-disabled);
+  cursor: not-allowed;
+}
+
+.number-input-steppers {
+  display: flex;
+  flex-direction: column;
+  border-inline-start: var(--pada-border-width-thin) solid var(--pada-color-border);
+}
+
+.number-input-step {
+  display: inline-flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  min-width: var(--pada-number-input-height);
+  padding: 0;
+  border: none;
+  background: none;
+  color: var(--pada-number-input-step-fg);
+  cursor: pointer;
+  touch-action: manipulation;
+  user-select: none;
+  transition:
+    background-color var(--pada-duration-fast) var(--pada-ease-standard),
+    color var(--pada-duration-fast) var(--pada-ease-standard);
+}
+
+.number-input-steppers .number-input-step {
+  min-width: calc(var(--pada-number-input-height) * 0.75);
+}
+
+.number-input-steppers .number-input-step + .number-input-step {
+  border-top: var(--pada-border-width-thin) solid var(--pada-color-border);
+}
+
+.number-input-step:hover:not(:disabled) {
+  background-color: var(--pada-number-input-step-bg-hover);
+  color: var(--pada-color-fg);
+}
+
+.number-input-step svg {
+  transition: scale var(--pada-duration-fast) var(--pada-ease-standard);
+}
+
+/* A press squeezes the glyph. */
+.number-input-step:active:not(:disabled) svg {
+  scale: 0.85;
+}
+
+.number-input-step:disabled {
+  color: var(--pada-color-fg-disabled);
+  cursor: not-allowed;
+}
+
+.number-input-description,
+.number-input-error {
+  margin: 0;
+  font-size: var(--pada-font-size-sm);
+  line-height: var(--pada-line-height-md);
+}
+
+.number-input-description {
+  color: var(--pada-color-fg-muted);
+}
+
+.number-input-error {
+  color: var(--pada-color-danger-fg);
+  animation: number-input-error-in var(--pada-duration-normal) var(--pada-ease-enter);
+}
+
+.number-input-error[hidden] {
+  display: none;
+}
+
+@keyframes number-input-error-in {
+  from {
+    opacity: 0;
+    translate: 0 calc(-1 * var(--pada-motion-distance-sm));
+  }
+}

@@ -21,3 +21,7 @@ export * from './lib/toggle-group/toggle-group';
 export * from './lib/segment-control/segment-control';
 export * from './lib/slider/slider';
 export * from './lib/range-slider/range-slider';
+export * from './lib/number-input/number-input';
+export * from './lib/password-input/password-input';
+export * from './lib/password-input/password-strength';
+export * from './lib/pin-input/pin-input';
