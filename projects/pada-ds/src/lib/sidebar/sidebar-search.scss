@@ -1,0 +1,30 @@
+:host {
+  display: block;
+  padding: var(--pada-space-1) 0 var(--pada-space-2);
+}
+
+.sidebar-search-input {
+  box-sizing: border-box;
+  width: 100%;
+  height: var(--pada-control-height-sm);
+  padding: 0 var(--pada-space-2);
+  border: var(--pada-border-width-thin) solid var(--pada-color-border);
+  border-radius: var(--pada-radius-lg);
+  background: var(--pada-color-surface);
+  color: var(--pada-color-fg);
+  font: inherit;
+  font-size: var(--pada-font-size-md);
+  outline: none;
+  transition:
+    border-color var(--pada-duration-fast) var(--pada-ease-standard),
+    box-shadow var(--pada-duration-fast) var(--pada-ease-standard);
+}
+
+.sidebar-search-input::placeholder {
+  color: var(--pada-color-fg-subtle);
+}
+
+.sidebar-search-input:focus-visible {
+  border-color: var(--pada-color-accent-solid);
+  box-shadow: var(--pada-shadow-focus);
+}

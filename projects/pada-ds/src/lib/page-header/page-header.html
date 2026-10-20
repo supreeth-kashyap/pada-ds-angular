@@ -1,0 +1,104 @@
+<ng-template #crumb let-item let-current="current">
+  @if (current) {
+    <span class="page-header-crumb" aria-current="page">{{ item.label }}</span>
+  } @else if (item.href) {
+    <a
+      class="page-header-crumb page-header-crumb-link"
+      [attr.href]="item.href"
+      (click)="navigate.emit({ item, event: $event })"
+      >{{ item.label }}</a
+    >
+  } @else {
+    <span class="page-header-crumb">{{ item.label }}</span>
+  }
+</ng-template>
+
+<nav class="page-header-breadcrumbs" aria-label="Breadcrumb">
+  <ol class="page-header-crumb-list">
+    @if (crumbs().first; as first) {
+      <li class="page-header-crumb-item">
+        <ng-container
+          [ngTemplateOutlet]="crumb"
+          [ngTemplateOutletContext]="{ $implicit: first, current: false }"
+        />
+        <span class="page-header-separator" aria-hidden="true">/</span>
+      </li>
+      <li class="page-header-crumb-item">
+        <ds-popover>
+          <button
+            type="button"
+            class="page-header-ellipsis-button"
+            dsPopoverTrigger
+            aria-label="Show hidden breadcrumbs"
+          >
+            …
+          </button>
+          <ds-popover-content side="bottom" align="start" ariaLabel="Hidden breadcrumbs">
+            <ul class="page-header-crumb-dropdown">
+              @for (item of crumbs().hidden; track $index) {
+                <li>
+                  <ng-container
+                    [ngTemplateOutlet]="crumb"
+                    [ngTemplateOutletContext]="{ $implicit: item, current: false }"
+                  />
+                </li>
+              }
+            </ul>
+          </ds-popover-content>
+        </ds-popover>
+        <span class="page-header-separator" aria-hidden="true">/</span>
+      </li>
+    }
+    @for (item of crumbs().visible; track $index) {
+      <li class="page-header-crumb-item">
+        <ng-container
+          [ngTemplateOutlet]="crumb"
+          [ngTemplateOutletContext]="{ $implicit: item, current: $last }"
+        />
+        @if (!$last) {
+          <span class="page-header-separator" aria-hidden="true">/</span>
+        }
+      </li>
+    }
+  </ol>
+</nav>
+
+<div class="page-header-actions">
+  <button type="button" class="page-header-command" (click)="commandClick.emit()">
+    <span class="page-header-command-left">
+      <ds-icon class="page-header-command-icon" name="search" [size]="12" />
+      <span class="page-header-command-text">{{ commandLabel() }}</span>
+    </span>
+    <kbd class="page-header-command-shortcut">{{ commandShortcut() }}</kbd>
+  </button>
+
+  <button type="button" class="page-header-ai" (click)="aiClick.emit()">
+    <span class="page-header-ai-label">{{ aiLabel() }}</span>
+  </button>
+
+  <ng-template #profileContent>
+    <ng-content select="[dsPageHeaderProfileTrigger]" />
+    @if (!profileTrigger()) {
+      <ds-icon name="user_default" [size]="12" />
+    }
+  </ng-template>
+  @if (profileMenu()) {
+    <ds-popover>
+      <button
+        type="button"
+        class="page-header-profile-trigger"
+        dsPopoverTrigger
+        [attr.aria-label]="profileLabel()"
+      >
+        <ng-container [ngTemplateOutlet]="profileContent" />
+      </button>
+      <ds-popover-content side="bottom" align="end" [ariaLabel]="profileLabel()">
+        <ng-content select="[dsPageHeaderProfileMenu]" />
+      </ds-popover-content>
+    </ds-popover>
+  } @else {
+    <button type="button" class="page-header-profile-trigger" [attr.aria-label]="profileLabel()">
+      <ng-container [ngTemplateOutlet]="profileContent" />
+    </button>
+  }
+</div>

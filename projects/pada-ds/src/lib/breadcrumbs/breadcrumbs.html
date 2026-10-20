@@ -1,0 +1,39 @@
+<nav class="breadcrumbs" [attr.aria-label]="label()">
+  <ol #list class="breadcrumbs-list">
+    @for (entry of visible(); track $index) {
+      <li class="breadcrumbs-item">
+        @if (entry === 'ellipsis') {
+          <button
+            type="button"
+            class="breadcrumbs-ellipsis"
+            aria-label="Show all breadcrumbs"
+            (click)="expand()"
+          >
+            …
+          </button>
+        } @else if ($last) {
+          <span class="breadcrumbs-current" aria-current="page">{{ entry.label }}</span>
+        } @else if (entry.href) {
+          @if (linkTemplate(); as template) {
+            <ng-container
+              [ngTemplateOutlet]="template"
+              [ngTemplateOutletContext]="{ $implicit: entry, className: 'breadcrumbs-link' }"
+            />
+          } @else {
+            <a
+              class="breadcrumbs-link"
+              [attr.href]="entry.href"
+              (click)="navigate.emit({ item: entry, event: $event })"
+              >{{ entry.label }}</a
+            >
+          }
+        } @else {
+          <span class="breadcrumbs-text">{{ entry.label }}</span>
+        }
+        @if (!$last) {
+          <ds-icon class="breadcrumbs-separator" name="chevron_right" [size]="12" />
+        }
+      </li>
+    }
+  </ol>
+</nav>

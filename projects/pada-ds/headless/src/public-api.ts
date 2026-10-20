@@ -56,3 +56,6 @@ export { injectControlStatus, type ControlStatus } from './utils/forms';
 export * from './tooltip/tooltip.directive';
 export * from './hover-card/hover-card.directive';
 export * from './alert-dialog/alert-dialog.directive';
+export * from './resizable/resizable.directive';
+export * from './theme/theme.service';
+export * from './theme/theme.directive';

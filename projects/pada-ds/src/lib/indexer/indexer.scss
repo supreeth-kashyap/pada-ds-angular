@@ -1,0 +1,96 @@
+:host {
+  display: block;
+}
+
+.indexer {
+  /* Component tokens */
+  --pada-indexer-rail-color: var(--pada-color-neutral-200);
+  --pada-indexer-active-color: var(--pada-color-accent-600);
+  --pada-indexer-hover-color: var(--pada-color-accent-500);
+  --pada-indexer-focus-ring: var(--pada-color-accent-200);
+
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  padding: 0 var(--pada-space-3);
+}
+
+/* The rail the active marker sits on. */
+.indexer::before {
+  content: '';
+  position: absolute;
+  top: 6px;
+  bottom: 6px;
+  left: 6px;
+  width: 2px;
+  border-radius: var(--pada-radius-full);
+  background: var(--pada-indexer-rail-color);
+}
+
+.indexer-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.indexer-list-item {
+  margin: 0;
+}
+
+.indexer-item {
+  position: relative;
+  width: 100%;
+  padding: var(--pada-space-2) var(--pada-space-3);
+  border: var(--pada-border-width-thin) solid transparent;
+  border-radius: var(--pada-radius-lg);
+  background: transparent;
+  color: var(--pada-color-neutral-600);
+  font: inherit;
+  font-size: var(--pada-font-size-md);
+  font-weight: var(--pada-font-weight-medium);
+  text-align: left;
+  cursor: pointer;
+  transition:
+    color var(--pada-duration-fast) var(--pada-ease-standard),
+    background var(--pada-duration-fast) var(--pada-ease-standard),
+    border-color var(--pada-duration-fast) var(--pada-ease-standard);
+}
+
+/* The active marker, on the rail. */
+.indexer-item::before {
+  content: '';
+  position: absolute;
+  top: 6px;
+  bottom: 6px;
+  left: -8px;
+  width: 4px;
+  border-radius: var(--pada-radius-full);
+  background: var(--pada-indexer-active-color);
+  opacity: 0;
+  transition: opacity var(--pada-duration-fast) var(--pada-ease-standard);
+}
+
+.indexer-item:hover {
+  background: var(--pada-color-neutral-100);
+  color: var(--pada-indexer-hover-color);
+}
+
+.indexer-item:focus-visible {
+  border-color: var(--pada-indexer-focus-ring);
+  background: var(--pada-color-accent-50);
+  box-shadow: var(--pada-shadow-focus);
+  outline: none;
+}
+
+.indexer-item[aria-current='true'] {
+  color: var(--pada-indexer-active-color);
+  font-weight: var(--pada-font-weight-semibold);
+}
+
+.indexer-item[aria-current='true']::before {
+  opacity: 1;
+}
