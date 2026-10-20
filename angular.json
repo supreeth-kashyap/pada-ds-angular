@@ -126,6 +126,34 @@
               "projects/pada-ds/**/*.html"
             ]
           }
+        },
+        "storybook": {
+          "builder": "@storybook/angular:start-storybook",
+          "options": {
+            "configDir": "projects/pada-ds/.storybook",
+            "browserTarget": "pada-ds:build",
+            "tsConfig": "projects/pada-ds/.storybook/tsconfig.json",
+            "compodoc": false,
+            "styles": [
+              "projects/pada-ds/src/styles/styles.css",
+              "projects/pada-ds/src/styles/base.css"
+            ],
+            "port": 6006
+          }
+        },
+        "build-storybook": {
+          "builder": "@storybook/angular:build-storybook",
+          "options": {
+            "configDir": "projects/pada-ds/.storybook",
+            "browserTarget": "pada-ds:build",
+            "tsConfig": "projects/pada-ds/.storybook/tsconfig.json",
+            "compodoc": false,
+            "styles": [
+              "projects/pada-ds/src/styles/styles.css",
+              "projects/pada-ds/src/styles/base.css"
+            ],
+            "outputDir": "dist/storybook/pada-ds"
+          }
         }
       }
     }

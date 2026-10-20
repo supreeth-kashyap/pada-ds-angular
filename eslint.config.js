@@ -2,6 +2,7 @@
 const eslint = require('@eslint/js');
 const tseslint = require('typescript-eslint');
 const angular = require('angular-eslint');
+const storybook = require('eslint-plugin-storybook');
 
 module.exports = tseslint.config(
   {
@@ -52,4 +53,5 @@ module.exports = tseslint.config(
     files: ['projects/pada-ds/**/*.html', 'projects/pada-ds/**/*.ts'],
     rules: { '@angular-eslint/template/label-has-associated-control': 'off' },
   },
+  ...storybook.configs['flat/recommended'],
 );
