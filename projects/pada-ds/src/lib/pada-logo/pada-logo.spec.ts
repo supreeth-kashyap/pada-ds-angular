@@ -10,15 +10,14 @@ describe('PadaLogoComponent', () => {
     const logo = screen.getByRole('img', { name: 'Pada' });
     expect(logo.tagName.toLowerCase()).toBe('svg');
     expect(logo).toHaveAttribute('height', '48');
-    expect(logo).toHaveAttribute('width', String((48 * 110) / 32));
-    expect(logo).toHaveAttribute('viewBox', '0 0 110 32');
+    expect(logo).toHaveAttribute('width', String((48 * 146.2) / 32.875));
+    expect(logo).toHaveAttribute('viewBox', '0 0 146.2 32.875');
     expect(logo).toHaveAttribute('data-variant', 'lockup');
     expect(logo).toHaveAttribute('data-tone', 'color');
-    // Toes are drawn from 48px up.
-    expect(logo.querySelectorAll('circle[r="1.5"]')).toHaveLength(2);
+    expect(logo.querySelectorAll('.pada-logo-half')).toHaveLength(2);
     expect(logo.querySelector('.pada-logo-wordmark')).toHaveAttribute(
       'transform',
-      'translate(42 6.4)',
+      'translate(36.7 8.5)',
     );
     expect(container.querySelector('ds-pada-logo')).not.toHaveAttribute('title');
     await expectNoA11yViolations(container);
@@ -33,20 +32,19 @@ describe('PadaLogoComponent', () => {
     const [decorative, loader] = Array.from(container.querySelectorAll('svg'));
     expect(decorative).toHaveAttribute('aria-hidden', 'true');
     expect(decorative).not.toHaveAttribute('role');
-    expect(decorative.querySelectorAll('circle')).toHaveLength(0);
     expect(decorative.querySelector('.pada-logo-wordmark')).toBeNull();
     expect(screen.getByRole('status', { name: 'Loading' })).toBe(loader);
     expect(loader).toHaveAttribute('data-animated', 'loop');
     await expectNoA11yViolations(container);
   });
 
-  it('wordmark alone, with a custom name, the enter animation and forced toes off', async () => {
+  it('wordmark alone, with a custom name and the enter animation', async () => {
     await render(
-      `<ds-pada-logo variant="wordmark" title="Pada home" animated tone="mono" size="xl" [toes]="false" />`,
+      `<ds-pada-logo variant="wordmark" title="Pada home" animated tone="mono" size="xl" />`,
       { imports: [PadaLogoComponent] },
     );
     const logo = screen.getByRole('img', { name: 'Pada home' });
-    expect(logo).toHaveAttribute('viewBox', '0 0 67 27');
+    expect(logo).toHaveAttribute('viewBox', '0 0 109.484 15.875');
     expect(logo).toHaveAttribute('data-animated', 'enter');
     expect(logo).toHaveAttribute('data-tone', 'mono');
     expect(logo.querySelector('.pada-logo-mark')).toBeNull();
