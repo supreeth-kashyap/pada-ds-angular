@@ -1,0 +1,26 @@
+:host {
+  /* Component tokens */
+  --pada-calendar-cell-size: var(--pada-control-height-md);
+  --pada-calendar-day-radius: var(--pada-radius-lg);
+  --pada-calendar-day-fg: var(--pada-color-fg);
+  --pada-calendar-day-bg-hover: var(--pada-color-accent-subtle);
+  --pada-calendar-day-fg-hover: var(--pada-color-accent-fg);
+  --pada-calendar-range-bg: var(--pada-color-accent-subtle);
+  --pada-calendar-range-fg: var(--pada-color-accent-fg);
+  --pada-calendar-selected-bg: var(--pada-color-accent-solid);
+  --pada-calendar-selected-fg: var(--pada-color-accent-on-solid);
+  --pada-calendar-today-fg: var(--pada-color-accent-fg);
+
+  display: inline-flex;
+  flex-direction: column;
+  gap: var(--pada-space-3);
+  font-family: var(--pada-font-sans);
+  color: var(--pada-color-fg);
+}
+
+.calendar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--pada-space-2);
+}

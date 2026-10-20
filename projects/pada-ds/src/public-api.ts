@@ -89,3 +89,8 @@ export * from './lib/tag-input/tag-input';
 export * from './lib/search-field/search-field';
 export * from './lib/input-text-area/input-text-area';
 export * from './lib/upload-field/upload-field';
+export * from './lib/calendar/calendar';
+export * from './lib/date-picker/date-picker';
+export * from './lib/input-date/input-date';
+export * from './lib/tree/tree';
+export * from './lib/tree/tree.adapter';

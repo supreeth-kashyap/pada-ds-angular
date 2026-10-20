@@ -1,0 +1,127 @@
+@switch (view()) {
+  @case ('calendar') {
+    <ds-calendar-root
+      class="date-picker"
+      [mode]="isRange() ? 'range' : 'single'"
+      [value]="singleValue()"
+      (valueChange)="pickDay($event)"
+      [range]="rangeValue()"
+      (rangeChange)="pickRange($event)"
+      [month]="viewDate()"
+      (monthChange)="showMonth($event)"
+      [min]="minDate()"
+      [max]="maxDate()"
+      [isDateUnavailable]="isDateUnavailable()"
+      [weekStartsOn]="weekStartsOn()"
+      [locale]="locale()"
+      [disabled]="isDisabled()"
+      [today]="today()"
+    >
+      <div class="date-picker-header">
+        <ds-calendar-prev-button />
+        <button
+          dsCalendarHeading
+          type="button"
+          class="date-picker-view-select"
+          [disabled]="isDisabled()"
+          (click)="setView('month')"
+        >
+          {{ monthLabel() }}
+        </button>
+        <ds-calendar-next-button />
+      </div>
+      <ds-calendar-grid />
+    </ds-calendar-root>
+  }
+  @case ('month') {
+    <div class="date-picker">
+      <div class="date-picker-header">
+        <button
+          type="button"
+          class="date-picker-chevron"
+          aria-label="Previous year"
+          [disabled]="isDisabled()"
+          (click)="shift(-1)"
+        >
+          <ds-icon name="chevron_left" [size]="12" />
+        </button>
+        <button
+          type="button"
+          class="date-picker-view-select"
+          [disabled]="isDisabled()"
+          (click)="setView('year')"
+        >
+          {{ year() }}
+        </button>
+        <button
+          type="button"
+          class="date-picker-chevron"
+          aria-label="Next year"
+          [disabled]="isDisabled()"
+          (click)="shift(1)"
+        >
+          <ds-icon name="chevron_right" [size]="12" />
+        </button>
+      </div>
+      <div class="date-picker-grid">
+        @for (box of months(); track box.key) {
+          <button
+            type="button"
+            class="picker-box"
+            [attr.data-state]="box.state"
+            [attr.data-today]="box.today ? '' : null"
+            [attr.aria-pressed]="box.selected"
+            [disabled]="isDisabled()"
+            (click)="pickMonth(box.key)"
+            (mouseenter)="hoverMonth(box.key)"
+            (mouseleave)="hoverMonth(null)"
+          >
+            {{ box.label }}
+          </button>
+        }
+      </div>
+    </div>
+  }
+  @case ('year') {
+    <div class="date-picker">
+      <div class="date-picker-header">
+        <button
+          type="button"
+          class="date-picker-chevron"
+          aria-label="Previous decade"
+          [disabled]="isDisabled()"
+          (click)="shift(-12)"
+        >
+          <ds-icon name="chevron_left" [size]="12" />
+        </button>
+        <div class="date-picker-view-select">{{ decadeLabel() }}</div>
+        <button
+          type="button"
+          class="date-picker-chevron"
+          aria-label="Next decade"
+          [disabled]="isDisabled()"
+          (click)="shift(12)"
+        >
+          <ds-icon name="chevron_right" [size]="12" />
+        </button>
+      </div>
+      <div class="date-picker-grid">
+        @for (box of yearBoxes(); track box.key) {
+          <button
+            type="button"
+            class="picker-box"
+            [attr.data-state]="box.state"
+            [attr.data-today]="box.today ? '' : null"
+            [attr.aria-pressed]="box.selected"
+            [disabled]="isDisabled()"
+            (click)="pickYear(box.key)"
+            (mouseenter)="hoverYear(box.key)"
+            (mouseleave)="hoverYear(null)"
+          >
+            {{ box.label }}
+          </button>
+        }
+      </div>
+    </div>
+  }
+}

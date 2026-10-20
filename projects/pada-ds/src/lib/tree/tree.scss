@@ -1,0 +1,14 @@
+:host {
+  /* Component tokens */
+  --pada-tree-indent: var(--pada-space-5);
+  --pada-tree-row-height: var(--pada-control-height-sm);
+  --pada-tree-row-radius: var(--pada-radius-md);
+  --pada-tree-guide: var(--pada-color-border);
+
+  display: block;
+  margin: 0;
+  padding: 0;
+  font-family: var(--pada-font-sans);
+  font-size: var(--pada-font-size-md);
+  color: var(--pada-color-fg);
+}
