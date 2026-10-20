@@ -32,3 +32,4 @@ export * from './lib/icon-button/icon-button';
 export * from './lib/key-value/key-value';
 export * from './lib/pada-logo/pada-logo';
 export * from './lib/brand-logo/brand-logo';
+export * from './lib/description-list/description-list';

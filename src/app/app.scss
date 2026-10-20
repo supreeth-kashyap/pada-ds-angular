@@ -1,25 +1,19 @@
 main {
-  padding: 2rem;
-  font-family: sans-serif;
+  max-width: 40rem;
+  margin: 0 auto;
+  padding: var(--pada-space-12) var(--pada-space-6);
+  color: var(--pada-color-fg);
+  font-family: var(--pada-font-sans);
+  line-height: var(--pada-line-height-md);
 }
 
 h1 {
-  font-size: 1rem;
-  font-weight: 500;
-  margin: 0 0 1rem;
-  color: #666;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
+  margin: 0 0 var(--pada-space-3);
+  font-size: var(--pada-font-size-2xl);
+  font-weight: var(--pada-font-weight-semibold);
 }
 
-.showcase {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  align-items: center;
-
-  &--block {
-    display: block;
-    max-width: 480px;
-  }
+p {
+  margin: 0;
+  color: var(--pada-color-fg-muted);
 }
