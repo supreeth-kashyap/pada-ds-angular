@@ -1,0 +1,112 @@
+<div
+  class="date-range-picker"
+  [attr.data-invalid]="invalid() ? '' : null"
+  [attr.data-disabled]="isDisabled() ? '' : null"
+>
+  @if (label(); as label) {
+    <label
+      class="date-range-picker-label"
+      [id]="labelId()"
+      [attr.for]="inputId()"
+      [attr.data-disabled]="isDisabled() ? '' : null"
+    >
+      {{ label }}
+      @if (isRequired()) {
+        <span class="date-range-picker-required" aria-hidden="true">*</span>
+        <span dsVisuallyHidden>(required)</span>
+      }
+      @if (optional()) {
+        <span class="date-range-picker-optional">(optional)</span>
+      }
+    </label>
+  }
+  <ng-container dsPopover [open]="open()" (openChange)="setOpen($event)">
+    <button
+      dsPopoverTrigger
+      class="date-range-picker-field"
+      [id]="inputId()"
+      [disabled]="isDisabled()"
+      [attr.aria-labelledby]="labelledBy()"
+      [attr.aria-describedby]="describedBy()"
+      [attr.aria-invalid]="invalid() ? 'true' : null"
+      [attr.data-filled]="display() ? '' : null"
+    >
+      <span
+        class="date-range-picker-value"
+        [id]="valueId()"
+        [attr.data-placeholder]="display() ? null : ''"
+      >
+        {{ display() || placeholder() }}
+      </span>
+      <ds-icon class="date-range-picker-icon" name="calendar_3" [size]="12" />
+    </button>
+    <div
+      *dsPresence="open()"
+      dsPopoverContent
+      class="date-range-picker-popover"
+      side="bottom"
+      align="start"
+      [sideOffset]="4"
+      [attr.aria-label]="dialogLabel()"
+    >
+      <div class="date-range-picker-panel">
+        @if (presetStates().length) {
+          <ul class="date-range-picker-presets" aria-label="Presets">
+            @for (item of presetStates(); track item.preset.label) {
+              <li>
+                <button
+                  type="button"
+                  class="date-range-picker-preset"
+                  [attr.aria-pressed]="item.selected"
+                  [attr.data-selected]="item.selected ? '' : null"
+                  (click)="pickPreset(item.preset)"
+                >
+                  {{ item.preset.label }}
+                </button>
+              </li>
+            }
+          </ul>
+        }
+        <ds-calendar-root
+          class="date-range-picker-calendar"
+          mode="range"
+          [range]="draft()"
+          (rangeChange)="pickRange($event)"
+          [numberOfMonths]="offsets().length"
+          [min]="minDate()"
+          [max]="maxDate()"
+          [isDateUnavailable]="isDateUnavailable()"
+          [weekStartsOn]="weekStartsOn()"
+          [locale]="locale()"
+          [today]="today()"
+        >
+          <div class="date-range-picker-months">
+            @for (offset of offsets(); track offset; let first = $first, last = $last) {
+              <div class="date-range-picker-month">
+                <div class="date-range-picker-header">
+                  @if (first) {
+                    <ds-calendar-prev-button />
+                  } @else {
+                    <span class="date-range-picker-nav-space"></span>
+                  }
+                  <ds-calendar-heading [monthOffset]="offset" />
+                  @if (last) {
+                    <ds-calendar-next-button />
+                  } @else {
+                    <span class="date-range-picker-nav-space"></span>
+                  }
+                </div>
+                <ds-calendar-grid [monthOffset]="offset" hideOutsideDays />
+              </div>
+            }
+          </div>
+        </ds-calendar-root>
+      </div>
+    </div>
+  </ng-container>
+  @if (showError()) {
+    <p class="date-range-picker-error" role="alert" [id]="errorId()">{{ error() }}</p>
+  } @else if (description(); as description) {
+    <p class="date-range-picker-description" [id]="descriptionId()">{{ description }}</p>
+  }
+</div>
