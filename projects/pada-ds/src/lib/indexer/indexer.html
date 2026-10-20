@@ -1,0 +1,16 @@
+<nav class="indexer" [attr.aria-label]="label()">
+  <ol class="indexer-list">
+    @for (item of items(); track item.id; let index = $index) {
+      <li class="indexer-list-item">
+        <button
+          type="button"
+          class="indexer-item"
+          [attr.aria-current]="index === activeIndex() ? 'true' : null"
+          (click)="select(item, index)"
+        >
+          {{ item.label }}
+        </button>
+      </li>
+    }
+  </ol>
+</nav>

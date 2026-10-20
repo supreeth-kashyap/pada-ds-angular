@@ -23,3 +23,5 @@ export * from './lib/theme/theme';
 export * from './lib/breadcrumbs/breadcrumbs';
 export * from './lib/pagination/pagination';
 export * from './lib/steps/steps';
+export * from './lib/indexer/indexer';
+export * from './lib/carousel/carousel';

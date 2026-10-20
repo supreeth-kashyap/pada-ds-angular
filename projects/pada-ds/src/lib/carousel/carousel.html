@@ -1,0 +1,63 @@
+@if (showNav()) {
+  <div class="carousel-nav" data-side="start">
+    <button
+      dsButton
+      class="carousel-nav-button"
+      variant="ghost"
+      size="sm"
+      leftIcon="chevron_left"
+      aria-label="Previous slide"
+      [disabled]="total() <= 1"
+      (click)="previous()"
+    ></button>
+  </div>
+}
+
+<div class="carousel-center">
+  <!-- Announce slide changes only when they come from the user, not from auto-rotation. -->
+  <div class="carousel-viewport" [attr.aria-live]="rotating() ? 'off' : 'polite'">
+    <ng-content />
+  </div>
+  @if ((showDots() || canRotate()) && total() > 1) {
+    <div class="carousel-controls">
+      @if (canRotate()) {
+        <button
+          type="button"
+          class="carousel-rotation"
+          [attr.aria-label]="paused() ? 'Start automatic slide show' : 'Stop automatic slide show'"
+          (click)="paused.set(!paused())"
+        >
+          <ds-icon [name]="paused() ? 'play' : 'pause'" [size]="10" />
+        </button>
+      }
+      @if (showDots()) {
+        <div class="carousel-dots">
+          @for (dot of dots(); track dot) {
+            <button
+              type="button"
+              class="carousel-dot"
+              [attr.aria-label]="'Slide ' + (dot + 1)"
+              [attr.aria-current]="dot === index() ? 'true' : null"
+              (click)="index.set(dot)"
+            ></button>
+          }
+        </div>
+      }
+    </div>
+  }
+</div>
+
+@if (showNav()) {
+  <div class="carousel-nav" data-side="end">
+    <button
+      dsButton
+      class="carousel-nav-button"
+      variant="ghost"
+      size="sm"
+      leftIcon="chevron_right"
+      aria-label="Next slide"
+      [disabled]="total() <= 1"
+      (click)="next()"
+    ></button>
+  </div>
+}

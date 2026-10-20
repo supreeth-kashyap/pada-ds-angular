@@ -1,0 +1,130 @@
+:host {
+  /* Component tokens */
+  --pada-carousel-width: 575px;
+  --pada-carousel-height: 166px;
+  --pada-carousel-border: var(--pada-color-neutral-300);
+  --pada-carousel-bg: var(--pada-color-neutral-50);
+  --pada-carousel-radius: var(--pada-radius-xl);
+  --pada-carousel-slide-bg: var(--pada-color-neutral-200);
+  --pada-carousel-dot: var(--pada-color-neutral-300);
+  --pada-carousel-dot-current: var(--pada-color-neutral-700);
+
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  width: var(--pada-carousel-width);
+  max-width: 100%;
+  height: var(--pada-carousel-height);
+  padding: 1px;
+  overflow: hidden;
+  border: var(--pada-border-width-thin) solid var(--pada-carousel-border);
+  border-radius: var(--pada-carousel-radius);
+  background-color: var(--pada-carousel-bg);
+}
+
+.carousel-nav {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  padding: 0 var(--pada-space-2);
+}
+
+.carousel-center {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 0;
+  height: 100%;
+}
+
+.carousel-viewport {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  /* Without this the slide's content grows the viewport and pushes the controls out of the
+     fixed-height carousel, where they would be focusable but invisible. */
+  min-height: 0;
+  width: 100%;
+  padding-top: var(--pada-space-6);
+  overflow: hidden;
+}
+
+/* Slides are projected, outside this component's style scope. */
+.carousel-viewport ::ng-deep .carousel-slide {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  background-color: var(--pada-carousel-slide-bg);
+  /* A slide fades and drifts in each time it is shown. */
+  animation: carousel-enter var(--pada-duration-slow) var(--pada-ease-emphasized);
+}
+
+.carousel-viewport ::ng-deep .carousel-slide[hidden] {
+  display: none;
+}
+
+@keyframes carousel-enter {
+  from {
+    opacity: 0;
+    translate: var(--pada-motion-distance-md) 0;
+  }
+}
+
+.carousel-controls {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  gap: var(--pada-space-2);
+  padding: var(--pada-space-1-5) 0;
+}
+
+.carousel-dots {
+  display: flex;
+  align-items: center;
+  gap: var(--pada-space-1);
+}
+
+.carousel-dot {
+  width: 6px;
+  height: 6px;
+  padding: 0;
+  border: none;
+  border-radius: var(--pada-radius-full);
+  background-color: var(--pada-carousel-dot);
+  cursor: pointer;
+  transition:
+    width var(--pada-duration-normal) var(--pada-ease-emphasized),
+    background-color var(--pada-duration-normal) var(--pada-ease-standard);
+}
+
+/* The current dot widens into a short bar. */
+.carousel-dot[aria-current='true'] {
+  width: 16px;
+  background-color: var(--pada-carousel-dot-current);
+}
+
+.carousel-dot:focus-visible,
+.carousel-rotation:focus-visible {
+  outline: none;
+  box-shadow: var(--pada-shadow-focus);
+}
+
+.carousel-rotation {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  padding: 0;
+  border: none;
+  border-radius: var(--pada-radius-full);
+  background: transparent;
+  color: var(--pada-color-fg-muted);
+  cursor: pointer;
+}
