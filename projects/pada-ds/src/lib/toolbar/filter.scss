@@ -1,0 +1,13 @@
+.filter-popover {
+  min-width: 240px;
+  max-height: var(--pada-floating-available-height, none);
+}
+
+/* The list sits flat inside the popover card. */
+.filter-list {
+  --pada-combo-box-shadow: none;
+  --pada-combo-box-radius: 0;
+
+  min-width: 240px;
+  max-width: none;
+}

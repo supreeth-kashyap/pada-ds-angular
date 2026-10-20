@@ -1,0 +1,36 @@
+:host {
+  /* Component tokens */
+  --pada-toolbar-gap: var(--pada-space-4);
+  --pada-toolbar-cluster-gap: var(--pada-space-2);
+
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--pada-toolbar-cluster-gap);
+  font-family: var(--pada-font-sans);
+}
+
+/* Layout variables */
+:host([data-layout='split']) {
+  justify-content: space-between;
+  gap: var(--pada-toolbar-gap);
+  padding-block: var(--pada-space-1);
+}
+
+:host([data-orientation='vertical']) {
+  flex-direction: column;
+  align-items: stretch;
+}
+
+/* Child elements */
+.toolbar-cluster {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--pada-toolbar-cluster-gap);
+}
+
+:host([data-orientation='vertical']) .toolbar-cluster {
+  flex-direction: column;
+  align-items: stretch;
+}

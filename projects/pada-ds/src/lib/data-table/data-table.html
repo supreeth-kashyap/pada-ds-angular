@@ -1,0 +1,121 @@
+<ds-table [label]="label()" [columns]="tableColumns()">
+  <ds-table-toolbar>
+    <div class="data-table-toolbar">
+      @if (searchable()) {
+        <ds-search-field
+          class="data-table-search"
+          [aria-label]="'Search ' + label()"
+          [placeholder]="searchPlaceholder()"
+          [value]="search()"
+          (valueChange)="table.setSearch($event)"
+        />
+      }
+      @if (selectable() && selectedCount() > 0) {
+        <span class="data-table-selection">
+          {{ selectedCount() }} selected
+          <button dsButton size="sm" variant="ghost" (click)="table.clearSelection()">Clear</button>
+        </span>
+      }
+      <span class="data-table-actions">
+        @if (actions(); as custom) {
+          <ng-container *ngTemplateOutlet="custom.template; context: actionsContext()" />
+        }
+        @if (columnToggle() && hideable().length > 0) {
+          <ds-dropdown-menu>
+            <button
+              dsButton
+              size="sm"
+              variant="secondary"
+              rightIcon="chevron_down"
+              dsDropdownMenuTrigger
+            >
+              Columns
+            </button>
+            <ds-dropdown-menu-content align="end">
+              <ds-dropdown-menu-label>Show columns</ds-dropdown-menu-label>
+              @for (column of hideable(); track column.id) {
+                <!-- Keep the menu open so several columns can be toggled in a row. -->
+                <ds-dropdown-menu-checkbox-item
+                  [checked]="column.visible"
+                  (checkedChange)="table.toggleColumn(column.id)"
+                  (select)="$event.preventDefault()"
+                >
+                  {{ column.header }}
+                </ds-dropdown-menu-checkbox-item>
+              }
+            </ds-dropdown-menu-content>
+          </ds-dropdown-menu>
+        }
+      </span>
+      <span dsVisuallyHidden role="status">{{ announcement() }}</span>
+    </div>
+  </ds-table-toolbar>
+
+  <ds-table-row>
+    @if (selectable()) {
+      <span role="columnheader" class="data-table-select data-table-select-header">
+        <ds-checkbox
+          aria-label="Select all rows on this page"
+          [checked]="table.pageSelection() === 'all'"
+          [indeterminate]="table.pageSelection() === 'some'"
+          [disabled]="bodyRows().length === 0"
+          (checkedChange)="table.togglePage()"
+        />
+      </span>
+    }
+    @for (column of headers(); track column.id) {
+      <ds-table-header-cell
+        [columnId]="column.id"
+        [label]="column.header"
+        [sortDirection]="column.sortDirection"
+        (sort)="table.toggleSort(column.id)"
+      />
+    }
+  </ds-table-row>
+
+  @for (row of bodyRows(); track row.id) {
+    <ds-table-row [selected]="selectable() && row.selected">
+      @if (selectable()) {
+        <ds-table-cell class="data-table-select">
+          <ds-checkbox
+            [aria-label]="row.selectLabel"
+            [checked]="row.selected"
+            (checkedChange)="table.toggleRow(row.id)"
+          />
+        </ds-table-cell>
+      }
+      @for (cell of row.cells; track cell.id) {
+        <ds-table-cell [rowHeader]="cell.rowHeader">
+          @if (cell.template) {
+            <ng-container *ngTemplateOutlet="cell.template; context: cell.context" />
+          } @else {
+            {{ cell.text }}
+          }
+        </ds-table-cell>
+      }
+    </ds-table-row>
+  } @empty {
+    <ds-table-row>
+      <ds-table-cell span="all">
+        <div class="data-table-empty">
+          @if (empty(); as custom) {
+            <ng-container *ngTemplateOutlet="custom.template; context: { $implicit: search() }" />
+          } @else {
+            {{ emptyMessage() }}
+          }
+        </div>
+      </ds-table-cell>
+    </ds-table-row>
+  }
+
+  @if (showPagination()) {
+    <ds-table-pagination
+      [total]="table.total()"
+      [page]="table.currentPage()"
+      [rowsPerPage]="table.pageSize()"
+      [rowsPerPageOptions]="pageSizeOptions()"
+      (pageChange)="table.setPage($event)"
+      (rowsPerPageChange)="table.setPageSize($event)"
+    />
+  }
+</ds-table>

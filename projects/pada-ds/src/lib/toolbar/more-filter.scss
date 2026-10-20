@@ -1,0 +1,138 @@
+/* The two cards sit side by side; the popover itself carries no surface. */
+.more-filter-popover {
+  z-index: var(--pada-z-popover);
+  transform-origin: var(--pada-floating-transform-origin);
+  transition:
+    opacity var(--pada-duration-normal) var(--pada-ease-enter),
+    scale var(--pada-duration-normal) var(--pada-ease-enter);
+}
+
+.more-filter-popover[data-state='closed'] {
+  opacity: 0;
+  scale: var(--pada-motion-scale-enter);
+  transition-duration: var(--pada-duration-fast);
+  transition-timing-function: var(--pada-ease-exit);
+}
+
+@starting-style {
+  .more-filter-popover[data-state='open'] {
+    opacity: 0;
+    scale: var(--pada-motion-scale-enter);
+  }
+}
+
+.more-filter-popover:focus-visible,
+.more-filter-panel:focus-visible {
+  outline: none;
+}
+
+.more-filter-tabs {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--pada-space-2);
+}
+
+/* The list of filters, with the look of a combo box card. */
+.more-filter-primary {
+  display: flex;
+  flex-direction: column;
+  gap: var(--pada-space-0-5);
+  box-sizing: border-box;
+  width: fit-content;
+  min-width: 225px;
+  max-width: 400px;
+  max-height: 320px;
+  overflow-y: auto;
+  padding: var(--pada-space-2) var(--pada-space-1);
+  border-radius: var(--pada-filter-popover-radius);
+  background-color: var(--pada-filter-popover-bg);
+  box-shadow: var(--pada-filter-popover-shadow);
+}
+
+.more-filter-row {
+  /* State variables */
+  --pada-more-filter-row-bg: transparent;
+  --pada-more-filter-row-fg: var(--pada-color-neutral-900);
+  --pada-more-filter-row-chevron: var(--pada-color-neutral-500);
+
+  display: flex;
+  align-items: center;
+  gap: var(--pada-space-2);
+  width: 100%;
+  padding: var(--pada-space-2);
+  border: none;
+  border-radius: var(--pada-radius-lg);
+  background-color: var(--pada-more-filter-row-bg);
+  color: var(--pada-more-filter-row-fg);
+  font: inherit;
+  font-size: var(--pada-font-size-md);
+  font-weight: var(--pada-font-weight-medium);
+  line-height: var(--pada-line-height-md);
+  text-align: start;
+  cursor: pointer;
+}
+
+.more-filter-row:hover,
+.more-filter-row[data-state='active'] {
+  --pada-more-filter-row-bg: var(--pada-color-neutral-50);
+  --pada-more-filter-row-fg: var(--pada-color-accent-700);
+  --pada-more-filter-row-chevron: var(--pada-color-accent-700);
+}
+
+.more-filter-row:focus-visible {
+  outline: none;
+  box-shadow: var(--pada-shadow-focus);
+}
+
+.more-filter-row-label {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.more-filter-row-count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 18px;
+  height: 18px;
+  box-sizing: border-box;
+  padding: 0 var(--pada-space-1-5);
+  border-radius: var(--pada-radius-full);
+  background-color: var(--pada-color-accent-50);
+  color: var(--pada-color-accent-700);
+  font-size: var(--pada-font-size-sm);
+  font-weight: var(--pada-font-weight-semibold);
+  line-height: 1;
+}
+
+.more-filter-row-chevron {
+  flex-shrink: 0;
+  color: var(--pada-more-filter-row-chevron);
+}
+
+/* The options of the active filter, with Apply and Clear under them. */
+.more-filter-submenu {
+  display: flex;
+  flex-direction: column;
+  min-width: 240px;
+  overflow: hidden;
+  border-radius: var(--pada-filter-popover-radius);
+  background-color: var(--pada-filter-popover-bg);
+  box-shadow: var(--pada-filter-popover-shadow);
+}
+
+.more-filter-panel[hidden] {
+  display: none;
+}
+
+.more-filter-list {
+  --pada-combo-box-shadow: none;
+  --pada-combo-box-radius: 0;
+
+  min-width: 240px;
+  max-width: none;
+  max-height: 280px;
+}

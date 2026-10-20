@@ -1,0 +1,20 @@
+/* Hover and selected states come from the row, so every cell in it re-tints together. */
+:host {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: center;
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  height: var(--pada-table-cell-height);
+  padding: var(--pada-space-2) var(--pada-space-4);
+  border-bottom: var(--pada-border-width-thin) solid var(--pada-table-cell-divider);
+  background-color: var(--pada-table-cell-bg);
+  color: var(--pada-table-cell-fg);
+  font-size: var(--pada-font-size-sm);
+  line-height: var(--pada-line-height-md);
+  transition:
+    background-color var(--pada-duration-fast) var(--pada-ease-standard),
+    border-color var(--pada-duration-fast) var(--pada-ease-standard);
+}

@@ -87,3 +87,6 @@ export * from './tree/tree.directive';
 export * from './list/list.directive';
 export * from './time-field/time-field.directive';
 export * from './tag-group/tag-group.directive';
+export * from './table/table.directive';
+export * from './data-table/data-table';
+export * from './toolbar/toolbar.directive';
