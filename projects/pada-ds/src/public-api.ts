@@ -60,3 +60,5 @@ export * from './lib/menubar/menubar';
 export * from './lib/accordion/accordion';
 export * from './lib/tabs/tabs';
 export * from './lib/calendar/calendar';
+export * from './lib/date-picker/date-picker';
+export * from './lib/input-date/input-date';

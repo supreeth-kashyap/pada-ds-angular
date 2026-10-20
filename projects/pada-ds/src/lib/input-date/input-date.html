@@ -1,0 +1,71 @@
+<div
+  class="input-date"
+  [attr.data-invalid]="invalid() ? '' : null"
+  [attr.data-disabled]="isDisabled() ? '' : null"
+>
+  @if (label(); as label) {
+    <label
+      class="input-date-label"
+      [id]="labelId()"
+      [attr.for]="inputId()"
+      [attr.data-disabled]="isDisabled() ? '' : null"
+    >
+      {{ label }}
+      @if (isRequired()) {
+        <span class="input-date-required" aria-hidden="true">*</span>
+        <span dsVisuallyHidden>(required)</span>
+      }
+      @if (optional()) {
+        <span class="input-date-optional">(optional)</span>
+      }
+    </label>
+  }
+  <ng-container dsPopover [open]="open()" (openChange)="setOpen($event)">
+    <button
+      dsPopoverTrigger
+      class="input-date-field"
+      [id]="inputId()"
+      [disabled]="isDisabled()"
+      [attr.aria-labelledby]="labelledBy()"
+      [attr.aria-describedby]="describedBy()"
+      [attr.aria-invalid]="invalid() ? 'true' : null"
+      [attr.data-filled]="isFilled() ? '' : null"
+    >
+      <span
+        class="input-date-value"
+        [id]="valueId()"
+        [attr.data-placeholder]="display() ? null : ''"
+      >
+        {{ display() || placeholder() }}
+      </span>
+      <ds-icon class="input-date-icon" name="calendar_3" [size]="12" />
+    </button>
+    <div
+      *dsPresence="open()"
+      dsPopoverContent
+      class="input-date-popover"
+      side="bottom"
+      align="start"
+      [sideOffset]="4"
+      [attr.aria-label]="dialogLabel()"
+    >
+      <ds-date-picker
+        [mode]="mode()"
+        [selection]="selection()"
+        [value]="value()"
+        (valueChange)="pick($event)"
+        [minDate]="minDate()"
+        [maxDate]="maxDate()"
+        [isDateUnavailable]="isDateUnavailable()"
+        [weekStartsOn]="weekStartsOn()"
+        [locale]="locale()"
+        [today]="today()"
+      />
+    </div>
+  </ng-container>
+  @if (showError()) {
+    <p class="input-date-error" role="alert" [id]="errorId()">{{ error() }}</p>
+  } @else if (description(); as description) {
+    <p class="input-date-description" [id]="descriptionId()">{{ description }}</p>
+  }
+</div>

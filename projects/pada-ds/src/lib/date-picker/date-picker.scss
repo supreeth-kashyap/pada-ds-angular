@@ -1,0 +1,164 @@
+:host {
+  /* Component tokens */
+  --pada-date-picker-bg: var(--pada-color-surface);
+  --pada-date-picker-border: var(--pada-color-border);
+  --pada-date-picker-radius: var(--pada-radius-2xl);
+  --pada-date-picker-shadow: var(--pada-shadow-lg);
+  --pada-date-picker-pad: var(--pada-space-6);
+  --pada-date-picker-width: 275px;
+
+  display: block;
+  width: fit-content;
+  font-family: var(--pada-font-sans);
+}
+
+/* The card: every view sits in it. The day view is a calendar root, which supplies its own gap. */
+.date-picker {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  box-sizing: border-box;
+  min-width: var(--pada-date-picker-width);
+  padding: var(--pada-date-picker-pad);
+  border: var(--pada-border-width-thin) solid var(--pada-date-picker-border);
+  border-radius: var(--pada-date-picker-radius);
+  background-color: var(--pada-date-picker-bg);
+  box-shadow: var(--pada-date-picker-shadow);
+  color: var(--pada-color-fg);
+}
+
+.date-picker-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 18px;
+}
+
+.date-picker-chevron {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: none;
+  border-radius: var(--pada-radius-xl);
+  background-color: transparent;
+  color: var(--pada-color-fg-muted);
+  cursor: pointer;
+  transition:
+    background-color var(--pada-duration-normal) var(--pada-ease-standard),
+    color var(--pada-duration-normal) var(--pada-ease-standard);
+}
+
+.date-picker-view-select {
+  padding: 6px 12px;
+  border: none;
+  border-radius: var(--pada-radius-xl);
+  background: none;
+  color: var(--pada-color-fg);
+  font: inherit;
+  font-size: var(--pada-font-size-md);
+  font-weight: var(--pada-font-weight-semibold);
+  transition: background-color var(--pada-duration-normal) var(--pada-ease-standard);
+}
+
+button.date-picker-view-select {
+  cursor: pointer;
+}
+
+.date-picker-chevron:hover:not(:disabled),
+button.date-picker-view-select:hover:not(:disabled) {
+  background-color: var(--pada-color-neutral-subtle-hover);
+}
+
+.date-picker-chevron:focus-visible,
+.date-picker-view-select:focus-visible {
+  outline: none;
+  box-shadow: var(--pada-shadow-focus);
+}
+
+.date-picker-chevron:disabled {
+  color: var(--pada-color-fg-disabled);
+  cursor: not-allowed;
+}
+
+/* Month and year views: three columns of boxes. */
+.date-picker-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: 32px;
+  gap: 2px;
+  justify-items: center;
+}
+
+.picker-box {
+  /* State variables */
+  --pada-date-picker-box-bg: var(--pada-color-surface);
+  --pada-date-picker-box-fg: var(--pada-color-fg);
+  --pada-date-picker-box-shadow: none;
+
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  min-width: 32px;
+  padding: 0;
+  border: 0;
+  border-radius: var(--pada-radius-lg);
+  background: var(--pada-date-picker-box-bg);
+  color: var(--pada-date-picker-box-fg);
+  box-shadow: var(--pada-date-picker-box-shadow);
+  font: inherit;
+  font-size: var(--pada-font-size-md);
+  font-weight: var(--pada-font-weight-medium);
+  line-height: var(--pada-line-height-md);
+  cursor: pointer;
+  transition:
+    background var(--pada-duration-fast) var(--pada-ease-standard),
+    color var(--pada-duration-fast) var(--pada-ease-standard),
+    box-shadow var(--pada-duration-fast) var(--pada-ease-standard);
+}
+
+.picker-box[data-today][data-state='rest'] {
+  --pada-date-picker-box-fg: var(--pada-color-accent-fg);
+}
+
+/* The current month or year's dot. */
+.picker-box[data-today]::after {
+  content: '';
+  position: absolute;
+  bottom: 3px;
+  width: 4px;
+  height: 4px;
+  border-radius: var(--pada-radius-full);
+  background: currentColor;
+}
+
+.picker-box[data-state='hover'],
+.picker-box:not([data-state='active']):hover {
+  --pada-date-picker-box-bg: var(--pada-color-accent-subtle);
+  --pada-date-picker-box-fg: var(--pada-color-accent-fg);
+}
+
+.picker-box[data-state='active'] {
+  --pada-date-picker-box-bg: var(--pada-color-accent-solid);
+  --pada-date-picker-box-fg: var(--pada-color-accent-on-solid);
+  --pada-date-picker-box-shadow: var(--pada-shadow-xs);
+}
+
+.picker-box:disabled {
+  --pada-date-picker-box-bg: transparent;
+  --pada-date-picker-box-fg: var(--pada-color-fg-disabled);
+  --pada-date-picker-box-shadow: none;
+
+  cursor: not-allowed;
+}
+
+.picker-box:focus-visible {
+  outline: 2px solid var(--pada-color-accent-solid);
+  outline-offset: 4px;
+}
