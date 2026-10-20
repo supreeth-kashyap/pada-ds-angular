@@ -1,0 +1,9 @@
+/* Square: as wide as it is tall. Only overrides Button's component tokens. */
+:host {
+  --pada-button-pad-x: 0;
+  width: var(--pada-button-height);
+}
+
+.icon-button-icon {
+  color: var(--pada-button-icon-color);
+}

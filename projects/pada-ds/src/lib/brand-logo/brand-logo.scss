@@ -1,0 +1,86 @@
+:host {
+  /* Component tokens. Sizes only reassign these. */
+  --pada-brand-logo-size: 20px;
+  --pada-brand-logo-pad: var(--pada-space-1-5);
+  --pada-brand-logo-radius: var(--pada-radius-md);
+  --pada-brand-logo-bg: var(--pada-color-gray-100);
+  --pada-brand-logo-tooltip-bg: var(--pada-color-surface-inverse);
+  --pada-brand-logo-tooltip-fg: var(--pada-color-fg-on-inverse);
+
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--pada-brand-logo-size);
+  height: var(--pada-brand-logo-size);
+}
+
+:host([data-size='xs']) {
+  --pada-brand-logo-size: 12px;
+  --pada-brand-logo-pad: var(--pada-space-1);
+  --pada-brand-logo-radius: var(--pada-radius-sm);
+}
+:host([data-size='sm']) {
+  --pada-brand-logo-size: 16px;
+}
+:host([data-size='lg']) {
+  --pada-brand-logo-size: 24px;
+  --pada-brand-logo-pad: var(--pada-space-2);
+  --pada-brand-logo-radius: var(--pada-radius-lg);
+}
+:host([data-size='xl']) {
+  --pada-brand-logo-size: 28px;
+  --pada-brand-logo-pad: var(--pada-space-2-5);
+  --pada-brand-logo-radius: var(--pada-radius-lg);
+}
+:host([data-size='2xl']) {
+  --pada-brand-logo-size: 32px;
+  --pada-brand-logo-pad: var(--pada-space-3);
+  --pada-brand-logo-radius: var(--pada-radius-xl);
+}
+
+:host([data-background]) {
+  padding: var(--pada-brand-logo-pad);
+  border-radius: var(--pada-brand-logo-radius);
+  background-color: var(--pada-brand-logo-bg);
+}
+
+.brand-logo-img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.brand-logo-tooltip {
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  z-index: var(--pada-z-tooltip);
+  margin-bottom: var(--pada-space-1);
+  padding: var(--pada-space-1) var(--pada-space-2);
+  border-radius: var(--pada-radius-sm);
+  background-color: var(--pada-brand-logo-tooltip-bg);
+  color: var(--pada-brand-logo-tooltip-fg);
+  font-family: var(--pada-font-sans);
+  font-size: var(--pada-font-size-md);
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(-50%);
+  transition: opacity var(--pada-duration-normal) var(--pada-ease-standard);
+}
+
+:host(:hover) .brand-logo-tooltip {
+  opacity: 1;
+}
+
+.brand-logo-tooltip::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  border: 4px solid transparent;
+  border-top-color: var(--pada-brand-logo-tooltip-bg);
+  transform: translateX(-50%);
+}
