@@ -67,3 +67,4 @@ export {
   injectFieldContext,
   type FieldContext,
 } from './utils/form-controls';
+export * from './pin-input/pin-input.directive';
