@@ -1,0 +1,38 @@
+/* The grid row animates between 0fr and 1fr, so the height follows the content. */
+:host {
+  display: grid;
+  grid-template-rows: 1fr;
+  opacity: 1;
+  transition:
+    grid-template-rows var(--pada-accordion-duration) var(--pada-accordion-ease),
+    opacity var(--pada-accordion-duration) var(--pada-ease-standard);
+
+  @starting-style {
+    grid-template-rows: 0fr;
+    opacity: 0;
+  }
+}
+
+:host([data-state='closed']) {
+  grid-template-rows: 0fr;
+  opacity: 0;
+}
+
+:host([hidden]) {
+  display: none;
+}
+
+.accordion-content-clip {
+  min-height: 0;
+  overflow: hidden;
+}
+
+.accordion__body {
+  padding: var(
+    --pada-accordion-body-pad,
+    var(--pada-space-2) var(--pada-space-4) var(--pada-space-6)
+  );
+  background-color: var(--pada-accordion-bg, var(--pada-color-surface));
+  color: var(--pada-accordion-body-fg, var(--pada-color-fg));
+  box-sizing: border-box;
+}

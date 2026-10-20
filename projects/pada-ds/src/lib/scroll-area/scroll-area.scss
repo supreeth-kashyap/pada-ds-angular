@@ -1,0 +1,95 @@
+/* Root: the scrolling element itself (native scrolling, themed scrollbar). */
+:host {
+  /* Component tokens */
+  --pada-scroll-area-max-height: none;
+  --pada-scroll-area-max-width: none;
+  --pada-scroll-area-thumb: transparent;
+  --pada-scroll-area-thumb-visible: color-mix(in oklch, var(--pada-color-fg) 28%, transparent);
+  --pada-scroll-area-thumb-hover: color-mix(in oklch, var(--pada-color-fg) 45%, transparent);
+  --pada-scroll-area-fade-size: var(--pada-space-6);
+  --pada-scroll-area-fade-start: 0px;
+  --pada-scroll-area-fade-end: 0px;
+  /* Any opaque colour: the mask only reads alpha. */
+  --pada-scroll-area-mask: var(--pada-color-static-black);
+
+  display: block;
+  max-height: var(--pada-scroll-area-max-height);
+  max-width: var(--pada-scroll-area-max-width);
+  overflow: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  scrollbar-color: var(--pada-scroll-area-thumb) transparent;
+  border-radius: inherit;
+  transition: scrollbar-color var(--pada-duration-normal) var(--pada-ease-standard);
+}
+
+/* Variant variables */
+:host([data-orientation='vertical']) {
+  overflow-x: hidden;
+}
+
+:host([data-orientation='horizontal']) {
+  overflow-y: hidden;
+}
+
+:host([data-scrollbar='always']),
+:host(:hover),
+:host(:focus-visible) {
+  --pada-scroll-area-thumb: var(--pada-scroll-area-thumb-visible);
+}
+
+/* Edge fades where more content is hidden. */
+:host([data-fade][data-overflowing]:not([data-at-start])) {
+  --pada-scroll-area-fade-start: var(--pada-scroll-area-fade-size);
+}
+
+:host([data-fade][data-overflowing]:not([data-at-end])) {
+  --pada-scroll-area-fade-end: var(--pada-scroll-area-fade-size);
+}
+
+:host([data-fade][data-orientation='vertical']) {
+  mask-image: linear-gradient(
+    to bottom,
+    transparent,
+    var(--pada-scroll-area-mask) var(--pada-scroll-area-fade-start),
+    var(--pada-scroll-area-mask) calc(100% - var(--pada-scroll-area-fade-end)),
+    transparent
+  );
+}
+
+:host([data-fade][data-orientation='horizontal']) {
+  mask-image: linear-gradient(
+    to right,
+    transparent,
+    var(--pada-scroll-area-mask) var(--pada-scroll-area-fade-start),
+    var(--pada-scroll-area-mask) calc(100% - var(--pada-scroll-area-fade-end)),
+    transparent
+  );
+}
+
+:host(:focus-visible) {
+  outline: none;
+  box-shadow: inset var(--pada-shadow-focus);
+}
+
+/* WebKit scrollbars (Safari, older Chromium) */
+:host::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+:host::-webkit-scrollbar-thumb {
+  border: 2px solid transparent;
+  border-radius: var(--pada-radius-full);
+  background-color: var(--pada-scroll-area-thumb);
+  background-clip: padding-box;
+}
+
+:host::-webkit-scrollbar-thumb:hover {
+  background-color: var(--pada-scroll-area-thumb-hover);
+}
+
+:host::-webkit-scrollbar-track,
+:host::-webkit-scrollbar-corner {
+  background: transparent;
+}

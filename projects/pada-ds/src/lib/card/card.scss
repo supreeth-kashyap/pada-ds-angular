@@ -1,0 +1,17 @@
+:host {
+  /* Component tokens */
+  --pada-card-bg: var(--pada-color-surface);
+  --pada-card-border: var(--pada-color-neutral-100);
+  --pada-card-radius: var(--pada-radius-2xl);
+  --pada-card-pad: var(--pada-space-4) var(--pada-space-6);
+
+  display: block;
+  box-sizing: border-box;
+  width: fit-content;
+  height: fit-content;
+  overflow: hidden;
+  padding: var(--pada-card-pad);
+  border: var(--pada-border-width-thin) solid var(--pada-card-border);
+  border-radius: var(--pada-card-radius);
+  background-color: var(--pada-card-bg);
+}

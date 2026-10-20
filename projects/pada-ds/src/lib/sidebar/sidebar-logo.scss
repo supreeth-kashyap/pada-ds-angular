@@ -1,0 +1,73 @@
+:host {
+  display: flex;
+  align-items: center;
+  gap: var(--pada-space-2);
+  box-sizing: border-box;
+  width: 100%;
+  height: 60px;
+  padding: var(--pada-space-6) var(--pada-space-4);
+  flex-shrink: 0;
+  background: var(--pada-sidebar-bg, var(--pada-color-surface));
+}
+
+.sidebar-logo-link {
+  display: flex;
+  align-items: center;
+  gap: var(--pada-space-2);
+  width: 100%;
+  border-radius: var(--pada-radius-md);
+  color: inherit;
+  text-decoration: none;
+}
+
+.sidebar-logo-link:focus-visible {
+  outline: none;
+  box-shadow: var(--pada-shadow-focus);
+}
+
+.sidebar-logo-mark {
+  display: block;
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+}
+
+/* Stand-in for the Pada mark until the PadaLogo component is available. */
+.sidebar-logo-default-mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: var(--pada-radius-lg);
+  background: var(--pada-color-accent-solid);
+  color: var(--pada-color-accent-on-solid);
+  font-weight: var(--pada-font-weight-bold);
+}
+
+.sidebar-logo-mark.sidebar-logo-default-mark {
+  width: 32px;
+  height: 32px;
+}
+
+.sidebar-logo-lockup {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--pada-space-2);
+  font-size: var(--pada-font-size-lg);
+  font-weight: var(--pada-font-weight-bold);
+}
+
+.sidebar-logo-title {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  color: var(--pada-color-fg);
+  font-family: inherit;
+  font-size: var(--pada-font-size-lg);
+  font-weight: var(--pada-font-weight-bold);
+  line-height: 20px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

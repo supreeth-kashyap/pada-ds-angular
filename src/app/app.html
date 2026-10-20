@@ -1,29 +1,7 @@
 <main>
-  <h1>Badge</h1>
-  <div class="showcase">
-    @for (badge of badges; track badge.label) {
-      <ds-badge [data]="badge" />
-    }
-  </div>
-
-  <h1>Avatar</h1>
-  <div class="showcase">
-    @for (avatar of avatars; track avatar.alt) {
-      <ds-avatar [data]="avatar" />
-    }
-  </div>
-
-  <h1>Button</h1>
-  <div class="showcase">
-    @for (button of buttons; track button.label) {
-      <button dsButton [variant]="button.variant" [disabled]="button.disabled ?? false">
-        {{ button.label }}
-      </button>
-    }
-  </div>
-
-  <h1>Attributes</h1>
-  <div class="showcase showcase--block">
-    <ds-attributes [data]="attributesData" />
-  </div>
+  <h1>Pada for Angular</h1>
+  <p>
+    The component library lives in <code>projects/pada-ds</code> and is published as
+    <code>pada-ds-angular</code>. Component documentation and examples will move to Storybook.
+  </p>
 </main>

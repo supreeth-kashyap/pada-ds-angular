@@ -1,0 +1,70 @@
+:host {
+  display: contents;
+}
+
+/* Root: a fixed region in one corner. */
+.toaster {
+  --pada-toaster-gutter: var(--pada-space-4);
+  --pada-toaster-width: 22rem;
+  --pada-toaster-direction: -1;
+  /* Read by the toasts: where they anchor, and whether the stack is expanded (0 or 1). */
+  --pada-toast-inset-block: auto 0;
+  --pada-toast-origin: bottom center;
+  --pada-toast-expanded: 0;
+  --pada-toast-collapsed-height: var(--pada-toast-front-height);
+
+  position: fixed;
+  inset: auto;
+  z-index: var(--pada-z-toast);
+  box-sizing: border-box;
+  width: min(var(--pada-toaster-width), calc(100vw - 2 * var(--pada-toaster-gutter)));
+  height: auto;
+  margin: 0;
+  padding: 0;
+  overflow: visible;
+  border: none;
+  background: transparent;
+  color: inherit;
+  outline: none;
+  pointer-events: none;
+}
+
+.toaster[data-vertical='top'] {
+  --pada-toaster-direction: 1;
+  --pada-toast-inset-block: 0 auto;
+  --pada-toast-origin: top center;
+
+  top: var(--pada-toaster-gutter);
+}
+
+.toaster[data-expanded] {
+  --pada-toast-expanded: 1;
+  --pada-toast-collapsed-height: auto;
+}
+
+.toaster[data-vertical='bottom'] {
+  bottom: var(--pada-toaster-gutter);
+}
+
+.toaster[data-horizontal='left'] {
+  left: var(--pada-toaster-gutter);
+}
+
+.toaster[data-horizontal='right'] {
+  right: var(--pada-toaster-gutter);
+}
+
+.toaster[data-horizontal='center'] {
+  left: 50%;
+  translate: -50% 0;
+}
+
+.toaster-list {
+  position: relative;
+  height: var(--pada-toaster-height);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  pointer-events: auto;
+  transition: height var(--pada-duration-slow) var(--pada-ease-emphasized);
+}

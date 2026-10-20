@@ -1,0 +1,41 @@
+/* Tabs: Figma node 2:2612. Underline variant: 1px separator under the list, 24px gap between
+   tabs, 12px vertical padding, a 2px accent bar that slides to the selected tab. */
+:host {
+  /* Component tokens */
+  --pada-tabs-gap: var(--pada-space-6);
+  --pada-tabs-trigger-pad: var(--pada-space-3) 0;
+  --pada-tabs-trigger-fg: var(--pada-color-fg);
+  --pada-tabs-trigger-fg-active: var(--pada-color-accent-fg);
+  --pada-tabs-trigger-radius: var(--pada-radius-sm);
+  --pada-tabs-list-border: var(--pada-color-border-subtle);
+  --pada-tabs-list-pad: 0;
+  --pada-tabs-list-bg: transparent;
+  --pada-tabs-list-radius: 0;
+  --pada-tabs-indicator-color: var(--pada-color-accent-solid);
+  --pada-tabs-indicator-thickness: 2px;
+  --pada-tabs-indicator-radius: 0;
+  --pada-tabs-indicator-inset: auto 0 -1px auto;
+  --pada-tabs-indicator-shadow: none;
+  --pada-tabs-list-min-width: 100%;
+
+  display: block;
+  width: 100%;
+}
+
+/* Variant variables */
+:host([data-variant='pills']) {
+  --pada-tabs-gap: var(--pada-space-1);
+  --pada-tabs-trigger-pad: var(--pada-space-1-5) var(--pada-space-3);
+  --pada-tabs-trigger-fg-active: var(--pada-color-fg);
+  --pada-tabs-trigger-radius: var(--pada-radius-md);
+  --pada-tabs-list-border: transparent;
+  --pada-tabs-list-pad: var(--pada-space-1);
+  --pada-tabs-list-bg: var(--pada-color-neutral-subtle);
+  --pada-tabs-list-radius: var(--pada-radius-lg);
+  --pada-tabs-indicator-color: var(--pada-color-surface-raised);
+  --pada-tabs-indicator-thickness: calc(100% - 2 * var(--pada-tabs-list-pad));
+  --pada-tabs-indicator-radius: var(--pada-radius-md);
+  --pada-tabs-indicator-inset: var(--pada-tabs-list-pad) auto auto auto;
+  --pada-tabs-indicator-shadow: var(--pada-shadow-xs);
+  --pada-tabs-list-min-width: 0;
+}

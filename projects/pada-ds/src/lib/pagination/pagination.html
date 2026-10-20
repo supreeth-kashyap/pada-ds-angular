@@ -1,0 +1,43 @@
+<nav class="pagination" [attr.aria-label]="label()">
+  <ul class="pagination-list">
+    <li>
+      <button
+        type="button"
+        class="pagination-step"
+        aria-label="Previous page"
+        [disabled]="atStart()"
+        (click)="go(page() - 1)"
+      >
+        <ds-icon name="chevron_left" [size]="14" />
+      </button>
+    </li>
+    @for (entry of entries(); track entry) {
+      <li>
+        @if (entry === 'ellipsis-start' || entry === 'ellipsis-end') {
+          <span class="pagination-ellipsis" aria-hidden="true">…</span>
+        } @else {
+          <button
+            type="button"
+            class="pagination-page"
+            [attr.aria-label]="'Page ' + entry"
+            [attr.aria-current]="entry === page() ? 'page' : null"
+            (click)="go(entry)"
+          >
+            {{ entry }}
+          </button>
+        }
+      </li>
+    }
+    <li>
+      <button
+        type="button"
+        class="pagination-step"
+        aria-label="Next page"
+        [disabled]="atEnd()"
+        (click)="go(page() + 1)"
+      >
+        <ds-icon name="chevron_right" [size]="14" />
+      </button>
+    </li>
+  </ul>
+</nav>

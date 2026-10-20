@@ -14,3 +14,25 @@ export async function settle(fixture: ComponentFixture<unknown>) {
   }
   TestBed.tick();
 }
+
+/**
+ * Settles repeatedly until `assertion` stops throwing, for state a real timer brings about
+ * (a hover delay, a toast running out). Fixed waits break on a busy machine.
+ */
+export async function settleUntil(
+  fixture: ComponentFixture<unknown>,
+  assertion: () => void,
+  timeout = 3000,
+) {
+  const deadline = Date.now() + timeout;
+  for (;;) {
+    await settle(fixture);
+    try {
+      assertion();
+      return;
+    } catch (error) {
+      if (Date.now() > deadline) throw error;
+      await new Promise((resolve) => setTimeout(resolve, 25));
+    }
+  }
+}
