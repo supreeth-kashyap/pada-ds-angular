@@ -1,0 +1,154 @@
+:host {
+  /* Component tokens */
+  --pada-checkbox-size: var(--pada-space-5);
+  --pada-checkbox-border: var(--pada-color-neutral-600);
+  --pada-checkbox-bg: var(--pada-color-surface);
+  --pada-checkbox-checked-bg: var(--pada-color-accent-solid);
+  --pada-checkbox-tick-color: var(--pada-color-accent-50);
+
+  display: inline-flex;
+  vertical-align: middle;
+  font-family: var(--pada-font-sans);
+}
+
+.checkbox-wrapper {
+  display: flex;
+  align-items: center;
+  gap: var(--pada-space-2);
+}
+
+.checkbox-container {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.checkbox {
+  appearance: none;
+  width: var(--pada-checkbox-size);
+  height: var(--pada-checkbox-size);
+  margin: 0;
+  padding: 0;
+  border: var(--pada-border-width-thin) solid var(--pada-checkbox-border);
+  border-radius: var(--pada-radius-sm);
+  background-color: var(--pada-checkbox-bg);
+  cursor: pointer;
+  transition: all var(--pada-duration-normal) var(--pada-ease-standard);
+}
+
+.checkbox:checked,
+.checkbox:indeterminate {
+  background-color: var(--pada-checkbox-checked-bg);
+  border-color: var(--pada-checkbox-checked-bg);
+}
+
+/* The tick: hidden until checked; previewed in the accent colour on hover and focus. */
+.checkbox-tick {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  color: var(--pada-checkbox-tick-color);
+  opacity: 0;
+  scale: 0.6;
+  transition:
+    opacity var(--pada-duration-normal) var(--pada-ease-standard),
+    scale var(--pada-duration-normal) var(--pada-ease-spring);
+}
+
+.checkbox:hover:not(:disabled):not(:checked) {
+  border-color: var(--pada-color-accent-600);
+}
+
+.checkbox:hover:not(:disabled):not(:checked, :indeterminate) ~ .checkbox-tick,
+.checkbox:focus-visible:not(:checked, :indeterminate) ~ .checkbox-tick {
+  opacity: 1;
+  --pada-checkbox-tick-color: var(--pada-color-accent-600);
+}
+
+/* Focus ring: the base border colour stays; only the outer ring appears. */
+.checkbox:focus-visible {
+  box-shadow: var(--pada-shadow-focus);
+  outline: none;
+}
+
+.checkbox:checked ~ .checkbox-tick {
+  opacity: 1;
+  scale: 1;
+}
+
+/* Indeterminate: a dash replaces the tick. */
+.checkbox-dash {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 10px;
+  height: 2px;
+  border-radius: var(--pada-radius-full);
+  background-color: var(--pada-color-accent-on-solid);
+  pointer-events: none;
+  opacity: 0;
+  scale: 0 1;
+  transition:
+    opacity var(--pada-duration-fast) var(--pada-ease-standard),
+    scale var(--pada-duration-normal) var(--pada-ease-emphasized);
+}
+
+.checkbox:indeterminate ~ .checkbox-dash {
+  opacity: 1;
+  scale: 1 1;
+}
+
+.checkbox:indeterminate ~ .checkbox-tick {
+  opacity: 0;
+}
+
+/* Hover + checked: a light accent wash; the tick turns accent for contrast. */
+.checkbox:checked:hover:not(:disabled) {
+  background-color: var(--pada-color-accent-100);
+  border-color: var(--pada-color-accent-600);
+}
+
+.checkbox:checked:hover:not(:disabled) ~ .checkbox-tick {
+  --pada-checkbox-tick-color: var(--pada-color-accent-600);
+}
+
+.checkbox:disabled {
+  background-color: var(--pada-color-surface);
+  border-color: var(--pada-color-neutral-300);
+  cursor: not-allowed;
+}
+
+.checkbox:disabled:checked,
+.checkbox:disabled:indeterminate {
+  background-color: var(--pada-color-accent-300);
+  border-color: var(--pada-color-accent-300);
+}
+
+.checkbox:disabled:checked ~ .checkbox-tick {
+  opacity: 0.5;
+}
+
+.checkbox:disabled:not(:checked, :indeterminate) ~ .checkbox-tick {
+  opacity: 1;
+  --pada-checkbox-tick-color: var(--pada-color-neutral-300);
+}
+
+.checkbox-label {
+  font-size: var(--pada-font-size-sm);
+  line-height: var(--pada-line-height-md);
+  color: var(--pada-color-fg);
+  cursor: pointer;
+}
+
+.checkbox-label:empty {
+  display: none;
+}
+
+:host([data-disabled]) .checkbox-label {
+  color: var(--pada-color-fg-disabled);
+  cursor: not-allowed;
+}

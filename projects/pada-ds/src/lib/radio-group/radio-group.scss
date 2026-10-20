@@ -1,0 +1,103 @@
+:host {
+  /* Component tokens */
+  --pada-radio-size: var(--pada-space-5);
+  --pada-radio-border: var(--pada-color-neutral-600);
+  --pada-radio-checked: var(--pada-color-accent-600);
+  --pada-radio-dot: 6px;
+
+  display: block;
+  font-family: var(--pada-font-sans);
+}
+
+.radiogroup {
+  display: flex;
+  flex-direction: column;
+  gap: var(--pada-space-3);
+}
+
+.radiogroup-label {
+  display: block;
+  margin-bottom: var(--pada-space-1);
+  font-size: var(--pada-font-size-sm);
+  font-weight: var(--pada-font-weight-medium);
+  color: var(--pada-color-fg);
+}
+
+.radiogroup-options {
+  display: flex;
+  flex-direction: column;
+  gap: var(--pada-space-2);
+}
+
+.radio-option {
+  display: flex;
+  align-items: center;
+  gap: var(--pada-space-2);
+}
+
+/* The inner dot is a radial gradient, so it never fights the focus ring. */
+.radio {
+  appearance: none;
+  flex-shrink: 0;
+  width: var(--pada-radio-size);
+  height: var(--pada-radio-size);
+  margin: 0;
+  border: var(--pada-border-width-thin) solid var(--pada-radio-border);
+  border-radius: var(--pada-radius-full);
+  background-color: var(--pada-color-surface);
+  background-image: radial-gradient(
+    circle,
+    transparent 0 var(--pada-radio-dot),
+    transparent var(--pada-radio-dot)
+  );
+  outline: none;
+  cursor: pointer;
+  transition:
+    background-color var(--pada-duration-normal) var(--pada-ease-standard),
+    border-color var(--pada-duration-normal) var(--pada-ease-standard),
+    box-shadow var(--pada-duration-normal) var(--pada-ease-standard);
+}
+
+.radio:hover:not(:disabled) {
+  border-color: var(--pada-radio-checked);
+}
+
+/* Focus ring; the border colour stays. */
+.radio:focus-visible {
+  box-shadow: var(--pada-shadow-focus);
+}
+
+.radio:checked {
+  border-color: var(--pada-radio-checked);
+  background-image: radial-gradient(
+    circle,
+    var(--pada-radio-checked) 0 var(--pada-radio-dot),
+    transparent var(--pada-radio-dot)
+  );
+}
+
+.radio:disabled {
+  --pada-radio-checked: var(--pada-color-accent-300);
+  border-color: var(--pada-color-neutral-300);
+  cursor: not-allowed;
+}
+
+.radio:disabled:checked {
+  border-color: var(--pada-radio-checked);
+}
+
+.radio-label {
+  font-size: var(--pada-font-size-sm);
+  color: var(--pada-color-fg);
+  cursor: pointer;
+  transition: color var(--pada-duration-normal) var(--pada-ease-standard);
+}
+
+.radio-label:hover {
+  color: var(--pada-color-neutral-800);
+}
+
+.radio-option[data-disabled] .radio-label {
+  color: var(--pada-color-fg-disabled);
+  cursor: not-allowed;
+}

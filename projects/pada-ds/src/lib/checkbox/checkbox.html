@@ -1,0 +1,24 @@
+<span class="checkbox-wrapper">
+  <span class="checkbox-container">
+    <input
+      type="checkbox"
+      class="checkbox"
+      [id]="field.controlId()"
+      [checked]="checked()"
+      [indeterminate]="indeterminate()"
+      [disabled]="isDisabled()"
+      [required]="isRequired()"
+      [attr.name]="name() ?? null"
+      [attr.value]="value() ?? null"
+      [attr.aria-checked]="indeterminate() ? 'mixed' : null"
+      [attr.aria-label]="ariaLabel() ?? null"
+      [attr.aria-describedby]="field.describedBy()"
+      [attr.aria-invalid]="field.invalid() ? 'true' : null"
+      (change)="handleChange($event)"
+      (blur)="onTouched()"
+    />
+    <ds-icon name="tick_1" [size]="16" class="checkbox-tick" />
+    <span class="checkbox-dash" aria-hidden="true"></span>
+  </span>
+  <label class="checkbox-label" [for]="field.controlId()">{{ label() }}<ng-content /></label>
+</span>

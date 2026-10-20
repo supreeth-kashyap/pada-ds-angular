@@ -13,3 +13,6 @@ export * from './lib/icon';
 export * from './lib/info-icon/info-icon';
 export * from './lib/info-tooltip/info-tooltip';
 export * from './lib/input-text/input-text';
+export * from './lib/checkbox/checkbox';
+export * from './lib/switch/switch';
+export * from './lib/radio-group/radio-group';
