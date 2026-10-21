@@ -1,6 +1,8 @@
 # Changelog
 
-## Unreleased
+## 1.2.1 - 2026-10-21
+
+- The package description reads "Singular design system for Angular applications, built with TypeScript and signals.", matching `pada-ds`.
 
 - **Storybook.** New Docs pages, shared with the React Storybook and synced from the pada repo (`stories/docs`, `.storybook/pada-docs`): introduction, getting started, theming, tokens, foundations (colour, typography, spacing and density, radius, elevation, motion, icons), building with AI, and legacy and migration. Every component's docs page now shows best practices, a playground, an AI prompt, its tokens and its accessibility notes.
 - **Storybook toolbar.** Theme, accent, neutral, density, radius and contrast switches set the `data-*` attributes on every story, as in the React Storybook. The accessibility (axe) panel is enabled.
