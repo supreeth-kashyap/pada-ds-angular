@@ -1,7 +1,7 @@
 {
   "name": "pada-ds-angular",
-  "version": "1.2.0",
-  "description": "Pada design system for Angular: accessible styled components, headless directives and design tokens.",
+  "version": "1.2.1",
+  "description": "Singular design system for Angular applications, built with TypeScript and signals.",
   "license": "MIT",
   "author": "Supreeth Kashyap",
   "homepage": "https://github.com/supreeth-kashyap/pada-ds-angular#readme",
