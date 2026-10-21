@@ -9,6 +9,10 @@ updates:
     schedule:
       interval: monthly
     groups:
+      # The framework packages pin each other's exact version as peers, so they move together
+      # across dependencies and devDependencies. Listed first: a package joins the first group it matches.
+      angular:
+        patterns: ["@angular/*", "@angular-devkit/*"]
       dev-dependencies:
         dependency-type: development
       dependencies:
