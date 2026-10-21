@@ -60,7 +60,8 @@ export async function checkSyncedFiles() {
 }
 
 export async function checkStyles() {
-  const files = await walk(libDir);
+  // .storybook holds Storybook's own docs chrome, not library styles.
+  const files = (await walk(libDir)).filter((file) => !file.split(path.sep).includes('.storybook'));
   const styleFiles = files.filter(
     (file) => /\.(s?css)$/.test(file) && !SYNCED.includes(path.basename(file)),
   );

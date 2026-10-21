@@ -1,5 +1,14 @@
 {
   // For more information, visit: https://angular.dev/ai/mcp
+  // Secrets are never committed: VS Code prompts for the Figma key once and stores it securely.
+  "inputs": [
+    {
+      "type": "promptString",
+      "id": "figma-api-key",
+      "description": "Figma personal access token",
+      "password": true
+    }
+  ],
   "servers": {
     "angular-cli": {
       "command": "npx",
@@ -9,7 +18,7 @@
       "command": "npx",
       "args": ["-y", "figma-developer-mcp", "--stdio"],
       "env": {
-        "FIGMA_API_KEY": "figd_BSUH38bE44vFzZmh5fqm2RmjJDR-V3yv5QgUaYOV"
+        "FIGMA_API_KEY": "${input:figma-api-key}"
       }
     }
   }

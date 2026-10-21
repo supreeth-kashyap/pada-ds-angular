@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/supreeth-kashyap/pada/main/src/assets/pada-ds-cover-image.png" alt="Pada . design: unified design system for web" width="640">
+  <img src="https://raw.githubusercontent.com/supreeth-kashyap/pada/main/docs/assets/pada-ds-cover-image.png" alt="Pada . design: unified design system for web" width="640">
 </p>
 
 <p align="center">
@@ -7,6 +7,16 @@
   <a href="https://github.com/supreeth-kashyap/pada-ds-angular/releases"><img src="https://img.shields.io/github/v/release/supreeth-kashyap/pada-ds-angular?color=f59e0b&label=release" alt="Latest release"></a>
   <a href="https://main--6ad73b69f7d2adf27e282417.chromatic.com"><img src="https://img.shields.io/badge/storybook-React%20%2B%20Angular-ff4785" alt="Storybook"></a>
   <a href="./LICENSE"><img src="https://img.shields.io/npm/l/pada-ds-angular?color=78716c" alt="MIT licence"></a>
+  <a href="https://supreeth-kashyap.github.io/pada/"><img src="https://img.shields.io/badge/docs-website-0c0a09" alt="Website and docs"></a>
+</p>
+
+<p align="center">
+  <a href="https://supreeth-kashyap.github.io/pada/"><strong>Website</strong></a> ·
+  <a href="https://supreeth-kashyap.github.io/pada/docs/getting-started/">Getting started</a> ·
+  <a href="https://supreeth-kashyap.github.io/pada/docs/components/">Components</a> ·
+  <a href="https://supreeth-kashyap.github.io/pada/docs/tokens/">Tokens</a> ·
+  <a href="https://main--6ad72a0038bb5d0de784c60f.chromatic.com">Storybook</a> ·
+  <a href="https://supreeth-kashyap.github.io/pada/changelog/">Changelog</a>
 </p>
 
 # Pada for Angular
